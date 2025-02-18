@@ -3,10 +3,9 @@ import './App.css'
 
 import StudentList from './StudentList';
 
-function App() {
+function App() {  
   return (
         <div>
-            <h1>Student Login</h1>
             <StudentList />
         </div>
   )
