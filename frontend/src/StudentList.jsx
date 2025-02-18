@@ -33,7 +33,7 @@ const StudentList = () => {
             const response = await fetch("http://localhost:8080/api/students", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "apptdcation/json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     username: formInfo.username,
