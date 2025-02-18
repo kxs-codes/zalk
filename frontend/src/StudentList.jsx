@@ -33,7 +33,7 @@ const StudentList = () => {
             const response = await fetch("http://localhost:8080/api/students", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "apptdcation/json"
                 },
                 body: JSON.stringify({
                     username: formInfo.username,
@@ -46,7 +46,7 @@ const StudentList = () => {
             // Convert response to json
             const data = await response.json();
 
-            // Add new student to student list (data in same format as state variable but with added id key)
+            // Add new student to student tdst (data in same format as state variable but with added id key)
             setStudents((prevState) => [...prevState, data]);
 
             // Reset form field
@@ -66,32 +66,52 @@ const StudentList = () => {
     }
 
     return (
-        <div>
-            <h2>Student List</h2>
-            {
-                students.map((student, index) => (
-                    <ul>
-                        <li key={index}>{student.username}</li>
-                        <li key={index}>{student.gradeLevel}</li>
-                        <li key={index}>{student.relativeRating}</li>
-                    </ul>
-                ))
-            }
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <label htmlFor="username">Username </label>
-                    <input type="text" id="username" name="username" placeholder="username" value={formInfo.username} onChange={handleChange} required />
+        <div className="h-screen w-screen overflow-auto flex flex-col justify-center items-center">
+            <h1>Student Portal</h1>
+            <table className="border-collapse border-2 border-red-50 w-1/2 my-5">
+                <thead>
+                    <tr className="border-2 border-red-50">
+                        <th className="border-2 border-red-50">Username</th>
+                        <th className="border-2 border-red-50">Grade Level</th>
+                        <th className="border-2 border-red-50">Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        students.map((student, index) => (
+                            <tr className="border-2 border-red-50">
+                                <td className="border-2 border-red-50" key={index}>{student.username}</td>
+                                <td className="border-2 border-red-50" key={index}>{student.gradeLevel}</td>
+                                <td className="border-2 border-red-50" key={index}>{student.relativeRating}</td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
 
-                    <label htmlFor="hashedPassword">Password </label>
-                    <input type="password" id="hashedPassword" name="hashedPassword" placeholder="password" value={formInfo.hashedPassword} onChange={handleChange} required />
+            <div className="w-1/4">
+                <form onSubmit={handleSubmit} className="flex flex-col my-3">
+                    <div className="flex flex-col w-full justify-between mb-2">
+                        <label htmlFor="username" className="text-left mb-1">Username </label>
+                        <input type="text" className="px-2 py-1 border-1 border-blue-200 rounded-lg"  id="username" name="username" placeholder="username" value={formInfo.username} onChange={handleChange} required />
+                    </div>
 
-                    <label htmlFor="gradeLevel">Grade Level </label>
-                    <input type="text" id="gradeLevel" name="gradeLevel" placeholder="gradeLevel" value={formInfo.gradeLevel} onChange={handleChange} required />
+                    <div className="flex flex-col w-full justify-between mb-2">
+                        <label htmlFor="hashedPassword" className="text-left mb-1">Password </label>
+                        <input type="password" className="px-2 py-1 border-1 border-blue-200 rounded-lg"  id="hashedPassword" name="hashedPassword" placeholder="********" value={formInfo.hashedPassword} onChange={handleChange} required />
+                    </div>
+                    
+                    <div className="flex flex-col w-full justify-between mb-2">
+                        <label htmlFor="gradeLevel" className="text-left mb-1">Grade Level </label>
+                        <input type="text" className="px-2 py-1 border-1 border-blue-200 rounded-lg"  id="gradeLevel" name="gradeLevel" placeholder="gradeLevel" value={formInfo.gradeLevel} onChange={handleChange} required />
+                    </div>
 
-                    <label htmlFor="relativeRating">Rating </label>
-                    <input type="text" id="relativeRating" name="relativeRating" placeholder="relativeRating" value={formInfo.relativeRating} onChange={handleChange} required />
+                    <div className="flex flex-col justify-between mb-2">
+                        <label htmlFor="relativeRating" className="text-left mb-1">Rating </label>
+                        <input type="text" className="px-2 py-1 border-1 border-blue-200 rounded-lg" id="relativeRating" name="relativeRating" placeholder="relativeRating" value={formInfo.relativeRating} onChange={handleChange} required />
+                    </div>
 
-                    <button type="submit">Submit</button>
+                    <button type="submit" className="my-5">Create Student</button>
                 </form>
             </div>
         </div>
