@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6233326d-db66-489f-b63e-56e755062704" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/UserList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/UserList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/guides/startup-springboot.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/documentation/guides/startup-vite.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,14 +52,20 @@
     "Application.FullConnectionApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "37-create-jpa-entities-repositories-and-services-for-corresponding-sql-tables",
+    "git-widget-placeholder": "dev",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Ali/Documents/School/Classes/488_Software_Engineering/Coding_Capstone/learning-enhancment-system",
-    "project.structure.last.edited": "Modules",
+    "last_opened_file_path": "/home/kxs-codes/Projects/cpsc-476/furhat-academic-advisor/skill.properties",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "project.propCompiler"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -88,6 +95,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
+        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -96,7 +111,14 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1738805797115</updated>
+      <workItem from="1739903276837" duration="1807000" />
+      <workItem from="1739905102915" duration="2109000" />
+      <workItem from="1739907984088" duration="5745000" />
+      <workItem from="1739964331247" duration="3610000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>
