@@ -48,7 +48,7 @@ sequenceDiagram
     participant Postgresql
     
    App ->> StudentController: Sends a POST response after receiving trigger (e.g button)
-   StudentController --> Postgresql: Sends a request to the backend and update tables
+   StudentController ->> Postgresql: Sends a request to the backend and update tables
    Postgresql --> StudentController: Fetches latest data and Sends a confirmation
    StudentController --> App: Displays confirmation by updating table 
     
