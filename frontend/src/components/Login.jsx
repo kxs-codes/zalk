@@ -13,7 +13,6 @@ function Login() {
         navigate('/student_list');
 
 
-        // TODO: Implement logic to redirect to the StudentList.jsx
         // TODO: Implement the connection with Spring Boot Security so it will authenticate and redirect
     };
 
