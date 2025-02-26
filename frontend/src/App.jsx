@@ -1,17 +1,19 @@
 import {Routes, Route} from 'react-router-dom'
 import './App.css'
-import StudentList from './components/StudentList.jsx';
-import Login from "./components/Login.jsx";
+import StudentList from './pages/StudentList.jsx';
+import Login from "./pages/Login.jsx";
+
+// TODO -> Change the routes to the `useRoutes` method so we can promote minimal code
+
 
 function App() {  
   return (
         <>
-            <main className="main-content">
                 <Routes>
+                    <Route path ="/" element={<Login/>}/>
                     <Route path = "/student_list" element={<StudentList/>}/>
-                    <Route path ="/login" element={<Login/>}/>
                 </Routes>
-            </main>
+
         </>
   );
 }

@@ -13,7 +13,7 @@ function Login() {
         navigate('/student_list');
 
 
-        // TODO: Implement the connection with Spring Boot Security so it will authenticate and redirect
+        // TODO: Implement the connection with Spring Boot Security so it will TaiiwindCSS
     };
 
     return (
@@ -21,7 +21,7 @@ function Login() {
             <div>
                 <h1>Login</h1>
             </div>
-            <form className='loginForm' onSubmit={onSubmit}>
+            <form className='loginForm flex flex-col border-2 border-red-500' onSubmit={onSubmit}>
                 <div className='username'>
                     <label>Username</label>
                     <input
