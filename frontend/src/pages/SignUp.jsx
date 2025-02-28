@@ -2,8 +2,7 @@
 import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-    {/* Declaration of function */}
-    const navigate = useNavigate();
+            const navigate = useNavigate();
 
 
     const onSubmit = async (e) => {
@@ -12,49 +11,48 @@ function SignUp() {
     }
 
     return (
-        <>
-            <div className="" onSubmit={onSubmit}>
+            <div className="">
             <p className="text-2xl">Welcome to Zalk! Enter the information below to get started</p>
-            <form className="mt-8">
+            <form className="mt-8" onSubmit={onSubmit}>
                 <div className="">
-                    <label className="">
+                    <label htmlFor="email" className="">
                         Email
                     </label>
                     <input className="" type="text" placeholder="email"/>
                 </div>
-                <div className="" id={"username"}>
-                    <label>
+                <div className="">
+                    <label htmlFor="username">
                         Username
 
                     </label>
                     <input type="text" placeholder="username"/>
                 </div>
-                <div className="" id={"password"}>
-                    <label>
+                <div className="">
+                    <label htmlFor="password">
                         Password
                         <input type="password" placeholder="password"/>
                     </label>
                 </div>
-                <div className="" id={"confirmPassword"}>
-                    <label>
+                <div className="">
+                    <label htmlFor="confirm-password">
                         Confirm Password
                         <input type="password" placeholder="confirm password"/>
                     </label>
                 </div>
-                <div className="" id={"Account-Type-Dropdown"}>
-                    <label>
+                <div className="">
+                    <label htmlFor="account-dropdown-">
                         Account Type
                     </label>
                     <select>
                         <option value="student">Student</option>
                         <option value="educator">Educator</option>
+                        <option value="guardian">Guardian</option>
                     </select>
                 </div>
                 <button type="submit">Sign Up</button>
             </form>
             </div>
-        </>
-    );
+                );
 }
 
 export default SignUp;
