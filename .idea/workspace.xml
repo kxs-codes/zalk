@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6233326d-db66-489f-b63e-56e755062704" name="Changes" comment="fixed syntax error">
+    <list default="true" id="6233326d-db66-489f-b63e-56e755062704" name="Changes" comment="update the home route and refactor based on PR">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/documentation/guides/full-connection.md" beforeDir="false" afterPath="$PROJECT_DIR$/documentation/guides/full-connection.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +36,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/kxs-codes/learning-enhancment-system.git&quot;,
-    &quot;accountId&quot;: &quot;c75e633f-eafa-44ff-a1ed-94e39552211d&quot;
+    &quot;accountId&quot;: &quot;80fedc38-56d6-46a6-a756-546f77b7cce1&quot;
   }
 }</component>
   <component name="MavenImportPreferences">
@@ -58,29 +57,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.FullConnectionApplication.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;#47 on full-connect-docs&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/kxs-codes/Projects/cpsc-476/furhat-academic-advisor/skill.properties&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FullConnectionApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "40-setting-up-authentication-in-springboot",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/dev/Projects/cpsc-488/learning-enhancment-system",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "project.propCompiler",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/pages" />
       <recent name="C:\Users\Ali\Documents\School\Classes\488_Software_Engineering\Coding_Capstone\iterations\full-connection" />
       <recent name="C:\Users\Ali\Documents\School\Classes\488_Software_Engineering\Coding_Capstone\iterations\full-connection\frontend" />
       <recent name="C:\Users\Ali\Documents\School\Classes\488_Software_Engineering\Coding_Capstone\iterations\full-connection\backend" />
@@ -122,20 +121,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1738805797115</updated>
-      <workItem from="1739903276837" duration="1807000" />
-      <workItem from="1739905102915" duration="2109000" />
-      <workItem from="1739907984088" duration="5745000" />
-      <workItem from="1739964331247" duration="5126000" />
-      <workItem from="1739977890128" duration="441000" />
-      <workItem from="1739978347414" duration="1338000" />
+      <workItem from="1740425826869" duration="49000" />
+      <workItem from="1740450716661" duration="962000" />
+      <workItem from="1740451692618" duration="39000" />
+      <workItem from="1740491765336" duration="1327000" />
+      <workItem from="1740585730111" duration="2432000" />
+      <workItem from="1740682501457" duration="1948000" />
     </task>
-    <task id="LOCAL-00001" summary="fixed syntax error">
+    <task id="LOCAL-00001" summary="update the home route and refactor based on PR">
       <option name="closed" value="true" />
-      <created>1739970221317</created>
+      <created>1740588565018</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1739970221318</updated>
+      <updated>1740588565018</updated>
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
@@ -155,7 +154,7 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed syntax error" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed syntax error" />
+    <MESSAGE value="update the home route and refactor based on PR" />
+    <option name="LAST_COMMIT_MESSAGE" value="update the home route and refactor based on PR" />
   </component>
 </project>
