@@ -21,7 +21,7 @@ function Login() {
             <div>
                 <h1>Login</h1>
             </div>
-            <form className='loginForm flex flex-col border-2 border-red-500' onSubmit={onSubmit}>
+            <form className=' flex flex-col' onSubmit={onSubmit}>
                 <div className='username'>
                     <label>Username</label>
                     <input
