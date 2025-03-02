@@ -13,7 +13,7 @@ function SignUp() {
     return (
             <div className="">
             <p className="text-2xl">Welcome to Zalk! Enter the information below to get started</p>
-            <form className="mt-8" onSubmit={onSubmit}>
+            <form className=" p-4 " onSubmit={onSubmit}>
                 <div className="">
                     <label htmlFor="email" className="">
                         Email
@@ -21,7 +21,7 @@ function SignUp() {
                     <input className="" type="text" placeholder="email"/>
                 </div>
                 <div className="">
-                    <label htmlFor="username">
+                    <label htmlFor="username"       >
                         Username
 
                     </label>
