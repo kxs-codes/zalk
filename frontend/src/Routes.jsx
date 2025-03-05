@@ -3,8 +3,8 @@ import { useRoutes } from 'react-router-dom';
 
 // Importing components from /pages
 import Login from "./pages/Login";
-import StudentList from "./pages/StudentList";  
-// import Signup from "./pages/Signup";
+import StudentList from "./pages/StudentList";
+import SignUp from './pages/SignUp'
 // import Settings from "./pages/Settings";
 // import Portal from "./pages/Portal";
 
@@ -36,11 +36,11 @@ const AppRoutes = () => {
             path: "/student-list",
             element: <StudentList/>
         }
-        // ,
-        // {
-        //     path: "/signup",
-        //     element: <Signup/>
-        // },
+         ,
+        {
+            path: "/signup",
+            element: <SignUp/>
+        },
         // {
         //     path: "/settings",
         //     element: <Settings/>

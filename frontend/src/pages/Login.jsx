@@ -14,9 +14,7 @@ function Login() {
     };
 
     return (
-        <div className=' h-screen w-screen bg-white flex item-center justify-center'                                                  >
-                {/* TODO: Is there a better way to center content on the screen?*/}
-
+        <div className=' h-screen w-screen bg-white flex items-center justify-center'>
             <div>
             <div className='bg-gray-500 rounded-4xl mx-10 flex  items-center '        >
             <form className='  py-40 bg-gray-500  p-6  w-100 h-100 rounded-2xl flex flex-col space-y-4 justify-self-center hover:shadow-2xl  ' onSubmit={onSubmit}>
