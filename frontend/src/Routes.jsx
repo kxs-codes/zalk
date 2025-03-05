@@ -8,11 +8,11 @@ import StudentList from "./pages/StudentList";
 // import Settings from "./pages/Settings";
 // import Portal from "./pages/Portal";
 
-// import StudentResults from "./pages/StudentResults";
-// import StudentImprovements from "./pages/StudentImprovements";
-// import StudentSession from "./pages/StudentSession";
-// import StudentProgress from "./pages/StudentProgress";
-// import StudentBadges from "./pages/StudentBadges";
+ import StudentResults from "./pages/StudentResults";
+ import StudentImprovements from "./pages/StudentImprovements";
+ import StudentSession from "./pages/StudentSession";
+ import StudentProgress from "./pages/StudentProgress";
+ import StudentBadges from "./pages/StudentBadges";
 
 // import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
 
@@ -35,7 +35,7 @@ const AppRoutes = () => {
         {
             path: "/student-list",
             element: <StudentList/>
-        }
+        },
         // ,
         // {
         //     path: "/signup",
@@ -49,26 +49,26 @@ const AppRoutes = () => {
         //     path: "/portal",
         //     element: <Portal/>
         // },
-        // {
-        //     path: "/student/results",
-        //     element: <StudentResults/>
-        // },
-        // {
-        //     path: "/student/improvements",
-        //     element: <StudentImprovements/>
-        // },
-        // {
-        //     path: "/student/session",
-        //     element: <StudentSession/>
-        // },
-        // {
-        //     path: "/student/progress",
-        //     element: <StudentProgress/>
-        // },
-        // {
-        //     path: "/student/progress/badges",
-        //     element: <StudentBadges/>
-        // },
+         {
+             path: "/student/results",
+             element: <StudentResults/>
+         },
+         {
+             path: "/student/improvements",
+             element: <StudentImprovements/>
+         },
+         {
+             path: "/student/session",
+             element: <StudentSession/>
+         },
+         {
+             path: "/student/progress",
+             element: <StudentProgress/>
+         },
+         {
+             path: "/student/progress/badges",
+             element: <StudentBadges/>
+         },
         // {
         //     path: "/advisory-board/issues",
         //     element: <AdvisoryBoardIssues/>
