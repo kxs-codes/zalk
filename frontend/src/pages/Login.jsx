@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 function Login() {
     const navigate = useNavigate();
@@ -10,7 +10,10 @@ function Login() {
         e.preventDefault();
         setUsername('');
         setPassword('');
-        navigate('/student-list');
+        navigate('/student_list');
+
+
+        // TODO: Implement the connection with Spring Boot Security so it will TaiiwindCSS
     };
 
     return (
