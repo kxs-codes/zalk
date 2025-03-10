@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import LogoBar from '../components/LogoBar';
 
 function Login() {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ function Login() {
 
     return (
         <div className=' h-screen w-screen bg-white flex items-center justify-center'>
+            <LogoBar/>
             <div>
             <div className='bg-gray-500 rounded-4xl mx-10 flex  items-center '        >
             <form className='  py-40 bg-gray-500  p-6  w-100 h-100 rounded-2xl flex flex-col space-y-4 justify-self-center hover:shadow-2xl  ' onSubmit={onSubmit}>
