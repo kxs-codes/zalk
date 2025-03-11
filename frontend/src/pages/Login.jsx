@@ -18,9 +18,9 @@ function Login() {
         <div className=' h-screen w-screen bg-white flex items-center justify-center'>
             <LogoBar/>
               <div>
-                <div className=' h-3/4 w-3/4 bg-gray-400 rounded-4xl flex items-center justify-center '> 
+                <div className=' h-3/4 w-3/4 bg-gray-400 rounded-4xl flex p-15 ml-50 items-center justify-center '> 
                   <img src='src/assets/zebra-sample.png' alt='logo' className=' scale-x-[-1]' />
-                   <form className=' bg-[#88888] flex flex-col items-center justify-center w-100 h-100 rounded-2xl hover:shadow-5xl hover:shadow-2xl' onSubmit={onSubmit}>
+                   <form className=' bg-[#88888] flex flex-col items-center justify-center w-2xl h-100 rounded-2xl hover:shadow-5xl hover:shadow-2xl' onSubmit={onSubmit}>
                      <h1 className=' flex font-bold text-2xl'>Welcome Back!</h1>
 
                         <div className=' flex-col'>
@@ -65,7 +65,8 @@ function Login() {
 
             
             </div>
-            </div>  
+            </div>
+            </div>
             
     );
 }
