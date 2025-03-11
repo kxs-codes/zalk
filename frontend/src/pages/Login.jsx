@@ -17,14 +17,16 @@ function Login() {
     return (
         <div className='h-screen w-screen bg-white flex items-center justify-center'>
             <LogoBar />
-            <div className='w-full max-w-4xl p-4'>
-                <div className='h-full w-full bg-gray-400 rounded-4xl flex flex-col md:flex-row p-4 md:p-15 items-center justify-center'>
-                    <img src='src/assets/zebra-sample.png' alt='logo' className='scale-x-[-1] w-full md:w-1/2 h-auto' />
+        
+            <div className='bg-gray-400 rounded-4xl'>
+                
+                <div className=' flex flex-col md:flex-row p-4 md:p-15  items-center justify-center'>
+                    <img src='src/assets/zebra-sample.png' alt='logo' className='scale-x-[-1]  w-full md:w-1/2 h-auto hidden md:block' />
                     <form className='flex flex-col items-center justify-center w-full md:w-2xl h-auto max-w-full max-h-full rounded-2xl' onSubmit={onSubmit}>
                         <h1 className='flex font-bold text-2xl mb-4'>Welcome Back!</h1>
                         <div className='flex flex-col w-full'>
                             <label className='text-black text-2xl font-bold mb-2'>Account Type</label>
-                            <select className='border-1 bg-white border-gray-300 w-full p-2 rounded mb-4'>
+                            <select className='border-1 bg-white border-gray-300 w-full p-2 rounded mb-4 '>
                                 <option value="start">-</option>
                                 <option value="student">Student</option>
                                 <option value="teacher">Teacher</option>
@@ -51,10 +53,12 @@ function Login() {
                                 <Link to='/signup' className='text-xs underline'>Sign Up Here</Link>
                             </div>
                             <div className='flex justify-center'>
-                                <button type='submit' className='bg-red-900 text-white rounded-full px-10 py-4'>Login</button>
+                                <button type='submit' className='bg-red-900 hover:bg-red-950 text-white text-4xl  rounded-full px-10 py-4'>Login</button>
                             </div>
                         </div>
                     </form>
+                    <img src='src/assets/zebra-sample.png' alt='logo' className='scale-x w-full md:w-1/2 h-auto' />
+
                 </div>
             </div>
         </div>
