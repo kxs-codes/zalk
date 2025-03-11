@@ -15,59 +15,49 @@ function Login() {
     };
 
     return (
-        <div className=' h-screen w-screen bg-white flex items-center justify-center'>
+        <div className='h-screen w-screen bg-white flex items-center justify-center'>
             <LogoBar />
-              <div>
-                <div className=' h-3/4 w-3/4 bg-gray-400 rounded-4xl flex p-15 ml-50 items-center justify-center '> 
-                  <img src='src/assets/zebra-sample.png' alt='logo' className=' scale-x-[-1] flex w-auto h-auto' />
-                   <form className=' bg-[#88888] flex flex-col items-center justify-center w-2xl h-100 rounded-2xl hover:shadow-5xl hover:shadow-2xl' onSubmit={onSubmit}>
-                     <h1 className=' flex font-bold text-2xl'>Welcome Back!</h1>
-
-                        <div className=' flex-col'>
-                            <label className='flex text-black text-2xl font-bold'> Account Type</label>
-                            <select className='flex border-1 bg-white border-gray-300 w-full pb-4 p-2 rounded' >
+            <div className='w-full max-w-4xl p-4'>
+                <div className='h-full w-full bg-gray-400 rounded-4xl flex flex-col md:flex-row p-4 md:p-15 items-center justify-center'>
+                    <img src='src/assets/zebra-sample.png' alt='logo' className='scale-x-[-1] w-full md:w-1/2 h-auto' />
+                    <form className='flex flex-col items-center justify-center w-full md:w-2xl h-auto max-w-full max-h-full rounded-2xl' onSubmit={onSubmit}>
+                        <h1 className='flex font-bold text-2xl mb-4'>Welcome Back!</h1>
+                        <div className='flex flex-col w-full'>
+                            <label className='text-black text-2xl font-bold mb-2'>Account Type</label>
+                            <select className='border-1 bg-white border-gray-300 w-full p-2 rounded mb-4'>
                                 <option value="start">-</option>
                                 <option value="student">Student</option>
                                 <option value="teacher">Teacher</option>
                                 <option value="guardian">Guardian</option>
                             </select>
-
-
-                        <label className='  text-black text-2xl font-bold flex'>Username</label>
-                        <input
-                            type='text'
-                            placeholder='Enter Username Here '
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            className=' bg-white border-1 border-gray-300 w-full pb-4 p-2 rounded'
-                        />
-
-                        <label className='text-black  text-2xl font-bold flex '>Password</label>
-                        <input
-                            type='password'
-                            placeholder='Enter Password Here...'
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className='border-1 bg-white border-gray-300 w-full pb-4 p-2 rounded'
-                        />
-                        <div className='flex flex-row justify-between'>
-                            <Link to='/forgot-password' className='text-[15px] underline'>Forgot Password?</Link>
-                            <Link to='/signup' className=' text-[15px] underline '>Sign Up Here</Link>
+                            <label className='text-black text-2xl font-bold mb-2'>Username</label>
+                            <input
+                                type='text'
+                                placeholder='Enter Username Here'
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                className='bg-white border-1 border-gray-300 w-full p-2 rounded mb-4'
+                            />
+                            <label className='text-black text-2xl font-bold mb-2'>Password</label>
+                            <input
+                                type='password'
+                                placeholder='Enter Password Here...'
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className='bg-white border-1 border-gray-300 w-full p-2 rounded mb-4'
+                            />
+                            <div className='flex flex-row justify-between mb-4'>
+                                <Link to='/forgot-password' className='text-xs underline'>Forgot Password?</Link>
+                                <Link to='/signup' className='text-xs underline'>Sign Up Here</Link>
+                            </div>
+                            <div className='flex justify-center'>
+                                <button type='submit' className='bg-red-900 text-white rounded-full px-10 py-4'>Login</button>
+                            </div>
                         </div>
-
-                        <div className='flex justify-center'>
-                            <button type='submit' className=' bg-red-900 text-white rounded-full px-10 py-4 mt-6'>Login</button>
-                        </div>
-
-                    </div>
-                </form>
-                                <img src='src/assets/zebra-sample.png' alt='avatar' className=' flex' />
-
-            
+                    </form>
+                </div>
             </div>
-            </div>
-            </div>
-            
+        </div>
     );
 }
 
