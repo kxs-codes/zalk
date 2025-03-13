@@ -5,7 +5,7 @@ import { useRoutes } from 'react-router-dom';
 import Login from "./pages/Login";
 import StudentList from "./pages/StudentList";  
 // import Signup from "./pages/Signup";
-// import Settings from "./pages/Settings";
+import Settings from "./pages/Settings";
 // import Portal from "./pages/Portal";
 
 // import StudentResults from "./pages/StudentResults";
@@ -35,16 +35,16 @@ const AppRoutes = () => {
         {
             path: "/student-list",
             element: <StudentList/>
-        }
+        },
         // ,
         // {
         //     path: "/signup",
         //     element: <Signup/>
         // },
-        // {
-        //     path: "/settings",
-        //     element: <Settings/>
-        // },
+        {
+            path: "/settings",
+            element: <Settings/>
+        }
         // {
         //     path: "/portal",
         //     element: <Portal/>
