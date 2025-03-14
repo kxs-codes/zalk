@@ -3,9 +3,9 @@ import { useRoutes } from 'react-router-dom';
 
 // Importing components from /pages
 import Login from "./pages/Login";
-import StudentList from "./pages/StudentList";  
-// import Signup from "./pages/Signup";
-// import Settings from "./pages/Settings";
+import Settings from "./pages/Settings";
+import StudentList from "./pages/StudentList";
+import SignUp from './pages/SignUp'
 // import Portal from "./pages/Portal";
 
 // import StudentResults from "./pages/StudentResults";
@@ -35,16 +35,15 @@ const AppRoutes = () => {
         {
             path: "/student-list",
             element: <StudentList/>
+        },
+        {
+            path: "/settings",
+            element: <Settings/>
+        },
+        {
+            path: "/signup",
+            element: <SignUp/>
         }
-        // ,
-        // {
-        //     path: "/signup",
-        //     element: <Signup/>
-        // },
-        // {
-        //     path: "/settings",
-        //     element: <Settings/>
-        // },
         // {
         //     path: "/portal",
         //     element: <Portal/>
