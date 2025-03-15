@@ -6,9 +6,9 @@ const NavBar = () => {
     const [role, setRole] = useState('advisory');
     
     return (
-            <nav className="flex flex-col mt-20 pt-16 bg-dark-red-primary-1 text-white items-center justify-between max-w-52">
-                <ul className="flex flex-col gap-5 mt-5">
-                    <li className="flex items-center justify-center"><img src="/zebra.jpg" alt="zebra-logo" className="max-w-3/7 h-auto rounded-full" /></li>
+            <nav className="flex flex-col bg-dark-red-primary-1 h-screen text-white items-center justify-between max-w-52">
+                <ul className="flex flex-col gap-8 mt-5">
+                    <li className="flex items-center justify-center"><Link to='/portal' className="flex items-center justify-center"><img src="/zebra.jpg" alt="zebra-logo" className="max-w-3/7 h-auto rounded-full" /></Link></li>
                     {/* Student Navigation */}
                     {role === "student" && 
                         <>
