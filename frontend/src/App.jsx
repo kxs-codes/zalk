@@ -1,14 +1,19 @@
 import './App.css';
 import AppRoutes from './Routes.jsx';
 import NavBar from './components/NavBar.jsx';
+import { useLocation } from 'react-router-dom';
 
 function App() {  
-  return (
-      <div className='flex'>
-          <NavBar/>
-          <AppRoutes/>
-      </div>
-  );
+    // Only show navbar when not on these routes below
+    const location = useLocation();
+    const noNavigation = ['/','/settings','/signup'];
+
+    return (
+        <div className='flex'>
+            {noNavigation.includes(location.pathname) == false && <NavBar/>}
+            <AppRoutes/>
+        </div>
+    );
 }
 
 export default App;
