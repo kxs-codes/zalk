@@ -10,13 +10,11 @@ function App() {
     const noNavigation = ['/','/settings','/signup'];
 
     return (
-        // <div className='flex'>
-        //     {noNavigation.includes(location.pathname) == false && <NavBar/>}
-        //     <AppRoutes/>
-        // </div>
-        <div>
-            <EducatorPortal />
+        <div className='flex'>
+            {noNavigation.includes(location.pathname) == false && <NavBar/>}
+            <AppRoutes/>
         </div>
+       
     );
 }
 
