@@ -3,13 +3,12 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 
 
-const Classrooms = ({activeClassroom, setActiveClassroom}) => {
+const Classrooms = ({classrooms, activeClassroom, setActiveClassroom}) => {
   // Create a state for the search input
   const [search, setSearch] = useState('')
 
   // Static classroom array for testing
-  const classrooms = [
-    "Classroom A", "Classroom B", "Classroom C" ]
+ 
 
   // Filter the classrooms based on the search input
   const filteredClassrooms = classrooms.filter(classroom =>
@@ -34,15 +33,15 @@ const Classrooms = ({activeClassroom, setActiveClassroom}) => {
       </div>
 
       {/* Display the filtered classrooms */}
-      <div className='mt-10 border-1 '>
+      <div className='mt-10 '>
         {
           filteredClassrooms.map((cls) => (
             <div
               key={cls}
-              className={`p-3 border-1 cursor-pointer
+              className={`p-3  cursor-pointer
                 ${activeClassroom === cls
-                    ? 'bg-grey-secondary-lighter-1 text-amber-400 font-bold  hover:text-blue-400'  // Active Classroom
-                    : 'bg-grey-secondary-darker-1 hover:text-dark-red-primary-1 text-black font-normal'     // Inactice Classroom
+                    ? 'bg-grey-secondary-darker-1 text-amber-400 font-bold  hover:text-white'  // Active Classroom
+                    : 'bg-grey-secondary-lighter-1 hover:text-dark-red-primary-1 text-black font-normal'     // Inactice Classroom
                   }`}
                   onClick={() => setActiveClassroom(cls)} // Update active classroom
             >
