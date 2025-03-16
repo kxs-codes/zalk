@@ -26,6 +26,10 @@ import SignUp from './pages/SignUp'
 // import ModeratorLogs from "./pages/ModeratorLogs";
 // import ModeratorCreateClassroom from "./pages/ModeratorCreateClassroom";
 
+// TODO! Remove dev route after testing
+import EducatorPortal from './pages/Educator/EducatorPortal';
+
+
 const AppRoutes = () => {
     return useRoutes([
         {
@@ -43,6 +47,10 @@ const AppRoutes = () => {
         {
             path: "/signup",
             element: <SignUp/>
+        },
+        {
+            path: "/dev-educator-portal",
+            element: <EducatorPortal/>
         }
         // {
         //     path: "/portal",
