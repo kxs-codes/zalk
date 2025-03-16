@@ -16,7 +16,7 @@ const Classrooms = ({classrooms, activeClassroom, setActiveClassroom}) => {
   )
 
   return (
-    <div className=' relative bg-grey-secondary-darker-1 h-80 w-200 rounded-2xl overflow-y-auto'>
+    <div className='  bg-dark-red-primary-1 h-80 w-200 rounded-2xl overflow-y-auto'>
       <div className='sticky top-0 bg-grey-secondary-darker-1 z-10 p-3'>
       <div className='flex justify-end items-end relative'>
       <input
