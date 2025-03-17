@@ -95,10 +95,6 @@ const AppRoutes = ({role, setRole}) => {
         //     element: <EducatorClassroomManagement/>
         // },
         // {
-        //     path: "/classroom-reviews",
-        //     element: <ModeratorClassroomReviews/>
-        // },
-        // {
         //     path: "/create-classroom",
         //     element: <ModeratorCreateClassroom/>
         // },   
