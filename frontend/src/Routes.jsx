@@ -8,7 +8,6 @@ import StudentList from "./pages/StudentList";
 import SignUp from './pages/SignUp'
 import Portal from "./pages/Portal";
 
- import StudentResults from "./pages/StudentResults";
  import StudentImprovements from "./pages/StudentImprovements";
  import StudentSession from "./pages/StudentSession";
  import StudentProgress from "./pages/StudentProgress";
