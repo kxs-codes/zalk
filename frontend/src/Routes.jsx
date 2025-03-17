@@ -8,7 +8,7 @@ import StudentList from "./pages/StudentList";
 // import Settings from "./pages/Settings";
 // import Portal from "./pages/Portal";
 
- import StudentResults from "./pages/StudentResults";
+ //import StudentResults from "./pages/StudentResults";
  import StudentImprovements from "./pages/StudentImprovements";
  import StudentSession from "./pages/StudentSession";
  import StudentProgress from "./pages/StudentProgress";
@@ -49,10 +49,7 @@ const AppRoutes = () => {
         //     path: "/portal",
         //     element: <Portal/>
         // },
-         {
-             path: "/student/results",
-             element: <StudentResults/>
-         },
+
          {
              path: "/student/improvements",
              element: <StudentImprovements/>
