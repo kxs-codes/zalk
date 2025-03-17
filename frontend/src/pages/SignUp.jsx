@@ -14,7 +14,6 @@ function SignUp() {
         <div className="h-screen w-screen bg-white flex flex-col items-center justify-center">
             <div className=" bg-gray-400 ">
                 <p className="text-2xl">Welcome to Zalk! Enter the information below to get started</p>
-                
                     <div className="">
                         <form className=" flex flex-col items-center justify-center" onSubmit={onSubmit}>
                             <div className=" flex flex-col">
@@ -56,9 +55,9 @@ function SignUp() {
                             <button type="submit">Sign Up</button>
                         </form>
                     </div>
-                </div>
             </div>
-                );
+        </div>
+    );
 }
 
 export default SignUp;
