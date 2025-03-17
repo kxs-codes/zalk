@@ -13,6 +13,7 @@ import Portal from "./pages/Portal";
 // import StudentSession from "./pages/StudentSession";
 // import StudentProgress from "./pages/StudentProgress";
 // import StudentBadges from "./pages/StudentBadges";
+import StudentClassrooms from "./pages/StudentClassrooms.jsx";
 
 // import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
 
@@ -52,10 +53,10 @@ const AppRoutes = ({role, setRole}) => {
         //     path: "/results",
         //     element: <StudentResults/>
         // },
-        // {
-        //     path: "/classrooms",
-        //     element: <StudentClassrooms/>
-        // },
+        {
+            path: "/classrooms",
+            element: <StudentClassrooms/>
+        }
         // {
         //     path: "/improvements",
         //     element: <StudentImprovements/>
