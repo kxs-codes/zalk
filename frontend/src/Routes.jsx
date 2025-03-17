@@ -27,6 +27,12 @@ import StudentClassrooms from "./pages/StudentClassrooms.jsx";
 // import ModeratorLogs from "./pages/ModeratorLogs";
 // import ModeratorCreateClassroom from "./pages/ModeratorCreateClassroom";
 
+// TODO! Remove dev route after testing
+import EducatorPortal from './pages/Educator/Portal';
+import Manage from './pages/Educator/Manage';
+import SessionConfig from './pages/Educator/SessionConfig';
+import Progress from './pages/Educator/Progress';
+
 const AppRoutes = ({role, setRole}) => {
     return useRoutes([
         {
@@ -46,6 +52,27 @@ const AppRoutes = ({role, setRole}) => {
             element: <SignUp/>
         },
         {
+            // Delete after developed 
+            path: "/dev-educator-portal",
+            element: <EducatorPortal role='educator'/>
+        },
+        {
+            // Delete after developed
+            path: '/class-progress',
+            element: <Progress />
+        },
+        {
+            // Delete after developed
+            path: '/classroom-management',
+            element: <Manage />
+        },
+        
+        {
+            // Delete after developed
+            path: '/session-configuration',
+            element: <SessionConfig />
+        },
+
              path: "/portal",
              element: <Portal role={role}/>
          },
