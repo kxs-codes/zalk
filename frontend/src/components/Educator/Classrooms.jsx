@@ -29,7 +29,7 @@ const Classrooms = ({classrooms, activeClassroom, setActiveClassroom}) => {
       />
       </div>
       {/* TODO? -> Look for a better way to contain the icon with the search bar */}
-      <MagnifyingGlassIcon className="h-5 w-5 text-grey-secondary-darker-1 absolute right-4 top-10 mr-58 mt-0.5 " />
+      <MagnifyingGlassIcon className="h-5 w-5 text-grey-secondary-darker-1 absolute right-4 top-10 mr-65 mt-0.5 " />
       </div>
 
       {/* Display the filtered classrooms */}

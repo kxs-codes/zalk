@@ -29,10 +29,8 @@ import SignUp from './pages/SignUp'
 // TODO! Remove dev route after testing
 import EducatorPortal from './pages/Educator/Portal';
 import Manage from './pages/Educator/Manage';
-import EducatorSpreadsheets from './pages/Educator/Spreadsheets';
 import SessionConfig from './pages/Educator/SessionConfig';
 import Progress from './pages/Educator/Progress';
-import CurrentSession from './pages/Educator/CurrentSession';
 
 const AppRoutes = () => {
     return useRoutes([
@@ -56,11 +54,6 @@ const AppRoutes = () => {
             // Delete after developed 
             path: "/dev-educator-portal",
             element: <EducatorPortal role='educator'/>
-        },
-        {
-            // Delete after developed
-            path: '/current-sessions',
-            element: <CurrentSession />
         },
         {
             // Delete after developed
