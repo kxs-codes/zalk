@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Settings from "./pages/Settings";
 import StudentList from "./pages/StudentList";
 import SignUp from './pages/SignUp'
-// import Portal from "./pages/Portal";
+import Portal from "./pages/Portal";
 
 // import StudentResults from "./pages/StudentResults";
 // import StudentImprovements from "./pages/StudentImprovements";
@@ -27,11 +27,11 @@ import StudentClassrooms from "./pages/StudentClassrooms.jsx";
 // import ModeratorLogs from "./pages/ModeratorLogs";
 // import ModeratorCreateClassroom from "./pages/ModeratorCreateClassroom";
 
-const AppRoutes = () => {
+const AppRoutes = ({role, setRole}) => {
     return useRoutes([
         {
             path: "/",
-            element: <Login/>
+            element: <Login role={role} setRole={setRole}/>
         },
         {
             path: "/student-list",
@@ -45,10 +45,10 @@ const AppRoutes = () => {
             path: "/signup",
             element: <SignUp/>
         },
-        // {
-        //     path: "/portal",
-        //     element: <Portal/>
-        // },
+        {
+             path: "/portal",
+             element: <Portal role={role}/>
+         },
         // {
         //     path: "/results",
         //     element: <StudentResults/>

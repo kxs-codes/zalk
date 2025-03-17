@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link} from "react-router-dom";
 import LogoBar from '../components/LogoBar';
 
-function Login() {
+function Login({role, setRole}) {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -11,8 +11,14 @@ function Login() {
         e.preventDefault();
         setUsername('');
         setPassword('');
-        navigate('/student-list');
+        setRole('student');
+        navigate('/portal', {state: {role: role}});
     };
+
+    const handleChange = (e) => {
+        setRole(e.target.value);
+        console.log("role: ", e.target.value);
+    }
 
     return (
         <div className='h-screen w-screen bg-white flex items-center justify-center'>
@@ -26,10 +32,10 @@ function Login() {
                         <h1 className='flex font-bold text-2xl mb-4'>Welcome Back!</h1>
                         <div className='flex flex-col w-full'>
                             <label className='text-black text-2xl font-bold mb-2'>Account Type</label>
-                            <select className='border-1 bg-white border-gray-300 w-full p-2 rounded mb-4 '>
+                            <select className='border-1 bg-white border-gray-300 w-full p-2 rounded mb-4' value={role} onChange={handleChange}>
                                 <option value="start">-</option>
                                 <option value="student">Student</option>
-                                <option value="teacher">Teacher</option>
+                                <option value="educator">Educator</option>
                                 <option value="guardian">Guardian</option>
                             </select>
                             <label className='text-black text-2xl font-bold mb-2'>Username</label>
