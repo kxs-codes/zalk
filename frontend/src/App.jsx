@@ -2,6 +2,7 @@ import './App.css';
 import AppRoutes from './Routes.jsx';
 import NavBar from './components/NavBar.jsx';
 import EducatorPortal from './pages/EducatorPortal.jsx';
+import StudentClassrooms from './pages/StudentClassrooms.jsx'
 import { useLocation } from 'react-router-dom';
 
 function App() {  

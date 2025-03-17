@@ -27,20 +27,20 @@ function Settings() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-gray-100 w-screen">
             {/*Toolbar at the top of the page*/}
-            <div className="w-full text-white p-4 shadow-xl flex justify-between items-center" style={{backgroundColor: '#911B0C'}}>
+            <div className="w-full text-white p-4 shadow-xl flex justify-between items-center" style={{backgroundColor: 'var(--color-dark-red-primary-1)'}}>
                 {/*button to navigate to previous page*/}
                 <button
                     onClick={() => window.history.back()}
-                    className="text-white border border-[#AD1905] bg-[#AD1905] px-4 py-2 rounded-full hover:bg-[#8e1404] active:bg-[#8e1404]"
+                    className="text-white border border-[var(--color-red-primary-3)] bg-[var(--color-red-primary-3)] px-4 py-2 rounded-full hover:bg-[#8e1404] active:bg-[#8e1404]"
                 >Back</button>
                 <h1 className="text-xl font-semibold text-center flex-1">Settings</h1>
             </div>
 
             {/*Sidebar on the left-side of the screen*/}
             <div className={`flex ${isMinimizedView ? "flex-col" : "flex-row min-h-screen"}`}>
-                <div className={`${isMinimizedView ? "w-full flex justify-around p-4" : "w-1/4 p-4 shadow-2xl min-h-screen"} bg-[#687169]`}>
+                <div className={`${isMinimizedView ? "w-full flex justify-around p-4" : "w-1/4 p-4 shadow-2xl min-h-screen"} bg-[var(--color-text-secondary-grey-1)]`}>
                 <ul className={`${isMinimizedView ? "flex space-x-4": " "}`}>
                         {["appearance", "report issue", "audio", "accessibility"].map((tab) => (
                             <li
@@ -96,7 +96,7 @@ function Settings() {
                                 {/*Button to submit the report*/}
                                 <button
                                     onClick={handleReportSubmit}
-                                    className="mt-4 bg-[#AD1905] text-white py-2 px-4 rounded-full hover:bg-[#8e1404]">
+                                    className="mt-4 bg-[var(--color-red-primary-3)] text-white py-2 px-4 rounded-full hover:bg-[#8e1404]">
                                     Submit Report
                                 </button>
                             </div>
