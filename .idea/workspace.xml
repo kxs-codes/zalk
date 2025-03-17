@@ -6,9 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6233326d-db66-489f-b63e-56e755062704" name="Changes" comment="feat: Added SignUp page (with routing) without tailwindcss, added NavBar component files without implementation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Routes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Routes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Settings.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Settings.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/StudentSession.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/StudentSession.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="23-connecting-frontend-and-backend-with-database" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,7 +51,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/kxs-codes/learning-enhancment-system.git&quot;,
-    &quot;accountId&quot;: &quot;c8aa7508-fe4f-4e0e-a4e5-a9a806b7c73b&quot;
+    &quot;accountId&quot;: &quot;80fedc38-56d6-46a6-a756-546f77b7cce1&quot;
   },
   &quot;recentNewPullRequestHead&quot;: {
     &quot;server&quot;: {
@@ -71,9 +71,6 @@
       </MavenGeneralSettings>
     </option>
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -90,7 +87,7 @@
     "Application.FullConnectionApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "92-making-the-classroom-page-for-the-portal",
+    "git-widget-placeholder": "Zac-Portal-Branch",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/dev/Projects/cpsc-476/furhat-academic-advisor",
@@ -101,20 +98,10 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.0",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "project.propCompiler",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="ReactDesignerToolWindowState">
-    <option name="myId2Visible">
-      <map>
-        <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
-        <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
-        <entry key="com.intellij.reactbuddy.storybook" value="false" />
-      </map>
-    </option>
-  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/frontend/src/pages" />
@@ -143,6 +130,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-a94e463ab2e7-intellij.indexing.shared.core-IU-243.25659.39" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-IU-243.25659.39" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -160,10 +155,6 @@
       <workItem from="1740748460307" duration="168000" />
       <workItem from="1740765804671" duration="3591000" />
       <workItem from="1740771144359" duration="52000" />
-      <workItem from="1741802529072" duration="355000" />
-      <workItem from="1741802903827" duration="560000" />
-      <workItem from="1741803597860" duration="232000" />
-      <workItem from="1741804168346" duration="4296000" />
     </task>
     <task id="LOCAL-00001" summary="update the home route and refactor based on PR">
       <option name="closed" value="true" />

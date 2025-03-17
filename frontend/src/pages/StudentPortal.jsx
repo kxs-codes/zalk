@@ -1,6 +1,6 @@
 const StudentPortal = () => {
     return (
-        <div>hello, student portal</div>
+        <div>Hello, this is student portal</div>
     )
 }
 
