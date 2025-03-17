@@ -10,7 +10,7 @@ import SignUp from './pages/SignUp'
 
 // import StudentResults from "./pages/StudentResults";
 // import StudentImprovements from "./pages/StudentImprovements";
-// import StudentSession from "./pages/StudentSession";
+ import StudentSession from "./pages/StudentSession";
 // import StudentProgress from "./pages/StudentProgress";
 // import StudentBadges from "./pages/StudentBadges";
 import StudentClassrooms from "./pages/StudentClassrooms.jsx";
@@ -56,15 +56,15 @@ const AppRoutes = () => {
         {
             path: "/classrooms",
             element: <StudentClassrooms/>
-        }
+        },
         // {
         //     path: "/improvements",
         //     element: <StudentImprovements/>
         // },
-        // {
-        //     path: "/session",
-        //     element: <StudentSession/>
-        // },
+         {
+             path: "/session",
+             element: <StudentSession/>
+         },
         // {
         //     path: "/progress",
         //     element: <StudentProgress/>

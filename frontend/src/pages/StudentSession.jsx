@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Question from '../components/Question.jsx';
-
+import PortalLogoBar from '../components/PortalLogoBar';
 const StudentSessionAndResults = () =>
 {
     const [qIndex, setQIndex] =useState(0);
@@ -8,7 +8,7 @@ const StudentSessionAndResults = () =>
     const [submitted, setSubmitted] = useState(false);
     const [correctCount, setCorrectCount] =  useState(0);
     const [wrongCount, setWrongCount] =  useState(0);
-    const [timeRemaining, setTimeRemaining] = useState(10);
+    const [timeRemaining, setTimeRemaining] = useState(20);
     const [sessionConcluded, setSessionConcluded] = useState(false);
 
     const sampleQuestions=[
@@ -171,7 +171,8 @@ const StudentSessionAndResults = () =>
     }
 
 return (
-        <div className="max-w-4xl mx-auto p-6">
+        <div className="max-w-4xl mx-auto p-6">\
+            <PortalLogoBar />
             {sessionConcluded && (
                 <div className="flex flex-col space-y-6">
                     <div className="flex justify-between items-center p-6 bg-[#AD1905] text-white rounded-lg shadow-lg">
