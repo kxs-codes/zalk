@@ -1,13 +1,20 @@
 // import useState from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import LogoBar from "../components/LogoBar";
+import { useState } from "react";
 
 const SignUp = () => {
     const navigate = useNavigate();
+    const [role, setRole] = useState('');
 
-    const onSubmit = async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/student_list');
+        navigate('/portal', {state: {role: role}});
+    }
+
+    const handleChange = (e) => {
+        e.preventDefault();
+        setRole(e.target.value);
     }
 
     return (
@@ -20,10 +27,10 @@ const SignUp = () => {
                 </div>
                 <div className="w-7/8 md:w-3/5 lg:w-3/4 flex flex-col items-center justify-center p-2">
                     <p className="font-bold text-xl">Welcome to Zalk! Enter the information below to get started!</p>
-                    <form className="w-11/12 md:w-8/12 lg:w-1/2 bg-grey-secondary-lighter-1 rounded-lg p-8 my-2">
+                    <form className="w-11/12 md:w-8/12 lg:w-1/2 bg-grey-secondary-lighter-1 rounded-lg p-8 my-2" onSubmit={handleSubmit}>
                         <div className="flex flex-col justify-center my-2">
                             <label htmlFor="account-type" className="text-left text-lg font-semibold">Account Type</label>
-                            <select name="account-type" id="account-type" className="bg-white rounded-lg py-1">
+                            <select name="account-type" id="account-type" className="bg-white rounded-lg py-1" value={role} onChange={handleChange}>
                                 <option value="student">Student</option>
                                 <option value="educator">Educator</option>
                                 <option value="guardian">Guardian</option>
@@ -53,7 +60,7 @@ const SignUp = () => {
                         <div>
                             <Link to='/' className="hover:underline">Already have an account? Login Here</Link>
                         </div>
-                        <button type="submit" className="bg-dark-red-primary-1 text-white p-4 my-2 rounded-full">Sign Up</button>
+                        <button type="submit" className="bg-dark-red-primary-1 hover:bg-red-primary-3 cursor-pointer text-white p-4 my-2 rounded-full">Sign Up</button>
                     </form>
                 </div>
             </div>
