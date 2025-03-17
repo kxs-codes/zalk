@@ -24,7 +24,7 @@ function Login({role, setRole}) {
         <div className='h-screen w-screen bg-white flex items-center justify-center'>
             <LogoBar />
         
-            <div className='bg-gray-400 rounded-4xl'>
+            <div className='bg-gray-400 rounded-4xl mt-90 md:mt-60 lg:mt-50'>
                 
                 <div className=' flex flex-col md:flex-row p-4 md:p-15  items-center justify-center'>
                     <img src='src/assets/zebra-sample.png' alt='logo' className='scale-x-[-1]  w-full md:w-1/2 h-auto hidden md:block' />
