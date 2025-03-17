@@ -3,16 +3,17 @@ import { useRoutes } from 'react-router-dom';
 
 // Importing components from /pages
 import Login from "./pages/Login";
-import StudentList from "./pages/StudentList";  
-// import Signup from "./pages/Signup";
-// import Settings from "./pages/Settings";
+import Settings from "./pages/Settings";
+import StudentList from "./pages/StudentList";
+import SignUp from './pages/SignUp'
 // import Portal from "./pages/Portal";
 
- //import StudentResults from "./pages/StudentResults";
- import StudentImprovements from "./pages/StudentImprovements";
- import StudentSession from "./pages/StudentSession";
- import StudentProgress from "./pages/StudentProgress";
- import StudentBadges from "./pages/StudentBadges";
+// import StudentResults from "./pages/StudentResults";
+// import StudentImprovements from "./pages/StudentImprovements";
+// import StudentSession from "./pages/StudentSession";
+// import StudentProgress from "./pages/StudentProgress";
+// import StudentBadges from "./pages/StudentBadges";
+import StudentClassrooms from "./pages/StudentClassrooms.jsx";
 
 // import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
 
@@ -36,72 +37,90 @@ const AppRoutes = () => {
             path: "/student-list",
             element: <StudentList/>
         },
-        // ,
-        // {
-        //     path: "/signup",
-        //     element: <Signup/>
-        // },
-        // {
-        //     path: "/settings",
-        //     element: <Settings/>
-        // },
+        {
+            path: "/settings",
+            element: <Settings/>
+        },
+        {
+            path: "/signup",
+            element: <SignUp/>
+        },
         // {
         //     path: "/portal",
         //     element: <Portal/>
         // },
-
-         {
-             path: "/student/improvements",
-             element: <StudentImprovements/>
-         },
-         {
-             path: "/student/session",
-             element: <StudentSession/>
-         },
-         {
-             path: "/student/progress",
-             element: <StudentProgress/>
-         },
-         {
-             path: "/student/progress/badges",
-             element: <StudentBadges/>
-         },
         // {
-        //     path: "/advisory-board/issues",
-        //     element: <AdvisoryBoardIssues/>
+        //     path: "/results",
+        //     element: <StudentResults/>
+        // },
+        {
+            path: "/classrooms",
+            element: <StudentClassrooms/>
+        }
+        // {
+        //     path: "/improvements",
+        //     element: <StudentImprovements/>
         // },
         // {
-        //     path: "teacher/classrooms/:classroom-id/",
+        //     path: "/session",
+        //     element: <StudentSession/>
+        // },
+        // {
+        //     path: "/progress",
+        //     element: <StudentProgress/>
+        // },
+        // {
+        //     path: "/progress/badges",
+        //     element: <StudentBadges/>
+        // },
+        // {
+        //     path: "/child-progress",
+        //     element: <StudentProgress/>
+        // },
+        // {
+        //     path: "/classrooms/:classroom-id/",
         //     element: <TeacherClassroom/>
         // },
         // {
-        //     path: "teacher/classrooms/:classroom-id/spreadsheet",
+        //     path: "/classrooms/:classroom-id/spreadsheet",
         //     element: <TeacherClassroomSpreadsheet/>
         // },
         // {
-        //     path: "teacher/classrooms/:classroom-id/configure-sessions",
+        //     path: "/classrooms/:classroom-id/configure-sessions",
         //     element: <TeacherClassroomSession/>
         // },
         // {
-        //     path: "teacher/classrooms/:classroom-id/manage",
+        //     path: "/classrooms/:classroom-id/manage",
         //     element: <TeacherClassroomManage/>
         // },
         // {
-        //     path: "/moderator/reports",
-        //     element: <ModeratorReports/>
+        //     path: "/access-reports",
+        //     element: <Reports/>
         // },
         // {
-        //     path: "/moderator/classroom-reviews",
+        //     path: "/classroom-reviews",
         //     element: <ModeratorClassroomReviews/>
         // },
         // {
-        //     path: "/moderator/logs",
+        //     path: "/access-logs",
         //     element: <ModeratorLogs/>
         // },   
         // {
-        //     path: "/moderator/create-classroom",
+        //     path: "/create-classroom",
         //     element: <ModeratorCreateClassroom/>
-        // }
+        // },   
+        // {
+        //     path: "/create-account",
+        //     element: <ModeratorCreateAccount/>
+        // },   
+        // {
+        //     path: "/report-issues",
+        //     element: <ReportIssues/>
+        // },
+        // {
+        //     path: "/view-progress",
+        //     element: <AdvisoryProgress/>
+        // },
     ]);
 }
 
