@@ -1,7 +1,5 @@
 import React from 'react'
 import PortalLogoBar from '../components/PortalLogoBar'
-import Session from '../components/Educator/Session'
-import Glance from '../components/Educator/Glance'
 import Chart from '../components/Educator/Chart'
 
 const EducatorPortal = () => {
@@ -19,8 +17,6 @@ const EducatorPortal = () => {
             </div>
             <Chart />
         </div>
-            
-          
       </div>
     </div>
   )
