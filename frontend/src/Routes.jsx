@@ -8,11 +8,11 @@ import StudentList from "./pages/StudentList";
 import SignUp from './pages/SignUp'
 import Portal from "./pages/Portal";
 
-// import StudentResults from "./pages/StudentResults";
-// import StudentImprovements from "./pages/StudentImprovements";
-// import StudentSession from "./pages/StudentSession";
-// import StudentProgress from "./pages/StudentProgress";
-import StudentBadges from "./pages/StudentBadges";
+ import StudentResults from "./pages/StudentResults";
+ import StudentImprovements from "./pages/StudentImprovements";
+ import StudentSession from "./pages/StudentSession";
+ import StudentProgress from "./pages/StudentProgress";
+ import StudentBadges from "./pages/StudentBadges";
 import StudentClassrooms from "./pages/StudentClassrooms.jsx";
 
 // import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
@@ -44,15 +44,34 @@ const AppRoutes = ({role, setRole}) => {
             element: <StudentList/>
         },
         {
+            path: "/signup",
+            element: <Signup/>
+        },
+        {
             path: "/settings",
             element: <Settings/>
         },
         {
-            path: "/signup",
-            element: <SignUp/>
+            path: "/portal",
+            element: <Portal/>
         },
-        {
-            // Delete after developed 
+         {
+             path: "/improvements",
+             element: <StudentImprovements/>
+         },
+         {
+             path: "/session",
+             element: <StudentSession/>
+         },
+         {
+             path: "/progress",
+             element: <StudentProgress/>
+         },
+         {
+             path: "/progress/badges",
+             element: <StudentBadges/>
+         },
+              // Delete after developed 
             path: "/dev-educator-portal",
             element: <EducatorPortal role='educator'/>
         },
@@ -72,39 +91,14 @@ const AppRoutes = ({role, setRole}) => {
             path: '/session-configuration',
             element: <SessionConfig />
         },
-
-             path: "/portal",
-             element: <Portal role={role}/>
-         },
-        // {
-        //     path: "/results",
-        //     element: <StudentResults/>
-        // },
+        {
+            path: "/progress/badges",
+            element: <StudentBadges/>
+        },
         {
             path: "/classrooms",
             element: <StudentClassrooms/>
         }
-        // {
-        //     path: "/improvements",
-        //     element: <StudentImprovements/>
-        // },
-        // {
-        //     path: "/session",
-        //     element: <StudentSession/>
-        // },
-        // {
-        //     path: "/progress",
-        //     element: <StudentProgress/>
-        // },
-        {
-            path: "/progress/badges",
-            element: <StudentBadges/>
-        }
-        // {
-        //     path: "/child-progress",
-        //     element: <GuardianStudentProgress/>
-        // },
-        // }
         // {
         //     path: "/classrooms/:classroom-id/",
         //     element: <EducatorClassroom/>
