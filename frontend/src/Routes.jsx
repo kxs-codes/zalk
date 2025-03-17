@@ -71,6 +71,7 @@ const AppRoutes = ({role, setRole}) => {
              path: "/progress/badges",
              element: <StudentBadges/>
          },
+         {
               // Delete after developed 
             path: "/dev-educator-portal",
             element: <EducatorPortal role='educator'/>
