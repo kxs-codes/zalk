@@ -12,7 +12,7 @@ import SignUp from './pages/SignUp'
 // import StudentImprovements from "./pages/StudentImprovements";
 // import StudentSession from "./pages/StudentSession";
 // import StudentProgress from "./pages/StudentProgress";
-// import StudentBadges from "./pages/StudentBadges";
+import StudentBadges from "./pages/StudentBadges";
 
 // import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
 
@@ -43,7 +43,7 @@ const AppRoutes = () => {
         {
             path: "/signup",
             element: <SignUp/>
-        }
+        },
         // {
         //     path: "/portal",
         //     element: <Portal/>
@@ -68,10 +68,10 @@ const AppRoutes = () => {
         //     path: "/progress",
         //     element: <StudentProgress/>
         // },
-        // {
-        //     path: "/progress/badges",
-        //     element: <StudentBadges/>
-        // },
+        {
+            path: "/progress/badges",
+            element: <StudentBadges/>
+        }
         // {
         //     path: "/child-progress",
         //     element: <StudentProgress/>
