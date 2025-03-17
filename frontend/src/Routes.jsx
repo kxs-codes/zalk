@@ -45,7 +45,7 @@ const AppRoutes = ({role, setRole}) => {
         },
         {
             path: "/signup",
-            element: <Signup/>
+            element: <SignUp/>
         },
         {
             path: "/settings",
@@ -71,6 +71,7 @@ const AppRoutes = ({role, setRole}) => {
              path: "/progress/badges",
              element: <StudentBadges/>
          },
+         {
               // Delete after developed 
             path: "/dev-educator-portal",
             element: <EducatorPortal role='educator'/>
@@ -85,15 +86,10 @@ const AppRoutes = ({role, setRole}) => {
             path: '/classroom-management',
             element: <Manage />
         },
-        
         {
             // Delete after developed
             path: '/session-configuration',
             element: <SessionConfig />
-        },
-        {
-            path: "/progress/badges",
-            element: <StudentBadges/>
         },
         {
             path: "/classrooms",
