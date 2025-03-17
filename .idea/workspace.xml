@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6233326d-db66-489f-b63e-56e755062704" name="Changes" comment="feat: Added the StudentClassrooms.jsx file with the capability of a student changing through multiple classes and seeing all students within the class along with the subject and educator&#10;fix: Fixed an bug with settings that caused the content to be pushed to the left side&#10;style: Changed the style of the settings page to include the color formatted variables done within App.css&#10;style: Added color variables found within App.css to the style of the page as well as the cards that enlarge when the user's mouse hovers over a classmate's card.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Routes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Routes.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Settings.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Settings.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

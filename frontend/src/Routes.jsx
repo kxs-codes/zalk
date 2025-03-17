@@ -6,31 +6,32 @@ import Login from "./pages/Login";
 import Settings from "./pages/Settings";
 import StudentList from "./pages/StudentList";
 import SignUp from './pages/SignUp'
-// import Portal from "./pages/Portal";
+import Portal from "./pages/Portal";
 
 // import StudentResults from "./pages/StudentResults";
 // import StudentImprovements from "./pages/StudentImprovements";
 // import StudentSession from "./pages/StudentSession";
 // import StudentProgress from "./pages/StudentProgress";
 import StudentBadges from "./pages/StudentBadges";
+import StudentClassrooms from "./pages/StudentClassrooms.jsx";
 
 // import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
 
-// import TeacherClassroom from "./pages/TeacherClassroom";
-// import TeacherClassroomSpreadsheet from "./pages/TeacherClassroomSpreadsheet";
-// import TeacherClassroomSession from "./pages/TeacherClassroomSession";
-// import TeacherClassroomManage from "./pages/TeacherClassroomManage";
+// import EducatorClassroom from "./pages/EducatorClassroom";
+// import EducatorClassroomSpreadsheet from "./pages/EducatorClassroomSpreadsheet";
+// import EducatorClassroomSession from "./pages/EducatorClassroomSession";
+// import EducatorClassroomManage from "./pages/EducatorClassroomManage";
 
 // import ModeratorReports from "./pages/ModeratorReports";
 // import ModeratorClassroomReviews from "./pages/ModeratorClassroomReviews";
 // import ModeratorLogs from "./pages/ModeratorLogs";
 // import ModeratorCreateClassroom from "./pages/ModeratorCreateClassroom";
 
-const AppRoutes = () => {
+const AppRoutes = ({role, setRole}) => {
     return useRoutes([
         {
             path: "/",
-            element: <Login/>
+            element: <Login role={role} setRole={setRole}/>
         },
         {
             path: "/student-list",
@@ -44,18 +45,18 @@ const AppRoutes = () => {
             path: "/signup",
             element: <SignUp/>
         },
-        // {
-        //     path: "/portal",
-        //     element: <Portal/>
-        // },
+        {
+             path: "/portal",
+             element: <Portal role={role}/>
+         },
         // {
         //     path: "/results",
         //     element: <StudentResults/>
         // },
-        // {
-        //     path: "/classrooms",
-        //     element: <StudentClassrooms/>
-        // },
+        {
+            path: "/classrooms",
+            element: <StudentClassrooms/>
+        }
         // {
         //     path: "/improvements",
         //     element: <StudentImprovements/>
@@ -74,36 +75,29 @@ const AppRoutes = () => {
         }
         // {
         //     path: "/child-progress",
-        //     element: <StudentProgress/>
+        //     element: <GuardianStudentProgress/>
         // },
+        // }
         // {
         //     path: "/classrooms/:classroom-id/",
-        //     element: <TeacherClassroom/>
+        //     element: <EducatorClassroom/>
         // },
         // {
-        //     path: "/classrooms/:classroom-id/spreadsheet",
-        //     element: <TeacherClassroomSpreadsheet/>
+        //     path: "/classroom-progress",
+        //     element: <EducatorClassroomSpreadsheet/>
         // },
         // {
-        //     path: "/classrooms/:classroom-id/configure-sessions",
-        //     element: <TeacherClassroomSession/>
+        //     path: "/session-configuration",
+        //     element: <EducatorClassroomSessionConfiguration/>
         // },
         // {
-        //     path: "/classrooms/:classroom-id/manage",
-        //     element: <TeacherClassroomManage/>
-        // },
-        // {
-        //     path: "/access-reports",
-        //     element: <Reports/>
+        //     path: "/classrooms-management",
+        //     element: <EducatorClassroomManagement/>
         // },
         // {
         //     path: "/classroom-reviews",
         //     element: <ModeratorClassroomReviews/>
         // },
-        // {
-        //     path: "/access-logs",
-        //     element: <ModeratorLogs/>
-        // },   
         // {
         //     path: "/create-classroom",
         //     element: <ModeratorCreateClassroom/>
@@ -111,7 +105,15 @@ const AppRoutes = () => {
         // {
         //     path: "/create-account",
         //     element: <ModeratorCreateAccount/>
+        // },
+        // {
+        //     path: "/access-logs",
+        //     element: <ModeratorLogs/>
         // },   
+        // {
+        //     path: "/access-reports",
+        //     element: <Reports/>
+        // },
         // {
         //     path: "/report-issues",
         //     element: <ReportIssues/>
@@ -120,6 +122,10 @@ const AppRoutes = () => {
         //     path: "/view-progress",
         //     element: <AdvisoryProgress/>
         // },
+        // {
+        //     path: "/access-spreadsheet",
+        //     element: <AdvisorySpreadsheet/>
+        // }
     ]);
 }
 
