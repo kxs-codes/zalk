@@ -3,107 +3,149 @@ import { useRoutes } from 'react-router-dom';
 
 // Importing components from /pages
 import Login from "./pages/Login";
-import StudentList from "./pages/StudentList";  
-// import Signup from "./pages/Signup";
-// import Settings from "./pages/Settings";
-// import Portal from "./pages/Portal";
+import Settings from "./pages/Settings";
+import StudentList from "./pages/StudentList";
+import SignUp from './pages/SignUp'
+import Portal from "./pages/Portal";
 
  import StudentResults from "./pages/StudentResults";
  import StudentImprovements from "./pages/StudentImprovements";
  import StudentSession from "./pages/StudentSession";
  import StudentProgress from "./pages/StudentProgress";
  import StudentBadges from "./pages/StudentBadges";
+import StudentClassrooms from "./pages/StudentClassrooms.jsx";
 
 // import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
 
-// import TeacherClassroom from "./pages/TeacherClassroom";
-// import TeacherClassroomSpreadsheet from "./pages/TeacherClassroomSpreadsheet";
-// import TeacherClassroomSession from "./pages/TeacherClassroomSession";
-// import TeacherClassroomManage from "./pages/TeacherClassroomManage";
+// import EducatorClassroom from "./pages/EducatorClassroom";
+// import EducatorClassroomSpreadsheet from "./pages/EducatorClassroomSpreadsheet";
+// import EducatorClassroomSession from "./pages/EducatorClassroomSession";
+// import EducatorClassroomManage from "./pages/EducatorClassroomManage";
 
 // import ModeratorReports from "./pages/ModeratorReports";
 // import ModeratorClassroomReviews from "./pages/ModeratorClassroomReviews";
 // import ModeratorLogs from "./pages/ModeratorLogs";
 // import ModeratorCreateClassroom from "./pages/ModeratorCreateClassroom";
 
-const AppRoutes = () => {
+// TODO! Remove dev route after testing
+import EducatorPortal from './pages/Educator/Portal';
+import Manage from './pages/Educator/Manage';
+import SessionConfig from './pages/Educator/SessionConfig';
+import Progress from './pages/Educator/Progress';
+
+const AppRoutes = ({role, setRole}) => {
     return useRoutes([
         {
             path: "/",
-            element: <Login/>
+            element: <Login role={role} setRole={setRole}/>
         },
         {
             path: "/student-list",
             element: <StudentList/>
         },
-        // ,
-        // {
-        //     path: "/signup",
-        //     element: <Signup/>
-        // },
-        // {
-        //     path: "/settings",
-        //     element: <Settings/>
-        // },
-        // {
-        //     path: "/portal",
-        //     element: <Portal/>
-        // },
+        {
+            path: "/signup",
+            element: <Signup/>
+        },
+        {
+            path: "/settings",
+            element: <Settings/>
+        },
+        {
+            path: "/portal",
+            element: <Portal/>
+        },
          {
-             path: "/student/results",
-             element: <StudentResults/>
-         },
-         {
-             path: "/student/improvements",
+             path: "/improvements",
              element: <StudentImprovements/>
          },
          {
-             path: "/student/session",
+             path: "/session",
              element: <StudentSession/>
          },
          {
-             path: "/student/progress",
+             path: "/progress",
              element: <StudentProgress/>
          },
          {
-             path: "/student/progress/badges",
+             path: "/progress/badges",
              element: <StudentBadges/>
          },
+              // Delete after developed 
+            path: "/dev-educator-portal",
+            element: <EducatorPortal role='educator'/>
+        },
+        {
+            // Delete after developed
+            path: '/class-progress',
+            element: <Progress />
+        },
+        {
+            // Delete after developed
+            path: '/classroom-management',
+            element: <Manage />
+        },
+        
+        {
+            // Delete after developed
+            path: '/session-configuration',
+            element: <SessionConfig />
+        },
+        {
+            path: "/progress/badges",
+            element: <StudentBadges/>
+        },
+        {
+            path: "/classrooms",
+            element: <StudentClassrooms/>
+        }
         // {
-        //     path: "/advisory-board/issues",
-        //     element: <AdvisoryBoardIssues/>
+        //     path: "/classrooms/:classroom-id/",
+        //     element: <EducatorClassroom/>
         // },
         // {
-        //     path: "teacher/classrooms/:classroom-id/",
-        //     element: <TeacherClassroom/>
+        //     path: "/classroom-progress",
+        //     element: <EducatorClassroomSpreadsheet/>
         // },
         // {
-        //     path: "teacher/classrooms/:classroom-id/spreadsheet",
-        //     element: <TeacherClassroomSpreadsheet/>
+        //     path: "/session-configuration",
+        //     element: <EducatorClassroomSessionConfiguration/>
         // },
         // {
-        //     path: "teacher/classrooms/:classroom-id/configure-sessions",
-        //     element: <TeacherClassroomSession/>
+        //     path: "/classrooms-management",
+        //     element: <EducatorClassroomManagement/>
         // },
         // {
-        //     path: "teacher/classrooms/:classroom-id/manage",
-        //     element: <TeacherClassroomManage/>
-        // },
-        // {
-        //     path: "/moderator/reports",
-        //     element: <ModeratorReports/>
-        // },
-        // {
-        //     path: "/moderator/classroom-reviews",
+        //     path: "/classroom-reviews",
         //     element: <ModeratorClassroomReviews/>
         // },
         // {
-        //     path: "/moderator/logs",
+        //     path: "/create-classroom",
+        //     element: <ModeratorCreateClassroom/>
+        // },   
+        // {
+        //     path: "/create-account",
+        //     element: <ModeratorCreateAccount/>
+        // },
+        // {
+        //     path: "/access-logs",
         //     element: <ModeratorLogs/>
         // },   
         // {
-        //     path: "/moderator/create-classroom",
-        //     element: <ModeratorCreateClassroom/>
+        //     path: "/access-reports",
+        //     element: <Reports/>
+        // },
+        // {
+        //     path: "/report-issues",
+        //     element: <ReportIssues/>
+        // },
+        // {
+        //     path: "/view-progress",
+        //     element: <AdvisoryProgress/>
+        // },
+        // {
+        //     path: "/access-spreadsheet",
+        //     element: <AdvisorySpreadsheet/>
         // }
     ]);
 }
