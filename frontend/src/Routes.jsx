@@ -7,6 +7,7 @@ import Settings from "./pages/Settings";
 import StudentList from "./pages/StudentList";
 import SignUp from './pages/SignUp'
 import Portal from "./pages/Portal";
+import NotFound from './pages/NotFound';
 
 // import StudentResults from "./pages/StudentResults";
 // import StudentImprovements from "./pages/StudentImprovements";
@@ -46,9 +47,13 @@ const AppRoutes = ({role, setRole}) => {
             element: <SignUp/>
         },
         {
-             path: "/portal",
-             element: <Portal role={role}/>
-         },
+            path: "/portal",
+            element: <Portal role={role}/>
+        },
+        {
+            path: '*',
+            element: <NotFound/>
+        },
         // {
         //     path: "/results",
         //     element: <StudentResults/>
