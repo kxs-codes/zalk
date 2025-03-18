@@ -15,6 +15,8 @@ import Portal from "./pages/Portal";
 import StudentClassrooms from "./pages/StudentClassrooms.jsx";
 
 // import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
+import ReportIssues from "./pages/ReportIssues";
+import Reports from "./pages/Reports"
 
 // import EducatorClassroom from "./pages/EducatorClassroom";
 // import EducatorClassroomSpreadsheet from "./pages/EducatorClassroomSpreadsheet";
@@ -93,7 +95,7 @@ const AppRoutes = ({role, setRole}) => {
         {
             path: "/classrooms",
             element: <StudentClassrooms/>
-        }
+        },
         // {
         //     path: "/classrooms/:classroom-id/",
         //     element: <EducatorClassroom/>
@@ -122,14 +124,14 @@ const AppRoutes = ({role, setRole}) => {
         //     path: "/access-logs",
         //     element: <ModeratorLogs/>
         // },   
-        // {
-        //     path: "/access-reports",
-        //     element: <Reports/>
-        // },
-        // {
-        //     path: "/report-issues",
-        //     element: <ReportIssues/>
-        // },
+        {
+            path: "/access-reports",
+            element: <Reports/>
+        },
+        {
+            path: "/report-issues",
+            element: <ReportIssues/>
+        }
         // {
         //     path: "/view-progress",
         //     element: <AdvisoryProgress/>
