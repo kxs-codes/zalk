@@ -1,0 +1,120 @@
+/*Container for the report issues page*/
+.report-issues-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f7fafc;
+    width: 100%;
+    height: 100vh;
+}
+
+/*Form container*/
+.report-issues-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    padding: 2rem;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh; /* Limits the height */
+    overflow-y: auto; /* Enables scrolling */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 8px;
+}
+
+/*Title*/
+.report-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: #b71c1c; /* Dark red primary color */
+}
+
+/*Error Message*/
+.error-message {
+    background-color: #e57373; /* Light red */
+    color: white;
+    padding: 0.75rem;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+/*Form Styling*/
+.report-form {
+    width: 100%;
+}
+
+/*Form Group*/
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #374151;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #9ca3af; /* Grey border */
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #b71c1c; /* Dark red */
+    box-shadow: 0 0 4px rgba(183, 28, 28, 0.5);
+}
+
+/*Submit Button*/
+.submit-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+}
+
+.submit-button {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.75rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    background-color: #d32f2f; /* Red */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #b71c1c;
+}
+
+/*Disabled button*/
+.submit-button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+/*Responsive Design*/
+@media (max-width: 640px) {
+    .report-issues-form-container {
+        width: 95%;
+        padding: 1.5rem;
+    }
+}
