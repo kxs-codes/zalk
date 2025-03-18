@@ -26,9 +26,9 @@ import Manage from './pages/Educator/Manage';
 import SessionConfig from './pages/Educator/SessionConfig';
 import Progress from './pages/Educator/Progress';
 
-// import ModeratorReports from "./pages/ModeratorReports";
-import ModeratorLogs from "./pages/ModeratorLogs";
-// import ModeratorCreateClassroom from "./pages/ModeratorCreateClassroom";
+import ModeratorCreateAccount from "./pages/Moderator/ModeratorCreateAccount";
+import ModeratorLogs from "./pages/Moderator/ModeratorLogs.jsx";
+import ModeratorCreateClassroom from "./pages/Moderator/ModeratorCreateClassroom";
 
 
 
@@ -106,14 +106,14 @@ const AppRoutes = ({role, setRole}) => {
             path: "/classrooms-management",
             element: <Manage/>
         },
-        // {
-        //     path: "/create-classroom",
-        //     element: <ModeratorCreateClassroom/>
-        // },   
-        // {
-        //     path: "/create-account",
-        //     element: <ModeratorCreateAccount/>
-        // },
+        {
+            path: "/create-classroom",
+            element: <ModeratorCreateClassroom/>
+        },   
+        {
+            path: "/create-account",
+            element: <ModeratorCreateAccount/>
+        },
         {
             path: "/access-logs",
             element: <ModeratorLogs/>
