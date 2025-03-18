@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AcademicCapIcon, UserIcon, BookOpenIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { AcademicCapIcon, UserIcon, UserGroupIcon, BookOpenIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 
 const ModeratorCreateClassroom = () => {
@@ -83,23 +83,27 @@ const ModeratorCreateClassroom = () => {
                         placeholder="Educator Name"
                         value={formData.educator}
                         onChange={handleChange}
-                        className="w-full border-none outline-none bg-transparent"
+                        className="w-full border-none outline-none bg-transparent text-black"
                     />
                 </div>
 
                 {/* Student Selection */}
                 <div className="flex flex-col gap-3 py-2">
                     <label htmlFor="student" className="font-medium">Select Students:</label>
-                    
-                    <input 
-                        type="text"
-                        name="student"
-                        id="student"
-                        placeholder="Search students..."
-                        value={searchStudent}
-                        onChange={handleSearch}
-                        className="w-full p-2 border rounded-md" 
-                    />
+
+                    <div className="flex items-center gap-3 py-2 border rounded-lg">
+                        <UserGroupIcon className="size-6 text-green-700"/>
+                        <input 
+                            type="text"
+                            name="student"
+                            id="student"
+                            placeholder="Search students..."
+                            value={searchStudent}
+                            onChange={handleSearch}
+                            className="w-full rounded-md outline-none" 
+                        />
+                    </div>
+
 
                     <div className="max-h-40 overflow-y-auto border rounded-md p-2 bg-gray-100">
                         {filteredStudents.map((student) => (
@@ -114,9 +118,9 @@ const ModeratorCreateClassroom = () => {
                     </div>
 
                     {formData.students.length > 0 && (
-                        <div className="py-2 border rounded-md bg-gray-50">
+                        <div className="py-2 border rounded-md bg-gray-50 p-2">
                             <p className="font-medium text-gray-600">Selected Students</p>
-                            <div className="flex flex-wrap gap-5">
+                            <div className="flex flex-wrap gap-5 p-2">
                                 {formData.students.map((student) => (
                                     <div
                                         key={student}
@@ -134,7 +138,7 @@ const ModeratorCreateClassroom = () => {
                 </div>
 
                 {/* Subject Name */}
-                <div className="flex items-center gap-3 border-b pb-2">
+                <div className="flex items-center gap-3 border py-2 rounded-lg">
                     <BookOpenIcon className="size-6 text-yellow-500"/>
                     <input 
                         type="text"

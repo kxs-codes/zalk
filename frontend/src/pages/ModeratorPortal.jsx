@@ -17,7 +17,7 @@ const ModeratorPortal = () => {
     return (
         <div className="flex items-center justify-center bg-grey-secondary-lighter-1 w-full h-screen">
             <div className="flex flex-col items-center mt-20 h-4/5 w-9/10 shadow-lg bg-white overflow-y-auto rounded-lg">
-                <h2 className="text-2xl font-semibold mb-6">Moderator Portal</h2>
+                <h2 className="text-2xl font-semibold">Moderator Portal</h2>
                 {/* Divs for Displaying Moderator Components */}
                 <ModeratorCreateAccount/>
                 <ModeratorCreateClassroom/>
