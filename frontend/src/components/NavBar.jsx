@@ -2,9 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { PlayIcon, ChartBarIcon, AcademicCapIcon, CheckBadgeIcon, ClockIcon, ClipboardDocumentListIcon, AdjustmentsHorizontalIcon, UserGroupIcon, ExclamationTriangleIcon, EyeIcon, TableCellsIcon, DocumentTextIcon, PaintBrushIcon, UserPlusIcon, DocumentDuplicateIcon, Cog8ToothIcon} from '@heroicons/react/24/solid';
 
-const NavBar = () => {
-    const [role, setRole] = useState('advisory');
-    
+const NavBar = ({role}) => {    
     return (
             <nav className="flex flex-col bg-dark-red-primary-1 h-screen text-white items-center justify-between w-52">
                 <ul className="flex flex-col gap-5 mt-5">
