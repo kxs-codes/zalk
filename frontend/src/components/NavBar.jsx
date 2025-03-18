@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { PlayIcon, ChartBarIcon, AcademicCapIcon, CheckBadgeIcon, ClockIcon, ClipboardDocumentListIcon, AdjustmentsHorizontalIcon, UserGroupIcon, ExclamationTriangleIcon, EyeIcon, TableCellsIcon, DocumentTextIcon, PaintBrushIcon, UserPlusIcon, DocumentDuplicateIcon, Cog8ToothIcon} from '@heroicons/react/24/solid';
+import { PlayIcon, ChartBarIcon, AcademicCapIcon, CheckBadgeIcon, ClockIcon, ClipboardDocumentListIcon, AdjustmentsHorizontalIcon, UserGroupIcon, ExclamationTriangleIcon, EyeIcon, TableCellsIcon, DocumentTextIcon, PaintBrushIcon, UserPlusIcon, DocumentDuplicateIcon, Cog8ToothIcon, ArrowRightEndOnRectangleIcon} from '@heroicons/react/24/solid';
 
-const NavBar = () => {
-    const [role, setRole] = useState('advisory');
-    
+const NavBar = ({role}) => {    
     return (
             <nav className="flex flex-col bg-dark-red-primary-1 h-screen text-white items-center justify-between w-52">
                 <ul className="flex flex-col gap-5 mt-5">
@@ -15,7 +13,6 @@ const NavBar = () => {
                             <li><Link to='/session' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><PlayIcon className="size-6"/>Begin Session</Link></li>
                             <li><Link to='/progress' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ChartBarIcon className="size-6"/>Progress Report</Link></li>
                             <li><Link to='/classrooms' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><AcademicCapIcon className="size-6"/>Classrooms</Link></li>
-                            <li><Link to='/progress/badges' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><CheckBadgeIcon className="size-6"/>Badges</Link></li>
                         </>
                     }
 
@@ -57,7 +54,10 @@ const NavBar = () => {
                         </>
                     )}
                 </ul>
-                <ul className="flex flex-col w-full"><li><Link to='/settings' className="flex items-center justify-center gap-1 py-4 hover:bg-grey-secondary-darker-1"><Cog8ToothIcon className="size-6"/>Settings</Link></li></ul>
+                <ul className="flex flex-col w-full gap-2">
+                    <li><Link to='/' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ArrowRightEndOnRectangleIcon className="size-6"/>Sign Out</Link></li>
+                    <li><Link to='/settings' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><Cog8ToothIcon className="size-6"/>Settings</Link></li>
+                </ul>
             </nav>
     );
 };

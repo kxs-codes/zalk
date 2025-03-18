@@ -21,7 +21,7 @@ function App() {
 
     return (
         <div className='flex'>
-            {isValid() && <NavBar/>}
+            {isValid() && <NavBar role={role}/>}
             {isValid() && <PortalLogoBar/>}
             <AppRoutes role={role} setRole={setRole}/>
         </div>

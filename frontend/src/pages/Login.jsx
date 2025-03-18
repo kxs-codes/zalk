@@ -11,7 +11,6 @@ function Login({role, setRole}) {
         e.preventDefault();
         setUsername('');
         setPassword('');
-        setRole('student');
         navigate('/portal', {state: {role: role}});
     };
 
@@ -37,6 +36,7 @@ function Login({role, setRole}) {
                                 <option value="student">Student</option>
                                 <option value="educator">Educator</option>
                                 <option value="guardian">Guardian</option>
+                                <option value="moderator">Moderator</option>
                             </select>
                             <label className='text-black text-2xl font-bold mb-2'>Username</label>
                             <input

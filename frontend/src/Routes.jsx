@@ -25,8 +25,7 @@ import Reports from "./pages/Reports"
 // import EducatorClassroomManage from "./pages/EducatorClassroomManage";
 
 // import ModeratorReports from "./pages/ModeratorReports";
-// import ModeratorClassroomReviews from "./pages/ModeratorClassroomReviews";
-// import ModeratorLogs from "./pages/ModeratorLogs";
+import ModeratorLogs from "./pages/ModeratorLogs";
 // import ModeratorCreateClassroom from "./pages/ModeratorCreateClassroom";
 
 // TODO! Remove dev route after testing
@@ -126,10 +125,6 @@ const AppRoutes = ({role, setRole}) => {
         //     element: <EducatorClassroomManagement/>
         // },
         // {
-        //     path: "/classroom-reviews",
-        //     element: <ModeratorClassroomReviews/>
-        // },
-        // {
         //     path: "/create-classroom",
         //     element: <ModeratorCreateClassroom/>
         // },   
@@ -137,10 +132,10 @@ const AppRoutes = ({role, setRole}) => {
         //     path: "/create-account",
         //     element: <ModeratorCreateAccount/>
         // },
-        // {
-        //     path: "/access-logs",
-        //     element: <ModeratorLogs/>
-        // },   
+        {
+            path: "/access-logs",
+            element: <ModeratorLogs/>
+        },   
         {
             path: "/access-reports",
             element: <Reports/>
