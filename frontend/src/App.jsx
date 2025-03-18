@@ -15,8 +15,8 @@ function App() {
                          '/session', '/progress', '/progress/badges', 
                          '/child-progress', '/classrooms/:classroom-id', 
                          '/classroom-progress', '/session-configuration', 
-                         '/classrooms-management', 'classroom-reviews', 
-                         '/create-classrooms', 'create-account', 'access-logs', 
+                         '/classrooms-management', 
+                         '/create-classroom', '/create-account', '/access-logs', 
                          '/access-reports', '/report-issues', '/view-progress', 
                          '/access-spreadsheet', ];
 

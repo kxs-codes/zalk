@@ -1,12 +1,21 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { PlayIcon, ChartBarIcon, AcademicCapIcon, CheckBadgeIcon, ClockIcon, ClipboardDocumentListIcon, AdjustmentsHorizontalIcon, UserGroupIcon, ExclamationTriangleIcon, EyeIcon, TableCellsIcon, DocumentTextIcon, PaintBrushIcon, UserPlusIcon, DocumentDuplicateIcon, Cog8ToothIcon, ArrowRightEndOnRectangleIcon} from '@heroicons/react/24/solid';
+import { Link, useNavigate } from "react-router-dom";
+import { PlayIcon, ChartBarIcon, AcademicCapIcon, ClipboardDocumentListIcon, AdjustmentsHorizontalIcon, UserGroupIcon, ExclamationTriangleIcon, EyeIcon, TableCellsIcon, DocumentTextIcon, PaintBrushIcon, UserPlusIcon, DocumentDuplicateIcon, Cog8ToothIcon, ArrowRightEndOnRectangleIcon} from '@heroicons/react/24/solid';
 
-const NavBar = ({role}) => {    
+const NavBar = ({role}) => {  
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        console.log("role in navbar: ", role);
+        navigate('/portal', {state: {role: role}})
+    }
+
     return (
             <nav className="flex flex-col bg-dark-red-primary-1 h-screen text-white items-center justify-between w-52">
                 <ul className="flex flex-col gap-5 mt-5">
-                    <li className="flex items-center justify-center"><Link to='/portal' className="flex items-center justify-center"><img src="/zebra.jpg" alt="zebra-logo" className="max-w-3/7 h-auto rounded-full" /></Link></li>
+                    <li className="flex items-center justify-center">
+                            <img src="/transparent-reading-zebra.png" alt="zebra-logo" onClick={handleClick} className="max-w-4/7 h-auto rounded-full px-2 border-2 border-white cursor-pointer" />
+                    </li>
+
                     {/* Student Navigation */}
                     {role === "student" && 
                         <>
