@@ -7,6 +7,7 @@ import Settings from "./pages/Settings";
 import StudentList from "./pages/Student/StudentList.jsx";
 import SignUp from './pages/SignUp'
 import Portal from "./pages/Portal";
+import ForgotPassword from './pages/ForgotPassword.jsx';
 import NotFound from './pages/NotFound';
 
  import StudentImprovements from "./pages/Student/StudentImprovements.jsx";
@@ -44,6 +45,10 @@ const AppRoutes = ({role, setRole}) => {
         {
             path: "/signup",
             element: <SignUp/>
+        },
+        {
+            path: "/forgot-password",
+            element: <ForgotPassword /> 
         },
         {
             path: "/settings",
