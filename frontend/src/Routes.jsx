@@ -9,14 +9,15 @@ import SignUp from './pages/SignUp'
 import Portal from "./pages/Portal";
 import NotFound from './pages/NotFound';
 
-// import StudentResults from "./pages/StudentResults";
-// import StudentImprovements from "./pages/StudentImprovements";
-// import StudentSession from "./pages/StudentSession";
-// import StudentProgress from "./pages/StudentProgress";
-// import StudentBadges from "./pages/StudentBadges";
+ import StudentImprovements from "./pages/StudentImprovements";
+ import StudentSession from "./pages/StudentSession";
+ import StudentProgress from "./pages/StudentProgress";
+ import StudentBadges from "./pages/StudentBadges";
 import StudentClassrooms from "./pages/StudentClassrooms.jsx";
 
 // import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
+import ReportIssues from "./pages/ReportIssues";
+import Reports from "./pages/Reports"
 
 // import EducatorClassroom from "./pages/EducatorClassroom";
 // import EducatorClassroomSpreadsheet from "./pages/EducatorClassroomSpreadsheet";
@@ -27,6 +28,12 @@ import StudentClassrooms from "./pages/StudentClassrooms.jsx";
 // import ModeratorClassroomReviews from "./pages/ModeratorClassroomReviews";
 // import ModeratorLogs from "./pages/ModeratorLogs";
 // import ModeratorCreateClassroom from "./pages/ModeratorCreateClassroom";
+
+// TODO! Remove dev route after testing
+import EducatorPortal from './pages/Educator/Portal';
+import Manage from './pages/Educator/Manage';
+import SessionConfig from './pages/Educator/SessionConfig';
+import Progress from './pages/Educator/Progress';
 
 const AppRoutes = ({role, setRole}) => {
     return useRoutes([
@@ -39,8 +46,48 @@ const AppRoutes = ({role, setRole}) => {
             element: <StudentList/>
         },
         {
+            path: "/signup",
+            element: <SignUp/>
+        },
+        {
             path: "/settings",
             element: <Settings/>
+        },
+         {
+             path: "/improvements",
+             element: <StudentImprovements/>
+         },
+         {
+             path: "/session",
+             element: <StudentSession/>
+         },
+         {
+             path: "/progress",
+             element: <StudentProgress/>
+         },
+         {
+             path: "/progress/badges",
+             element: <StudentBadges/>
+         },
+         {
+              // Delete after developed 
+            path: "/dev-educator-portal",
+            element: <EducatorPortal role='educator'/>
+        },
+        {
+            // Delete after developed
+            path: '/class-progress',
+            element: <Progress />
+        },
+        {
+            // Delete after developed
+            path: '/classroom-management',
+            element: <Manage />
+        },
+        {
+            // Delete after developed
+            path: '/session-configuration',
+            element: <SessionConfig />
         },
         {
             path: "/signup",
@@ -61,28 +108,7 @@ const AppRoutes = ({role, setRole}) => {
         {
             path: "/classrooms",
             element: <StudentClassrooms/>
-        }
-        // {
-        //     path: "/improvements",
-        //     element: <StudentImprovements/>
-        // },
-        // {
-        //     path: "/session",
-        //     element: <StudentSession/>
-        // },
-        // {
-        //     path: "/progress",
-        //     element: <StudentProgress/>
-        // },
-        // {
-        //     path: "/progress/badges",
-        //     element: <StudentBadges/>
-        // },
-        // {
-        //     path: "/child-progress",
-        //     element: <GuardianStudentProgress/>
-        // },
-        // }
+        },
         // {
         //     path: "/classrooms/:classroom-id/",
         //     element: <EducatorClassroom/>
@@ -115,14 +141,14 @@ const AppRoutes = ({role, setRole}) => {
         //     path: "/access-logs",
         //     element: <ModeratorLogs/>
         // },   
-        // {
-        //     path: "/access-reports",
-        //     element: <Reports/>
-        // },
-        // {
-        //     path: "/report-issues",
-        //     element: <ReportIssues/>
-        // },
+        {
+            path: "/access-reports",
+            element: <Reports/>
+        },
+        {
+            path: "/report-issues",
+            element: <ReportIssues/>
+        }
         // {
         //     path: "/view-progress",
         //     element: <AdvisoryProgress/>
