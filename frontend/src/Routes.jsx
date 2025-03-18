@@ -7,6 +7,7 @@ import Settings from "./pages/Settings";
 import StudentList from "./pages/StudentList";
 import SignUp from './pages/SignUp'
 import Portal from "./pages/Portal";
+import NotFound from './pages/NotFound';
 
  import StudentImprovements from "./pages/StudentImprovements";
  import StudentSession from "./pages/StudentSession";
@@ -51,10 +52,6 @@ const AppRoutes = ({role, setRole}) => {
             path: "/settings",
             element: <Settings/>
         },
-        {
-            path: "/portal",
-            element: <Portal/>
-        },
          {
              path: "/improvements",
              element: <StudentImprovements/>
@@ -91,6 +88,22 @@ const AppRoutes = ({role, setRole}) => {
             path: '/session-configuration',
             element: <SessionConfig />
         },
+        {
+            path: "/signup",
+            element: <SignUp/>
+        },
+        {
+            path: "/portal",
+            element: <Portal role={role}/>
+        },
+        {
+            path: '*',
+            element: <NotFound/>
+        },
+        // {
+        //     path: "/results",
+        //     element: <StudentResults/>
+        // },
         {
             path: "/classrooms",
             element: <StudentClassrooms/>
