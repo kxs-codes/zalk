@@ -11,12 +11,10 @@ html, body {
     height: 100vh;
     display: flex;
     flex-direction: column;
-    /* If you want absolutely no scrolling, uncomment:
     overflow: hidden;
-    */
+    
   }
   
-  /* The top bar is typically styled in LogoBar.css or here if you prefer:
   .logo-bar {
     background-color: #7f1d1d; 
     color: #fff;
@@ -24,7 +22,7 @@ html, body {
     padding: 1rem;
     font-size: 1.5rem;
   }
-  */
+
   
   /* The main area under the bar */
   .main-container {
