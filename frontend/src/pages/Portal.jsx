@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import StudentPortal from './Student/StudentPortal.jsx';
 import EducatorPortal from './Educator/Portal';
-import ModeratorPortal from './ModeratorPortal';
+import ModeratorPortal from './Moderator/ModeratorPortal.jsx';
 
 const Portal = () => {
     // 1. Grab the useNavigate() data passed into /portal route with useLocation()

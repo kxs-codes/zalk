@@ -27,7 +27,7 @@ import SessionConfig from './pages/Educator/SessionConfig';
 import Progress from './pages/Educator/Progress';
 
 // import ModeratorReports from "./pages/ModeratorReports";
-import ModeratorLogs from "./pages/ModeratorLogs";
+import ModeratorLogs from "./pages/Moderator/ModeratorLogs.jsx";
 // import ModeratorCreateClassroom from "./pages/ModeratorCreateClassroom";
 
 
