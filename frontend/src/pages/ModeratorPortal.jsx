@@ -21,7 +21,6 @@ const ModeratorPortal = () => {
                 {/* Divs for Displaying Moderator Components */}
                 <ModeratorCreateAccount/>
                 <ModeratorCreateClassroom/>
-                <ModeratorLogs/>
             </div>
         </div>
     )

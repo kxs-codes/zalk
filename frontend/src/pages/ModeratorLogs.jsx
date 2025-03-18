@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const ModeratorLogs = () => {
     const mockLogs = [
         {
@@ -72,20 +74,45 @@ const ModeratorLogs = () => {
         },
     ];
 
+    const [search, setSearch] = useState('');
+    const [filteredLogs, setFilteredLogs] = useState(mockLogs);
+
+    const handleChange = (e) => {
+        const term = e.target.value.toLowerCase();
+        setSearch(term);
+        setFilteredLogs(mockLogs.filter((log) => log.details.toLowerCase().includes(term)));
+    }
+
     return (
-        <section className="w-full flex flex-col items-center justify-center mt-10 mb-10">
-            <h2 className="font-medium text-2xl mb-2">📜 View Logs</h2>
-            <ul className="space-y-5">
-            {mockLogs.map((log) => (
-                <li key={log.id} className="p-3 bg-gray-100 rounded-lg shadow-sm">
-                    <p className="font-bold">{log.action}</p>
-                    <p className="text-sm text-gray-500">Timestamp: {log.timestamp}</p>
-                    <p className="text-gray-700">User: {log.user}</p>
-                    <p className="text-gray-700">Details: {log.details}</p>
-                </li>
-            ))}
-            </ul>
-        </section>
+        <div className="flex items-center justify-center bg-grey-secondary-lighter-1 w-full h-screen">
+            <div className="flex flex-col items-center mt-20 h-4/5 w-9/10 shadow-lg bg-white overflow-y-auto rounded-lg">
+                <section className="w-full mt-10">
+                    <input 
+                        type="text" 
+                        name='search' 
+                        placeholder="Search logs by details..." 
+                        className="border-3 border-dark-red-primary-1 w-10/12 p-2 rounded-full" 
+                        value={search}
+                        onChange={handleChange}
+                    />
+                    <button></button>
+                    <button></button>
+                </section>
+                <section className="w-full flex flex-col items-center justify-center mt-10 mb-10">
+                    <h2 className="font-medium text-2xl mb-2">📜 View Logs</h2>
+                    <ul className="space-y-5">
+                    {filteredLogs.map((log) => (
+                        <li key={log.id} className="p-3 bg-gray-100 rounded-lg shadow-sm">
+                            <p className="font-bold">{log.action}</p>
+                            <p className="text-sm text-gray-500">Timestamp: {log.timestamp}</p>
+                            <p className="text-gray-700">User: {log.user}</p>
+                            <p className="text-gray-700">Details: {log.details}</p>
+                        </li>
+                    ))}
+                    </ul>
+                </section>
+            </div>
+        </div>
     )
 }
 
