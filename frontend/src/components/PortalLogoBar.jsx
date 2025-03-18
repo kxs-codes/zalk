@@ -1,19 +1,20 @@
-import React from 'react'
+import React from 'react';
+import '../styles/PortalLogoBar.css';
 
-// TODO: Implement dynamic Title, username, and logo image to show on the right side of the bar depending on the user logged in
 const PortalLogoBar = () => {
+  // TODO: Implement dynamic Title, username, and user image once available
   return (
-    <div className="w-screen ml-44.5 flex items-center shadow-2xl fixed top-0 left-0 bg-[#FAFAFA]">
-        <p className="w-3/4 py-3 pl-5  rounded-r-full text-left font-medium text-black text-4xl md:text-2xl">ZALK: Advanced Learning and Knowledge</p>
-
-        {/* This is where we will add the logic for the user based on title and username */}
-        <div className='flex flex-col md:flex-row mr-57 items-center justify-end w-1/4 p-2'>
-            <p className='mr-2 md:mr-10'>Title</p>
-            <p className='mr-2 md:mr-20'>Username</p>
-            <div className="w-12 h-12 bg-gray-300 rounded-full animate-pulse"></div>
-        </div>
+    <div className="portal-logo-bar">
+      <p className="portal-logo-bar-title">
+        ZALK: Advanced Learning and Knowledge
+      </p>
+      <div className="portal-logo-bar-userinfo">
+        <p className="user-title">Title</p>
+        <p className="user-name">Username</p>
+        <div className="profile-placeholder"></div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default PortalLogoBar
+export default PortalLogoBar;

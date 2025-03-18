@@ -12,7 +12,7 @@
   
   /* Inner wrapper for content */
   .manage-inner {
-    margin-top: 35px; /* Tailwind mt-35 is custom, adapt if needed */
+    margin-top: 150px; /* Tailwind mt-35 is custom, adapt if needed */
     width: 100%;
     max-width: 64rem; /* Tailwind max-w-4xl = 64rem */
     background-color: #FFFFFF;
