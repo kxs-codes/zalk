@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import PortalLogoBar from "../components/PortalLogoBar.jsx"; //Import the logo bar
-import "../pages/Reports.css"; //Import the custom CSS
+import PortalLogoBar from "../../components/PortalLogoBar.jsx"; //Import the logo bar
+import "../../styles/AdvisoryModerator/pages/Reports.css"; //Import the custom CSS
 
 //Mock Data for the issues
 const mockIssues = [

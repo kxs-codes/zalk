@@ -1,5 +1,4 @@
 import React from 'react';
-import PortalLogoBar from "../components/PortalLogoBar.jsx";
 
 const StudentBadges = () => {
     //Emoji constants
@@ -56,7 +55,6 @@ const StudentBadges = () => {
 
     return (
         <div className="flex items-center justify-center bg-gray-100 w-full h-screen">
-            <PortalLogoBar />
             {/*Main div for containers*/}
             <div className="flex flex-col items-center mt-20 lg:mx-15 justify-start h-8/10 w-9/10 shadow-2xl bg-white overflow-y-auto p-8 rounded-lg">
                 <h2 className="text-2xl font-semibold mb-6">Student Badges</h2>

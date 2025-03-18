@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import PortalLogoBar from "../components/PortalLogoBar.jsx";
-import './StudentProgress.css'; // Import the CSS file
+import '../../styles/Student/pages/StudentProgress.css'; // Import the CSS file
 
 const StudentProgress = () => {
     const navigate = useNavigate();
@@ -21,7 +20,6 @@ const StudentProgress = () => {
 
     return (
         <div className="student-progress-container">
-            <PortalLogoBar />
             <div className="content-container">
                 <h2 className="title">Student Progress</h2>
 

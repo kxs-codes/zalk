@@ -1,5 +1,5 @@
 import {useEffect, useState } from "react";
-import LogoBar, {} from '../components/LogoBar';
+import LogoBar, {} from '../../components/LogoBar.jsx';
 
 const StudentList = () => {
     const [students, setStudents] = useState([]);

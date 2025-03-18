@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import PortalLogoBar from "../components/PortalLogoBar.jsx";
-import '../pages/ReportIssues.css'; //Import the CSS file
+import PortalLogoBar from "../../components/PortalLogoBar.jsx";
+import '../../styles/AdvisoryModerator/pages/ReportIssues.css'; //Import the CSS file
 
 const ReportIssues = () => {
     const [issueTitle, setIssueTitle] = useState('');
