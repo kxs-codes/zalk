@@ -8,7 +8,7 @@ const SessionConfig = () => {
       className: 'Math 100',
       time: 30,
       difficulty: 'Medium',
-      subject: 'Mathematics',
+      subject: 'Basic Math',
       format: 'Multiple Choice'
     },
     {
@@ -16,7 +16,7 @@ const SessionConfig = () => {
       className: 'Math 102',
       time: 45,
       difficulty: 'Hard',
-      subject: 'Science',
+      subject: 'Geometry',
       format: 'Short Answer'
     },
     {
@@ -24,7 +24,7 @@ const SessionConfig = () => {
       className: 'Math 201',
       time: 25,
       difficulty: 'Easy',
-      subject: 'History',
+      subject: 'Applicational Math',
       format: 'True/False'
     },
     {
@@ -32,7 +32,7 @@ const SessionConfig = () => {
       className: 'Math 301',
       time: 40,
       difficulty: 'Medium',
-      subject: 'English',
+      subject: 'Trignometry',
       format: 'Multiple Choice'
     },
     {
@@ -40,7 +40,7 @@ const SessionConfig = () => {
       className: 'Math 101',
       time: 50,
       difficulty: 'Hard',
-      subject: 'Science',
+      subject: 'Algebra',
       format: 'Short Answer'
     },
   ]);
@@ -54,7 +54,7 @@ const SessionConfig = () => {
     'Math 501'
   ];
   const difficulties = ['Easy', 'Medium', 'Hard'];
-  const subjects = ['Mathematics'];
+  const subjects = ['Basic Math', 'Geometry', 'Triginometry', 'Algebra', 'Applicational Math'];
   const formats = ['Multiple Choice', 'Short Answer', 'True/False'];
 
   // State for creating/editing session

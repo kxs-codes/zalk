@@ -20,7 +20,6 @@ import ReportIssues from "./pages/AdvisoryModerator/ReportIssues.jsx";
 import Reports from "./pages/AdvisoryModerator/Reports.jsx"
 
     // Educator Routes 
-import EducatorPortal from './pages/Educator/Portal';
 import Manage from './pages/Educator/Manage';
 import SessionConfig from './pages/Educator/SessionConfig';
 import Progress from './pages/Educator/Progress';
