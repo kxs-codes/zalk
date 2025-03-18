@@ -73,8 +73,8 @@ const ModeratorLogs = () => {
     ];
 
     return (
-        <section className="w-full flex flex-col items-center justify-center">
-            <h2 className="font-medium text-2xl mb-2">View Logs</h2>
+        <section className="w-full flex flex-col items-center justify-center mt-10 mb-10">
+            <h2 className="font-medium text-2xl mb-2">📜 View Logs</h2>
             <ul className="space-y-5">
             {mockLogs.map((log) => (
                 <li key={log.id} className="p-3 bg-gray-100 rounded-lg shadow-sm">

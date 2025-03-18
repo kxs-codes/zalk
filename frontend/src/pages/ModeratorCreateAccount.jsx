@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { UserIcon } from "@heroicons/react/24/solid";
 
 const ModeratorCreateAccount = () => {
     const [formData, setFormData] = useState({
@@ -18,8 +19,8 @@ const ModeratorCreateAccount = () => {
         // TODO: send to backend (Backend Deadline)
     }
     return (
-        <section className="w-full flex flex-col items-center justify-center">
-            <h2 className="font-semibold text-2xl">Create Account</h2>
+        <section className="w-full flex flex-col items-center justify-center mt-10">
+            <h2 className="font-semibold text-2xl flex items-center justify-center gap-1"><UserIcon className="size-6 text-green-500"/> Create User Account</h2>
 
             <div className="w-full flex flex-col items-center justify-center p-2">
                 <form className="w-11/12 md:w-8/12 lg:w-7/12 bg-grey-secondary-lighter-1 rounded-lg p-8 my-2" onSubmit={handleSubmit}>

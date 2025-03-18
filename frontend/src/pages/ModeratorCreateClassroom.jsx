@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AcademicCapIcon, UserGroupIcon, UserIcon, BookOpenIcon, XCircleIcon } from "@heroicons/react/24/solid";
+import { AcademicCapIcon, UserIcon, BookOpenIcon, XCircleIcon } from "@heroicons/react/24/solid";
 
 
 const ModeratorCreateClassroom = () => {
@@ -23,6 +23,8 @@ const ModeratorCreateClassroom = () => {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        // TODO: Send to backend (Backend Deadline)
     }
     const handleSearch = (e) => {
         const term = e.target.value.toLowerCase();
@@ -47,13 +49,13 @@ const ModeratorCreateClassroom = () => {
     }
 
     return (
-        <section className="w-full flex flex-col items-center justify-center">
+        <section className="w-full flex flex-col items-center justify- mt-10">
         <h2 className="font-semibold text-2xl flex items-center gap-2">
-            🎓 Create Classroom
+            🎓 Design Classroom
         </h2>
 
-        <div className=" rounded-lg p-6 mt-6 w-full max-w-lg">
-            <form onSubmit={handleSubmit} mclassName="w-11/12 md:w-8/12 lg:w-7/12 bg-gray-500">
+        <div className="flex items-center justify-center p-6 w-full">
+            <form onSubmit={handleSubmit} className="w-11/12 md:w-8/12 lg:w-7/12 rounded-lg bg-grey-secondary-lighter-1 p-8">
                 {/* Subject Level */}
                 <div className="flex items-center gap-3 border-b pb-2">
                     <AcademicCapIcon className="size-6 text-blue-500"/>
@@ -73,7 +75,7 @@ const ModeratorCreateClassroom = () => {
                 </div>
 
                 {/* Educator */}
-                <div className="flex items-center gap-3 border-b pb-2">
+                <div className="flex items-center gap-3 border-b py-2">
                     <UserIcon className="size-6 text-green-500"/>
                     <input 
                         type="text" 
@@ -86,8 +88,8 @@ const ModeratorCreateClassroom = () => {
                 </div>
 
                 {/* Student Selection */}
-                <div className="flex flex-col gap-3 pb-2">
-                    <label htmlFor="student" className="font-medium text-gray-700">Select Students:</label>
+                <div className="flex flex-col gap-3 py-2">
+                    <label htmlFor="student" className="font-medium">Select Students:</label>
                     
                     <input 
                         type="text"
@@ -112,7 +114,7 @@ const ModeratorCreateClassroom = () => {
                     </div>
 
                     {formData.students.length > 0 && (
-                        <div className="p-2 border rounded-md bg-gray-50">
+                        <div className="py-2 border rounded-md bg-gray-50">
                             <p className="font-medium text-gray-600">Selected Students</p>
                             <div className="flex flex-wrap gap-5">
                                 {formData.students.map((student) => (
