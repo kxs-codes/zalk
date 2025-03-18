@@ -19,20 +19,17 @@ import StudentClassrooms from "./pages/StudentClassrooms.jsx";
 import ReportIssues from "./pages/ReportIssues";
 import Reports from "./pages/Reports"
 
-// import EducatorClassroom from "./pages/EducatorClassroom";
-// import EducatorClassroomSpreadsheet from "./pages/EducatorClassroomSpreadsheet";
-// import EducatorClassroomSession from "./pages/EducatorClassroomSession";
-// import EducatorClassroomManage from "./pages/EducatorClassroomManage";
+    // Educator Routes 
+import EducatorPortal from './pages/Educator/Portal';
+import Manage from './pages/Educator/Manage';
+import SessionConfig from './pages/Educator/SessionConfig';
+import Progress from './pages/Educator/Progress';
 
 // import ModeratorReports from "./pages/ModeratorReports";
 import ModeratorLogs from "./pages/ModeratorLogs";
 // import ModeratorCreateClassroom from "./pages/ModeratorCreateClassroom";
 
-// TODO! Remove dev route after testing
-import EducatorPortal from './pages/Educator/Portal';
-import Manage from './pages/Educator/Manage';
-import SessionConfig from './pages/Educator/SessionConfig';
-import Progress from './pages/Educator/Progress';
+
 
 const AppRoutes = ({role, setRole}) => {
     return useRoutes([
@@ -68,26 +65,6 @@ const AppRoutes = ({role, setRole}) => {
              path: "/progress/badges",
              element: <StudentBadges/>
          },
-         {
-              // Delete after developed 
-            path: "/dev-educator-portal",
-            element: <EducatorPortal role='educator'/>
-        },
-        {
-            // Delete after developed
-            path: '/class-progress',
-            element: <Progress />
-        },
-        {
-            // Delete after developed
-            path: '/classroom-management',
-            element: <Manage />
-        },
-        {
-            // Delete after developed
-            path: '/session-configuration',
-            element: <SessionConfig />
-        },
         {
             path: "/signup",
             element: <SignUp/>
@@ -112,18 +89,18 @@ const AppRoutes = ({role, setRole}) => {
         //     path: "/classrooms/:classroom-id/",
         //     element: <EducatorClassroom/>
         // },
-        // {
-        //     path: "/classroom-progress",
-        //     element: <EducatorClassroomSpreadsheet/>
-        // },
-        // {
-        //     path: "/session-configuration",
-        //     element: <EducatorClassroomSessionConfiguration/>
-        // },
-        // {
-        //     path: "/classrooms-management",
-        //     element: <EducatorClassroomManagement/>
-        // },
+        {
+            path: "/classroom-progress",
+            element: <Progress/>
+        },
+        {
+            path: "/session-configuration",
+            element: <SessionConfig/>
+        },
+        {
+            path: "/classrooms-management",
+            element: <Manage/>
+        },
         // {
         //     path: "/create-classroom",
         //     element: <ModeratorCreateClassroom/>

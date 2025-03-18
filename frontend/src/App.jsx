@@ -10,7 +10,15 @@ function App() {
     // Added Portal Logo Bar to show as well 
     const location = useLocation();
     const noNavigation = ['/','/settings','/signup'];
-    const validRoutes = ['/', '/settings', '/signup', '/portal', '/results', '/classrooms', '/improvements', '/session', '/progress', '/progress/badges', '/child-progress', '/classrooms/:classroom-id', '/classroom-progress', '/session-configuration', '/classroom-management', 'classroom-reviews', '/create-classrooms', 'create-account', 'access-logs', '/access-reports', '/report-issues', '/view-progress', '/access-spreadsheet'];
+    const validRoutes = ['/', '/settings', '/signup', '/portal', 
+                         '/results', '/classrooms', '/improvements', 
+                         '/session', '/progress', '/progress/badges', 
+                         '/child-progress', '/classrooms/:classroom-id', 
+                         '/classroom-progress', '/session-configuration', 
+                         '/classrooms-management', 'classroom-reviews', 
+                         '/create-classrooms', 'create-account', 'access-logs', 
+                         '/access-reports', '/report-issues', '/view-progress', 
+                         '/access-spreadsheet'];
 
     // Set the role for use in specific portal returns based on role
     const [role, setRole] = useState('no-role-set');
