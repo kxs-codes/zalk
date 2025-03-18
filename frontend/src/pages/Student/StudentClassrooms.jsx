@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import PortalLogoBar from '../../components/PortalLogoBar.jsx';
 
 const StudentClassrooms = () => {
     const classes = [
@@ -56,7 +55,6 @@ const StudentClassrooms = () => {
 
     return (
         <div className="flex items-center justify-center bg-grey-secondary-lighter-1 min-h-screen w-screen p-4">
-            <PortalLogoBar />
 
             {/*Main container for the class information*/}
             <div className="flex flex-col items-center mt-20 lg:mx-15 w-full max-w-5xl shadow-2xl bg-white p-6 rounded-lg h-[80vh] overflow-hidden">
