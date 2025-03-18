@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { PlayIcon, ChartBarIcon, AcademicCapIcon, CheckBadgeIcon, ClockIcon, ClipboardDocumentListIcon, AdjustmentsHorizontalIcon, UserGroupIcon, ExclamationTriangleIcon, EyeIcon, TableCellsIcon, DocumentTextIcon, PaintBrushIcon, UserPlusIcon, DocumentDuplicateIcon, Cog8ToothIcon} from '@heroicons/react/24/solid';
+import { PlayIcon, ChartBarIcon, AcademicCapIcon, CheckBadgeIcon, ClockIcon, ClipboardDocumentListIcon, AdjustmentsHorizontalIcon, UserGroupIcon, ExclamationTriangleIcon, EyeIcon, TableCellsIcon, DocumentTextIcon, PaintBrushIcon, UserPlusIcon, DocumentDuplicateIcon, Cog8ToothIcon, ArrowRightEndOnRectangleIcon} from '@heroicons/react/24/solid';
 
 const NavBar = ({role}) => {    
     return (
@@ -55,7 +55,10 @@ const NavBar = ({role}) => {
                         </>
                     )}
                 </ul>
-                <ul className="flex flex-col w-full"><li><Link to='/settings' className="flex items-center justify-center gap-1 py-4 hover:bg-grey-secondary-darker-1"><Cog8ToothIcon className="size-6"/>Settings</Link></li></ul>
+                <ul className="flex flex-col w-full gap-2">
+                    <li><Link to='/' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ArrowRightEndOnRectangleIcon className="size-6"/>Sign Out</Link></li>
+                    <li><Link to='/settings' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><Cog8ToothIcon className="size-6"/>Settings</Link></li>
+                </ul>
             </nav>
     );
 };
