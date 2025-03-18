@@ -9,7 +9,7 @@ function App() {
     // Only show navbar when not on these routes below
     // Added Portal Logo Bar to show as well 
     const location = useLocation();
-    const noNavigation = ['/','/settings','/signup'];
+    const noNavigation = ['/','/settings','/signup', 'forgot-password'];
     const validRoutes = ['/', '/settings', '/signup', '/portal', 
                          '/results', '/classrooms', '/improvements', 
                          '/session', '/progress', '/progress/badges', 
@@ -18,7 +18,7 @@ function App() {
                          '/classrooms-management', 'classroom-reviews', 
                          '/create-classrooms', 'create-account', 'access-logs', 
                          '/access-reports', '/report-issues', '/view-progress', 
-                         '/access-spreadsheet'];
+                         '/access-spreadsheet', ];
 
     // Set the role for use in specific portal returns based on role
     const [role, setRole] = useState('no-role-set');
