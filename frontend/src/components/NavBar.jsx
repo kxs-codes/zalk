@@ -13,7 +13,6 @@ const NavBar = ({role}) => {
                             <li><Link to='/session' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><PlayIcon className="size-6"/>Begin Session</Link></li>
                             <li><Link to='/progress' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ChartBarIcon className="size-6"/>Progress Report</Link></li>
                             <li><Link to='/classrooms' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><AcademicCapIcon className="size-6"/>Classrooms</Link></li>
-                            <li><Link to='/progress/badges' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><CheckBadgeIcon className="size-6"/>Badges</Link></li>
                         </>
                     }
 
