@@ -1,0 +1,55 @@
+.portal-logo-bar {
+    position: fixed;
+    top: 0;
+    left: 11rem; 
+    width: calc(100vw - 13rem);
+    height: 60px;
+    background-color: #FAFAFA;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    z-index: 1000; 
+  }
+  
+  /* Title text on the left side of the bar */
+  .portal-logo-bar-title {
+    font-size: 1.5rem; /* ~ text-2xl */
+    font-weight: 500;
+    color: #000;
+    margin: 0; 
+  }
+  
+  
+  .portal-logo-bar-userinfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem; 
+  }
+  
+  /* Simple text styles for user title/role and name */
+  .user-title,
+  .user-name {
+    margin: 0;
+  }
+  
+  /* Placeholder circle for a user profile image */
+  .profile-placeholder {
+    width: 3rem;
+    height: 3rem;
+    background-color: #ccc;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  
+  /* Keyframes for a simple “pulse” animation */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  

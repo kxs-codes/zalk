@@ -18,10 +18,10 @@ const SignUp = () => {
     }
 
     return (
-        <div className="mt-30 md:mt-5 lg:mt-5 w-screen h-screen flex flex-col items-center justify-center">
+        <div className="mt-30 md:mt-5 lg:mt-5 bg-gray-400  w-screen h-screen flex flex-col items-center justify-center">
             <LogoBar/>
 
-            <div className="w-11/12 bg-gray-400 flex flex-col-reverse md:flex-row items-center rounded-3xl mt-30">
+            <div className="w-11/12  flex flex-col-reverse md:flex-row items-center rounded-3xl mt-30">
                 <div className="w-2/4 md:w-2/5 lg:w-1/4">
                     <img src="/zebra.jpg" alt="zebra" className="w-full p-8 rounded-full scale-x-[-1]" />
                 </div>

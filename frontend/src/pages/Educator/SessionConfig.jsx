@@ -1,19 +1,60 @@
 import React, { useState } from 'react';
-
+import '../../styles/Educator/pages/SessionConfig.css'
 const SessionConfig = () => {
   // Dummy Data: Existing Sessions
   const [sessions, setSessions] = useState([
-    { id: 1, className: 'Math 101', time: 30, difficulty: 'Medium', subject: 'Mathematics', format: 'Multiple Choice' },
-    { id: 2, className: 'Science 102', time: 45, difficulty: 'Hard', subject: 'Science', format: 'Short Answer' },
-    { id: 3, className: 'History 201', time: 25, difficulty: 'Easy', subject: 'History', format: 'True/False' },
-    { id: 4, className: 'English 301', time: 40, difficulty: 'Medium', subject: 'English', format: 'Multiple Choice' },
-    { id: 5, className: 'Physics 101', time: 50, difficulty: 'Hard', subject: 'Science', format: 'Short Answer' },
+    {
+      id: 1,
+      className: 'Math 100',
+      time: 30,
+      difficulty: 'Medium',
+      subject: 'Mathematics',
+      format: 'Multiple Choice'
+    },
+    {
+      id: 2,
+      className: 'Math 102',
+      time: 45,
+      difficulty: 'Hard',
+      subject: 'Science',
+      format: 'Short Answer'
+    },
+    {
+      id: 3,
+      className: 'Math 201',
+      time: 25,
+      difficulty: 'Easy',
+      subject: 'History',
+      format: 'True/False'
+    },
+    {
+      id: 4,
+      className: 'Math 301',
+      time: 40,
+      difficulty: 'Medium',
+      subject: 'English',
+      format: 'Multiple Choice'
+    },
+    {
+      id: 5,
+      className: 'Math 101',
+      time: 50,
+      difficulty: 'Hard',
+      subject: 'Science',
+      format: 'Short Answer'
+    },
   ]);
 
   // Dummy Classrooms for selection
-  const classrooms = ['Math 101', 'Science 102', 'History 201', 'English 301', 'Physics 101'];
+  const classrooms = [
+    'Math 101',
+    'Math 102',
+    'Math 201',
+    'Math 301',
+    'Math 501'
+  ];
   const difficulties = ['Easy', 'Medium', 'Hard'];
-  const subjects = ['Mathematics', 'Science', 'History', 'English'];
+  const subjects = ['Mathematics'];
   const formats = ['Multiple Choice', 'Short Answer', 'True/False'];
 
   // State for creating/editing session
@@ -42,13 +83,34 @@ const SessionConfig = () => {
     }
 
     if (editingSession) {
-      setSessions(sessions.map(session =>
-        session.id === editingSession.id
-          ? { ...session, className: selectedClass, time: sessionTime, difficulty, subject, format }
-          : session
-      ));
+      // Update existing session
+      setSessions((prev) =>
+        prev.map((session) =>
+          session.id === editingSession.id
+            ? {
+                ...session,
+                className: selectedClass,
+                time: sessionTime,
+                difficulty,
+                subject,
+                format,
+              }
+            : session
+        )
+      );
     } else {
-      setSessions([...sessions, { id: Date.now(), className: selectedClass, time: sessionTime, difficulty, subject, format }]);
+      // Create new session
+      setSessions((prev) => [
+        ...prev,
+        {
+          id: Date.now(),
+          className: selectedClass,
+          time: sessionTime,
+          difficulty,
+          subject,
+          format,
+        },
+      ]);
     }
 
     handleReset();
@@ -66,49 +128,48 @@ const SessionConfig = () => {
 
   // Handle Delete
   const handleDelete = (id) => {
-    setSessions(sessions.filter(session => session.id !== id));
+    setSessions((prev) => prev.filter((session) => session.id !== id));
     if (editingSession?.id === id) handleReset();
   };
 
   return (
-    <div className='flex flex-col items-center overflow-auto bg-grey-secondary-lighter-1 w-screen h-screen p-6'>
-      <div className='w-full max-w-4xl mt-15  bg-white shadow-lg rounded-lg p-6 flex flex-col gap-4'>
+    <div className="session-config-page">
+      <div className="session-config-content">
+        <h2 className="title">Session Configuration</h2>
 
-        <h2 className="text-2xl font-bold text-center">Session Configuration</h2>
-
-        {/* Scrollable Section 1: Current Sessions */}
-        <div className="flex flex-col">
-          <h3 className="text-lg font-semibold mb-2">Current Sessions</h3>
-          <div className="max-h-60 overflow-y-auto border border-gray-300 rounded-lg shadow-sm">
-            <table className="w-full border-collapse">
-              <thead className="sticky top-0 bg-gray-200 shadow-md">
+        {/* Current Sessions */}
+        <div className="current-sessions">
+          <h3 className="subtitle">Current Sessions</h3>
+          <div className="table-container">
+            <table>
+              <thead>
                 <tr>
-                  <th className="border border-gray-300 px-4 py-2">Class Name</th>
-                  <th className="border border-gray-300 px-4 py-2">Time (Min)</th>
-                  <th className="border border-gray-300 px-4 py-2">Difficulty</th>
-                  <th className="border border-gray-300 px-4 py-2">Subject</th>
-                  <th className="border border-gray-300 px-4 py-2">Format</th>
-                  <th className="border border-gray-300 px-4 py-2">Actions</th>
+                  <th>Class Name</th>
+                  <th>Time (Min)</th>
+                  <th>Difficulty</th>
+                  <th>Subject</th>
+                  <th>Format</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {sessions.length > 0 ? (
-                  sessions.map(session => (
-                    <tr key={session.id} className="text-center">
-                      <td className="border border-gray-300 px-4 py-2">{session.className}</td>
-                      <td className="border border-gray-300 px-4 py-2">{session.time}</td>
-                      <td className="border border-gray-300 px-4 py-2">{session.difficulty}</td>
-                      <td className="border border-gray-300 px-4 py-2">{session.subject}</td>
-                      <td className="border border-gray-300 px-4 py-2">{session.format}</td>
-                      <td className="border border-gray-300 px-4 py-2">
+                  sessions.map((session) => (
+                    <tr key={session.id}>
+                      <td>{session.className}</td>
+                      <td>{session.time}</td>
+                      <td>{session.difficulty}</td>
+                      <td>{session.subject}</td>
+                      <td>{session.format}</td>
+                      <td>
                         <button
-                          className="bg-blue-500 text-white px-3 py-1 rounded mr-2 hover:bg-blue-600"
+                          className="edit-button"
                           onClick={() => handleEdit(session)}
                         >
                           Edit
                         </button>
                         <button
-                          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                          className="delete-button"
                           onClick={() => handleDelete(session.id)}
                         >
                           Delete
@@ -118,7 +179,7 @@ const SessionConfig = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="6" className="border border-gray-300 px-4 py-2 text-center text-gray-500">
+                    <td colSpan="6" className="empty-row">
                       No sessions configured yet.
                     </td>
                   </tr>
@@ -128,39 +189,69 @@ const SessionConfig = () => {
           </div>
         </div>
 
-        {/* Scrollable Section 2: Session Configuration Form */}
-        <div className="flex flex-col max-h-72 overflow-y-auto border border-gray-300 p-4 rounded-lg shadow-sm">
-          <h3 className="text-lg font-semibold mb-2">Configure New Session</h3>
+        {/* Session Configuration Form */}
+        <div className="form-section">
+          <h3 className="subtitle">
+            {editingSession ? 'Edit Session' : 'Configure New Session'}
+          </h3>
 
-          <label className="mb-1 font-medium">Select a Class:</label>
-          <select className="w-full px-2 py-2 border rounded-lg mb-2" value={selectedClass} onChange={(e) => setSelectedClass(e.target.value)}>
+          <label>Select a Class:</label>
+          <select
+            value={selectedClass}
+            onChange={(e) => setSelectedClass(e.target.value)}
+          >
             <option value="">-- Choose a Class --</option>
-            {classrooms.map((c, index) => (<option key={index} value={c}>{c}</option>))}
+            {classrooms.map((c, index) => (
+              <option key={index} value={c}>
+                {c}
+              </option>
+            ))}
           </select>
 
-          <label className="mb-1 font-medium">Session Time (Minutes):</label>
-          <input type="number" className="w-full px-2 py-2 border rounded-lg mb-2" value={sessionTime} onChange={(e) => setSessionTime(e.target.value)} placeholder="Enter session duration" min="5" max="120" />
+          <label>Session Time (Minutes):</label>
+          <input
+            type="number"
+            placeholder="Enter session duration"
+            value={sessionTime}
+            onChange={(e) => setSessionTime(e.target.value)}
+            min="5"
+            max="120"
+          />
 
-          <label className="mb-1 font-medium">Difficulty:</label>
-          <select className="w-full px-2 py-2 border rounded-lg mb-2" value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
-            {difficulties.map((level, index) => (<option key={index} value={level}>{level}</option>))}
+          <label>Difficulty:</label>
+          <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}>
+            <option value="">-- Choose a Difficulty --</option>
+            {difficulties.map((level, index) => (
+              <option key={index} value={level}>
+                {level}
+              </option>
+            ))}
           </select>
 
-          <label className="mb-1 font-medium">Subject:</label>
-          <select className="w-full px-2 py-2 border rounded-lg mb-2" value={subject} onChange={(e) => setSubject(e.target.value)}>
-            {subjects.map((subj, index) => (<option key={index} value={subj}>{subj}</option>))}
+          <label>Subject:</label>
+          <select value={subject} onChange={(e) => setSubject(e.target.value)}>
+            <option value="">-- Choose a Subject --</option>
+            {subjects.map((subj, index) => (
+              <option key={index} value={subj}>
+                {subj}
+              </option>
+            ))}
           </select>
 
-          <label className="mb-1 font-medium">Format:</label>
-          <select className="w-full px-2 py-2 border rounded-lg mb-4" value={format} onChange={(e) => setFormat(e.target.value)}>
-            {formats.map((fmt, index) => (<option key={index} value={fmt}>{fmt}</option>))}
+          <label>Format:</label>
+          <select value={format} onChange={(e) => setFormat(e.target.value)}>
+            <option value="">-- Choose a Format --</option>
+            {formats.map((fmt, index) => (
+              <option key={index} value={fmt}>
+                {fmt}
+              </option>
+            ))}
           </select>
 
-          <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onClick={handleSave}>
+          <button className="save-button" onClick={handleSave}>
             {editingSession ? 'Update Configuration' : 'Add Session'}
           </button>
         </div>
-
       </div>
     </div>
   );
