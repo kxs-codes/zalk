@@ -21,8 +21,8 @@ function App() {
 
     return (
         <div className='flex'>
-            {noNavigation.includes(location.pathname) == false && <NavBar/>}
-            {noNavigation.includes(location.pathname) == false && <PortalLogoBar/>}
+            {isValid() && <NavBar/>}
+            {isValid() && <PortalLogoBar/>}
             <AppRoutes role={role} setRole={setRole}/>
         </div>
     );
