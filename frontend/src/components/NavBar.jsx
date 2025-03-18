@@ -20,7 +20,7 @@ const NavBar = ({role}) => {
                     {role === "educator" && (
                         <>
                             <li><Link to='/classroom-progress' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ChartBarIcon className="size-6"/>Class Progress</Link></li>
-                            <li><Link to='/classroom-management' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ClipboardDocumentListIcon className="size-6"/>Classroom Management</Link></li>
+                            <li><Link to='/classrooms-management' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ClipboardDocumentListIcon className="size-6"/>Classroom Management</Link></li>
                             <li><Link to='/session-configuration' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><AdjustmentsHorizontalIcon className="size-6"/>Session Configuration</Link></li>
                         </>
                     )}

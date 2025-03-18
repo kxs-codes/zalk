@@ -1,0 +1,133 @@
+/* Remove default browser margin/padding */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }
+  
+  /* The outermost container for the page */
+  .login-page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    /* If you want absolutely no scrolling, uncomment:
+    overflow: hidden;
+    */
+  }
+  
+  /* The top bar is typically styled in LogoBar.css or here if you prefer:
+  .logo-bar {
+    background-color: #7f1d1d; 
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.5rem;
+  }
+  */
+  
+  /* The main area under the bar */
+  .main-container {
+    flex: 1; /* fills remaining vertical space under the bar */
+    background-color: #9CA3AF; /* gray background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Wrapper for zebras and form side by side */
+  .login-wrapper {
+    width: 80%;
+    max-width: 1200px;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    border-radius: 20px;
+    /* same gray or slightly different if you prefer:
+       background-color: #9CA3AF;
+    */
+  }
+  
+  /* Zebra images */
+  .zebra-img {
+    max-width: 300px; /* or adjust as needed */
+    width: 30%;
+    height: auto;
+  }
+  
+  /* Flip horizontally for the right zebra */
+  .flip-x {
+    transform: scaleX(-1);
+  }
+  
+  /* The form container */
+  .form-container {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    padding: 1rem 2rem;
+    width: 40%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  /* Form title */
+  .login-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  /* Labels */
+  .login-label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #000;
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Inputs and Select */
+  .login-input,
+  .login-select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+  }
+  
+  /* Forgot Password / Sign Up links */
+  .login-links {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  
+  .login-link {
+    font-size: 0.75rem;
+    text-decoration: underline;
+    color: blue;
+  }
+  
+  /* Login button */
+  .login-button {
+    display: block;
+    margin: 0 auto;
+    background-color: #7f1d1d; /* ~Tailwind red-900 */
+    color: #ffffff;
+    font-size: 1.25rem;
+    border: none;
+    border-radius: 9999px; /* pill shape */
+    padding: 0.75rem 2rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .login-button:hover {
+    background-color: #450a0a; /* ~Tailwind red-950 */
+  }
+  
