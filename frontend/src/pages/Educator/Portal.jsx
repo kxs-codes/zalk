@@ -24,7 +24,6 @@ const EducatorPortal = () => {
 
         <div className="content">
           <div className="gap45">
-            <p>Classrooms</p>
             <Classrooms
               classrooms={classrooms}
               activeClassroom={activeClassroom}
