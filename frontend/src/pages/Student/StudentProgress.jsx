@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import PortalLogoBar from "../components/PortalLogoBar.jsx";
-import './StudentProgress.css'; // Import the CSS file
+import PortalLogoBar from "../../components/PortalLogoBar.jsx";
+import '../../styles/Student/pages/StudentProgress.css'; // Import the CSS file
 
 const StudentProgress = () => {
     const navigate = useNavigate();

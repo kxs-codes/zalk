@@ -1,5 +1,5 @@
 import React from 'react';
-import PortalLogoBar from "../components/PortalLogoBar.jsx";
+import PortalLogoBar from "../../components/PortalLogoBar.jsx";
 
 const StudentBadges = () => {
     //Emoji constants

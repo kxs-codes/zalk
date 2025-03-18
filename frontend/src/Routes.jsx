@@ -4,20 +4,20 @@ import { useRoutes } from 'react-router-dom';
 // Importing components from /pages
 import Login from "./pages/Login";
 import Settings from "./pages/Settings";
-import StudentList from "./pages/StudentList";
+import StudentList from "./pages/Student/StudentList.jsx";
 import SignUp from './pages/SignUp'
 import Portal from "./pages/Portal";
 import NotFound from './pages/NotFound';
 
- import StudentImprovements from "./pages/StudentImprovements";
+ import StudentImprovements from "./pages/Student/StudentImprovements.jsx";
  import StudentSession from "./pages/StudentSession";
- import StudentProgress from "./pages/StudentProgress";
- import StudentBadges from "./pages/StudentBadges";
-import StudentClassrooms from "./pages/StudentClassrooms.jsx";
+ import StudentProgress from "./pages/Student/StudentProgress.jsx";
+ import StudentBadges from "./pages/Student/StudentBadges.jsx";
+import StudentClassrooms from "./pages/Student/StudentClassrooms.jsx";
 
 // import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
-import ReportIssues from "./pages/ReportIssues";
-import Reports from "./pages/Reports"
+import ReportIssues from "./pages/AdvisoryModerator/ReportIssues.jsx";
+import Reports from "./pages/AdvisoryModerator/Reports.jsx"
 
 // import EducatorClassroom from "./pages/EducatorClassroom";
 // import EducatorClassroomSpreadsheet from "./pages/EducatorClassroomSpreadsheet";

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import PortalLogoBar from '../components/PortalLogoBar';
+import PortalLogoBar from '../../components/PortalLogoBar.jsx';
 
 const StudentClassrooms = () => {
     const classes = [

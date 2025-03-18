@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import StudentPortal from './StudentPortal';
+import StudentPortal from './Student/StudentPortal.jsx';
 import EducatorPortal from './Educator/Portal';
 import ModeratorPortal from './ModeratorPortal';
 

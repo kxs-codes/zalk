@@ -7,6 +7,18 @@
     <list default="true" id="6233326d-db66-489f-b63e-56e755062704" name="Changes" comment="feat: added a StudentProgress.jsx and StudentProgress.css file to show the student's current progress&#10;feat: added a button within the student progress page to allow the user to go straight to badges">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/Routes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Routes.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Portal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Portal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ReportIssues.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/AdvisoryModerator/pages/ReportIssues.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ReportIssues.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdvisoryModerator/ReportIssues.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Reports.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/AdvisoryModerator/pages/Reports.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Reports.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdvisoryModerator/Reports.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/StudentBadges.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Student/StudentBadges.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/StudentClassrooms.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Student/StudentClassrooms.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/StudentImprovements.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Student/StudentImprovements.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/StudentList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Student/StudentList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/StudentPortal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Student/StudentPortal.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/StudentProgress.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Student/pages/StudentProgress.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/StudentProgress.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Student/StudentProgress.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="115-report-issues-and-access-reports-pages-for-advisory-board" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -80,26 +92,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.FullConnectionApplication.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;115-report-issues-and-access-reports-pages-for-advisory-board&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/dev/Projects/cpsc-476/furhat-academic-advisor&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.FullConnectionApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "128-making-subdirectories-for-studentportal-and-advisoryboard",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/dev/Projects/cpsc-476/furhat-academic-advisor",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "project.propCompiler",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -111,10 +123,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\lukeb\IdeaProjects\learning-enhancment-system\frontend\src\styles\AdvisoryModerator\pages" />
+      <recent name="C:\Users\lukeb\IdeaProjects\learning-enhancment-system\frontend\src\pages\AdvisoryModerator" />
+      <recent name="C:\Users\lukeb\IdeaProjects\learning-enhancment-system\frontend\src\styles\Student\pages" />
+      <recent name="C:\Users\lukeb\IdeaProjects\learning-enhancment-system\frontend\src\pages\Student" />
       <recent name="$PROJECT_DIR$/frontend/src/pages" />
-      <recent name="C:\Users\Ali\Documents\School\Classes\488_Software_Engineering\Coding_Capstone\iterations\full-connection" />
-      <recent name="C:\Users\Ali\Documents\School\Classes\488_Software_Engineering\Coding_Capstone\iterations\full-connection\frontend" />
-      <recent name="C:\Users\Ali\Documents\School\Classes\488_Software_Engineering\Coding_Capstone\iterations\full-connection\backend" />
     </key>
   </component>
   <component name="RunManager">
@@ -133,6 +146,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.FullConnectionApplication" />
         <item itemvalue="Application.FullConnectionApplication" />
         <item itemvalue="Application.FullConnectionApplication" />
         <item itemvalue="Application.FullConnectionApplication" />
