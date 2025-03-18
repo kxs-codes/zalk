@@ -18,6 +18,7 @@ import StudentClassrooms from "./pages/Student/StudentClassrooms.jsx";
 // import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
 import ReportIssues from "./pages/AdvisoryModerator/ReportIssues.jsx";
 import Reports from "./pages/AdvisoryModerator/Reports.jsx"
+import AdvisoryProgress from './pages/AdvisoryModerator/AdvisoryProgress.jsx'
 
     // Educator Routes 
 import Manage from './pages/Educator/Manage';
@@ -119,11 +120,11 @@ const AppRoutes = ({role, setRole}) => {
         {
             path: "/report-issues",
             element: <ReportIssues/>
-        }
-        // {
-        //     path: "/view-progress",
-        //     element: <AdvisoryProgress/>
-        // },
+        },
+        {
+            path: "/view-progress",
+            element: <AdvisoryProgress/>
+        },
         // {
         //     path: "/access-spreadsheet",
         //     element: <AdvisorySpreadsheet/>
