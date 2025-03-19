@@ -16,7 +16,7 @@ function App() {
                          '/child-progress', '/classrooms/:classroom-id', 
                          '/classroom-progress', '/session-configuration', 
                          '/classrooms-management', 
-                         '/create-classroom', '/create-account', '/access-logs', 
+                         '/create-classroom', '/create-account', '/manage-accounts', '/access-logs', 
                          '/access-reports', '/report-issues', '/view-progress', 
                          '/access-spreadsheet', ];
 

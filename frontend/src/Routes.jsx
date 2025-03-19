@@ -27,7 +27,7 @@ import Progress from './pages/Educator/Progress';
 import ModeratorCreateAccount from "./pages/Moderator/ModeratorCreateAccount";
 import ModeratorLogs from "./pages/Moderator/ModeratorLogs.jsx";
 import ModeratorCreateClassroom from "./pages/Moderator/ModeratorCreateClassroom";
-
+import ModeratorManageAccounts from './pages/Moderator/ModeratorManageAccounts';
 
 
 const AppRoutes = ({role, setRole}) => {
@@ -108,6 +108,10 @@ const AppRoutes = ({role, setRole}) => {
             path: "/access-logs",
             element: <ModeratorLogs/>
         },   
+        {
+            path: '/manage-accounts',
+            element: <ModeratorManageAccounts/>
+        },
         {
             path: "/access-reports",
             element: <Reports/>
