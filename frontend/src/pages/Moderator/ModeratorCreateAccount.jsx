@@ -35,8 +35,7 @@ const ModeratorCreateAccount = () => {
                                     <option value="guardian">Guardian</option>
                                     <option value="advisory">Advisory Member</option>
                                 </select>
-                            </div>
-                            
+                            </div>                            
                             <div className="input-container">
                                 <label htmlFor="email">Email</label>
                                 <input type="email" id="email" name="email" placeholder="Enter Email Here..." className="select-tags" value={formData.email} onChange={handleChange} />

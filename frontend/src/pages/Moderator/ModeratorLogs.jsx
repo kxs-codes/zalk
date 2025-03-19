@@ -1,6 +1,8 @@
 import { useState } from "react";
 import '../../styles/Moderator/ModeratorLogs.css';
 
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+
 const ModeratorLogs = () => {
     const mockLogs = [
         {

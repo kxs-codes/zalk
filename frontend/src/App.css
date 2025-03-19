@@ -1,18 +1,84 @@
-@import "tailwindcss";
-
-@theme {
-  --color-dark-red-primary-1: #911B0C;
-  --color-light-red-primary-2: #E8422C;
-  --color-red-primary-3: #AD1905;
-  --color-grey-secondary-darker-1: #888888;
-  --color-grey-secondary-lighter-1: #BBBBBB;
-  --color-text-secondary-grey-1: #687169;
+/* StudentSessionAndResults.css */
+.student-session-container {
+  max-width: 80%;
+  margin: auto;
+  padding: 20px;
 }
 
+.session-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
+.summary-stats {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ad1905;
+  color: white;
+  padding: 15px;
+  border-radius: 10px;
+}
 
-#root {
-  width: 100%;
-  margin: 0 auto;
+.stat {
   text-align: center;
+}
+
+.review-section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.review-item {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.review-item.correct {
+  color: green;
+  font-weight: bold;
+  animation: pulse 1s infinite;
+}
+
+.review-item.incorrect {
+  color: red;
+  font-weight: bold;
+  animation: pulse 1s infinite;
+}
+
+.question-section {
+  text-align: center;
+}
+
+.submit-btn,
+.next-btn {
+  width: 100%;
+  padding: 15px;
+  color: white;
+  background-color: #ad1905;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+.submit-btn:disabled,
+.next-btn.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
