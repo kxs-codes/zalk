@@ -1,6 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import StudentPortal from './Student/StudentPortal.jsx';
 import EducatorPortal from './Educator/Portal';
+import GuardianPortal from "./Guardian/GuardianPortal.jsx";
 import ModeratorPortal from './Moderator/ModeratorPortal.jsx';
 
 const Portal = () => {
@@ -12,7 +13,7 @@ const Portal = () => {
     const dict = {
         "student": <StudentPortal/>,
         "educator": <EducatorPortal/>,
-        // "guardian": <GuardianPortal/>,
+        "guardian": <GuardianPortal/>,
         "moderator": <ModeratorPortal/>
     };
 

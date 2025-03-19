@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { PlayIcon, ChartBarIcon, AcademicCapIcon, ClipboardDocumentListIcon, AdjustmentsHorizontalIcon, UserGroupIcon, ExclamationTriangleIcon, EyeIcon, TableCellsIcon, DocumentTextIcon, PaintBrushIcon, UserPlusIcon, DocumentDuplicateIcon, Cog8ToothIcon, ArrowRightEndOnRectangleIcon} from '@heroicons/react/24/solid';
+import '../styles/NavBar.css';
 
 const NavBar = ({role}) => {  
     const navigate = useNavigate();
@@ -10,62 +11,61 @@ const NavBar = ({role}) => {
     }
 
     return (
-            <nav className="flex flex-col bg-dark-red-primary-1 h-screen text-white items-center justify-between w-52">
-                <ul className="flex flex-col gap-5 mt-5">
-                    <li className="flex items-center justify-center">
-                            <img src="/transparent-reading-zebra.png" alt="zebra-logo" onClick={handleClick} className="max-w-4/7 h-auto rounded-full px-2 border-2 border-white cursor-pointer" />
+            <nav className="nav-container">
+                <ul className="unordered-list-style">
+                    <li className="image-list-item">
+                            <img src="/transparent-reading-zebra.png" alt="zebra-logo" onClick={handleClick} className="img-style" />
                     </li>
 
                     {/* Student Navigation */}
                     {role === "student" && 
                         <>
-                            <li><Link to='/session' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><PlayIcon className="size-6"/>Begin Session</Link></li>
-                            <li><Link to='/progress' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ChartBarIcon className="size-6"/>Progress Report</Link></li>
-                            <li><Link to='/classrooms' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><AcademicCapIcon className="size-6"/>Classrooms</Link></li>
+                            <li><Link to='/session' className="link-item"><PlayIcon className="icon-size"/>Begin Session</Link></li>
+                            <li><Link to='/progress' className="link-item"><ChartBarIcon className="icon-size"/>Progress Report</Link></li>
+                            <li><Link to='/classrooms' className="link-item"><AcademicCapIcon className="icon-size"/>Classrooms</Link></li>
                         </>
                     }
 
                     {/* Educator Navigation */}
                     {role === "educator" && (
                         <>
-                            <li><Link to='/classroom-progress' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ChartBarIcon className="size-6"/>Class Progress</Link></li>
-                            <li><Link to='/classrooms-management' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ClipboardDocumentListIcon className="size-6"/>Classroom Management</Link></li>
-                            <li><Link to='/session-configuration' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><AdjustmentsHorizontalIcon className="size-6"/>Session Configuration</Link></li>
+                            <li><Link to='/classroom-progress' className="link-item"><ChartBarIcon className="icon-size"/>Class Progress</Link></li>
+                            <li><Link to='/classrooms-management' className="link-item"><ClipboardDocumentListIcon className="icon-size"/>Classroom Management</Link></li>
+                            <li><Link to='/session-configuration' className="link-item"><AdjustmentsHorizontalIcon className="icon-size"/>Session Configuration</Link></li>
                         </>
                     )}
 
                     {/* Guardian Navigation */}
                     {role === "guardian" && (
                         <>
-                            <li><Link to='/child-progress' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><UserGroupIcon className="size-6"/>Child Progress</Link></li>
-                            <li><Link to='/report-issues' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ExclamationTriangleIcon className="size-6"/>Report Issues</Link></li>
+                            <li><Link to='/progress' className="link-item"><UserGroupIcon className="icon-size"/>Child Progress</Link></li>
+                            <li><Link to='/report-issues' className="link-item"><ExclamationTriangleIcon className="icon-size"/>Report Issues</Link></li>
                         </>
                     )}
 
                     {/* Advisory Board Navigation */}
                     {role === "advisory" && (
                         <>
-                            <li><Link to='/view-progress' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><EyeIcon className="size-6"/>View Progress</Link></li>
-                            <li><Link to='/access-spreadsheet' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><TableCellsIcon className="size-6"/>Access Spreadsheet</Link></li>
-                            <li><Link to='/access-reports' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><DocumentTextIcon className="size-6"/>Access Reports</Link></li>
-                            <li><Link to='/report-issues' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ExclamationTriangleIcon className="size-6"/>Report Issues</Link></li>
+                            <li><Link to='/view-progress' className="link-item"><EyeIcon className="icon-size"/>View Progress</Link></li>
+                            <li><Link to='/access-reports' className="link-item"><DocumentTextIcon className="icon-size"/>Access Reports</Link></li>
+                            <li><Link to='/report-issues' className="link-item"><ExclamationTriangleIcon className="icon-size"/>Report Issues</Link></li>
                         </>
                     )}
 
                     {/* Moderator Navigation */}
                     {role === "moderator" && (
                         <>
-                            <li><Link to='/create-classroom' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><PaintBrushIcon className="size-6"/>Create Classroom</Link></li>
-                            <li><Link to='/create-account' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><UserPlusIcon className="size-6"/>Create Account</Link></li>
-                            <li><Link to='/access-logs' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><DocumentDuplicateIcon className="size-6"/>Access Logs</Link></li>
-                            <li><Link to='/access-reports' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><DocumentTextIcon className="size-6"/>Access Reports</Link></li>
-                            <li><Link to='/report-issues' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ExclamationTriangleIcon className="size-6"/>Report Issues</Link></li>
+                            <li><Link to='/create-classroom' className="link-item"><PaintBrushIcon className="icon-size"/>Create Classroom</Link></li>
+                            <li><Link to='/create-account' className="link-item"><UserPlusIcon className="icon-size"/>Create Account</Link></li>
+                            <li><Link to='/access-logs' className="link-item"><DocumentDuplicateIcon className="icon-size"/>Access Logs</Link></li>
+                            <li><Link to='/access-reports' className="link-item"><DocumentTextIcon className="icon-size"/>Access Reports</Link></li>
+                            <li><Link to='/report-issues' className="link-item"><ExclamationTriangleIcon className="icon-size"/>Report Issues</Link></li>
                         </>
                     )}
                 </ul>
                 <ul className="flex flex-col w-full gap-2">
-                    <li><Link to='/' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ArrowRightEndOnRectangleIcon className="size-6"/>Sign Out</Link></li>
-                    <li><Link to='/settings' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><Cog8ToothIcon className="size-6"/>Settings</Link></li>
+                    <li><Link to='/' className="link-item"><ArrowRightEndOnRectangleIcon className="icon-size"/>Sign Out</Link></li>
+                    <li><Link to='/settings' className="link-item"><Cog8ToothIcon className="icon-size"/>Settings</Link></li>
                 </ul>
             </nav>
     );

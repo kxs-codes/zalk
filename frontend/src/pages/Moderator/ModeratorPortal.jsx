@@ -1,34 +1,75 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { PaintBrushIcon, UserPlusIcon, DocumentTextIcon, DocumentDuplicateIcon } from "@heroicons/react/24/solid";
-
-import ModeratorCreateAccount from './ModeratorCreateAccount';
-import ModeratorCreateClassroom from './ModeratorCreateClassroom';
-import ModeratorLogs from './ModeratorLogs';
+import '../../styles/Moderator/ModeratorPortal.css';
 
 const ModeratorPortal = () => {
-    const cardItems = [
-        {name: 'Design Classroom', icon: <PaintBrushIcon className="size-8 mb-2"/>}, 
-        {name: 'Create Account', icon: <UserPlusIcon className="size-8 mb-2"/>}, 
-        {name: 'Access Reports', icon: <DocumentTextIcon className="size-8 mb-2"/>}, 
-        {name: 'Access Logs', icon: <DocumentDuplicateIcon className="size-8 mb-2"/>}
+    // Mock Data
+    const stats = {
+        classrooms: 12,
+        users: 56,
+        reports: 3,
+    };
+
+    const recentLogs = [
+        { id: 1, action: "User Created", details: "John Doe added", time: "2h ago" },
+        { id: 2, action: "Classroom Created", details: "Math 101 added", time: "5h ago" },
+        { id: 3, action: "Report Filed", details: "Spam detected", time: "1d ago" },
     ];
 
-    const navigate = useNavigate();
-
-    const handleClick = (route) => {
-        navigate(route);
-    }
+    const recentReports = [
+        { id: 1, issue: "Inappropriate content", status: "Pending" },
+        { id: 2, issue: "Spam messages", status: "Resolved" },
+        { id: 3, issue: "Harassment", status: "Under Review" },
+    ];
 
     return (
-        <div className="flex items-center justify-center bg-grey-secondary-lighter-1 w-full h-screen">
-            <div className="flex flex-col items-center mt-20 h-4/5 w-9/10 shadow-lg bg-white overflow-y-auto rounded-lg">
-                <h2 className="text-2xl font-semibold">Moderator Portal</h2>
-                {/* Divs for Displaying Moderator Components */}
-                <div onClick={() => handleClick('/create-classroom')}>Design Classroom</div>
-                <div onClick={() => handleClick('/create-account')}>Create User Account</div>
-                <ModeratorCreateAccount/>
-                <ModeratorCreateClassroom/>
+        <div className="dashboard-container">
+            <div className="dashboard-content">
+                <div className="inner-div">
+                    <h1 className="dashboard-header">Moderator Dashboard</h1>
+                    
+                    {/* Stats Section */}
+                    <div className="stats-section">
+                        {Object.entries(stats).map(([key, value]) => (
+                            <div key={key} className={`stat-card ${key}`}>
+                                <h2>{key}</h2>
+                                <p>{value}</p>
+                            </div>
+                        ))}
+                    </div>
+
+                    { /* Recent Logs & Reports */ }
+                    <div className="logs-reports">
+                        { /* Recent Logs */ }
+                        <div className="recent-logs">
+                            <h2>Recent Logs</h2>
+                            <ul>
+                                {recentLogs.map((log) => (
+                                    <li key={log.id} className="log-item">
+                                        <p>{log.action}</p>
+                                        <div className="log-details-time">
+                                            <p className="log-details">{log.details}</p>
+                                            <p className="log-time">| {log.time}</p>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        { /* Recent Reports */ }
+                        <div className="recent-reports">
+                            <h2>Recent Reports</h2>
+                            <ul>
+                                {recentReports.map((report) => (
+                                    <li key={report.id} className="report-item">
+                                        <span>{report.issue}</span>
+                                        <span className={`report-status ${report.status.toLowerCase()}`}>
+                                            {report.status}
+                                        </span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
