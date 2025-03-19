@@ -1,16 +1,20 @@
 .portal-logo-bar {
     position: fixed;
     top: 0;
-    left: 11rem; 
-    width: calc(100vw - 13rem);
+    left: 18rem;
+    right: 15rem;
+    width: calc(100vw - 30rem);
     height: 60px;
     background-color: #FAFAFA;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
     display: flex;
     align-items: center;
+    justify-items: center;
     justify-content: space-between;
     padding: 0 1rem;
     z-index: 1000; 
+    margin-top: 1rem;
+    border-radius: 5rem;
   }
   
   /* Title text on the left side of the bar */

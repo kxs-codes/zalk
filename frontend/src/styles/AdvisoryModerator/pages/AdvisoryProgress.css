@@ -42,7 +42,7 @@
   }
   
   .spreadsheet-container {
-    position: relative;
+    position: relative;    
   }
   
   .spreadsheet-button {
@@ -51,6 +51,7 @@
     padding: 0.5rem 1rem;
     border: none;
     border-radius: 0.25rem;
+    margin-left: 10rem;
     cursor: pointer;
   }
   
