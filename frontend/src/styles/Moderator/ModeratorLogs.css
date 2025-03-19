@@ -1,0 +1,84 @@
+/* Base container */
+.logs-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #BBBBBB;
+}
+
+/* Main content box */
+.log-viewer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    height: calc(4/5 * 100%);
+    width: calc(9/10 * 100%);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    background-color: white;
+    overflow-y: auto;
+    border-radius: 0.5rem;
+}
+
+/* Search input section */
+.search-section {
+    width: 100%;
+    margin-top: 2.5rem; /* 1rem = mt-4 */
+}
+
+.search-input {
+    width: calc(10/12 * 100%); 
+    padding: 0.5rem; 
+    border-width: 3px; 
+    border-color: #911B0C;
+    border-radius: 9999px; 
+}
+
+/* Log list section */
+.log-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+
+}
+
+.log-heading {
+    font-weight: 500; 
+    font-size: 1.5rem;
+    line-height: calc(2 / 1.5); 
+    margin-bottom: 0.5rem;
+}
+
+/* Log list items */
+.log-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; /* Equivalent to space-y-5 */
+}
+
+.log-item {
+    padding: 0.75rem;
+    background-color: oklch(0.967 0.003 264.542);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.log-action {
+    font-weight: 700;
+}
+
+.log-timestamp {
+    font-size: 0.875rem;
+    line-height: calc(1.25 / 0.875);
+    color: oklch(0.551 0.027 264.364);
+}
+
+.log-user, .log-details {
+    color: oklch(0.373 0.034 259.733);
+}
