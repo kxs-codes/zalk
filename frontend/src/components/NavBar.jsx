@@ -14,7 +14,7 @@ const NavBar = ({role}) => {
             <nav className="nav-container">
                 <ul className="unordered-list-style">
                     <li className="image-list-item">
-                            <img src="/transparent-reading-zebra.png" alt="zebra-logo" onClick={handleClick} className="img-style" />
+                            <img src="/transparent-zebra-logo.png" alt="zebra-logo" onClick={handleClick} className="img-style" />
                     </li>
 
                     {/* Student Navigation */}
@@ -44,7 +44,7 @@ const NavBar = ({role}) => {
                     )}
 
                     {/* Advisory Board Navigation */}
-                    {role === "advisory" && (
+                    {role === "advisor" && (
                         <>
                             <li><Link to='/view-progress' className="link-item"><EyeIcon className="icon-size"/>View Progress</Link></li>
                             <li><Link to='/access-reports' className="link-item"><DocumentTextIcon className="icon-size"/>Access Reports</Link></li>
