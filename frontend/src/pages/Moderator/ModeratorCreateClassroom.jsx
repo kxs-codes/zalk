@@ -49,6 +49,9 @@ const ModeratorCreateClassroom = () => {
     }
 
     return (
+        <div className="flex items-center justify-center bg-grey-secondary-lighter-1 w-full h-screen">
+        <div className="flex flex-col items-center mt-20 h-4/5 w-9/10 shadow-lg bg-white overflow-y-auto rounded-lg">
+
         <section className="w-full flex flex-col items-center justify- mt-10">
         <h2 className="font-semibold text-2xl flex items-center gap-2">
             🎓 Design Classroom
@@ -153,6 +156,7 @@ const ModeratorCreateClassroom = () => {
             </form>
         </div>
     </section>
+    </div></div>
     )
 }
 
