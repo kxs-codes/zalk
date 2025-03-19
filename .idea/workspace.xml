@@ -6,17 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="6233326d-db66-489f-b63e-56e755062704" name="Changes" comment="refactor: Refactored all completed pages and code that were not in vanilla css&#10;refactor: Moved AdvisoryProgress.jsx to the correct directory&#10;refactor: Changed Settings.jsx tailwindcss to a vanilla css Settings.css&#10;style: fixed the style of the settings page to accurately">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Routes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Routes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Question.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Question.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Portal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Portal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Student/StudentPortal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Student/StudentPortal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/StudentSession.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/NavBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/NavBar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/vite.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/vite.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/NotFound.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/NotFound.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Student/StudentBadges.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Student/StudentBadges.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/AdvisoryModerator/pages/ReportIssues.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/AdvisoryModerator/pages/ReportIssues.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/AdvisoryModerator/pages/Reports.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/AdvisoryModerator/pages/Reports.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Guardian/GuardianPortal.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Guardian/GuardianPortal.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Student/pages/StudentPortal.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Student/pages/StudentPortal.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,7 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="dev" />
+        <entry key="$PROJECT_DIR$" value="154-refactor-signup-page-to-vanilla-css" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -98,7 +93,7 @@
     "Application.FullConnectionApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Zac-Portal-Branch",
+    "git-widget-placeholder": "158-refactor-notfoundjsx",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/dev/Projects/cpsc-476/furhat-academic-advisor",
@@ -209,7 +204,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742322085229</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="refactor: Refactored SignUp.jsx into SignUp.css Vanilla Csss&#10;refactor: fixed a couple lines that weren't refactored in ReportIssues">
+      <option name="closed" value="true" />
+      <created>1742396335116</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1742396335116</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,6 +234,7 @@
     <MESSAGE value="feat: Added SignUp page (with routing) without tailwindcss, added NavBar component files without implementation" />
     <MESSAGE value="refactor: Refactored all of my current code into users including Student, AdvisoryBoard, and AdvisoryModerator respectively. &#10;refactor: Added styling pages directory for current css." />
     <MESSAGE value="feat: Added a GuardianPortal.jsx and GuardianPortal.css that should take the user to the students view progress and the ability to report an issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Added a GuardianPortal.jsx and GuardianPortal.css that should take the user to the students view progress and the ability to report an issue" />
+    <MESSAGE value="refactor: Refactored SignUp.jsx into SignUp.css Vanilla Csss&#10;refactor: fixed a couple lines that weren't refactored in ReportIssues" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: Refactored SignUp.jsx into SignUp.css Vanilla Csss&#10;refactor: fixed a couple lines that weren't refactored in ReportIssues" />
   </component>
 </project>

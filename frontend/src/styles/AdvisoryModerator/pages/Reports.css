@@ -8,16 +8,16 @@
 /*Card styling for the main form*/
 .card {
     width: 100%;
-    max-width: 1024px;  /*Restored max-width*/
+    max-width: 1024px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 2rem;
     margin-top: 4rem;
-    margin-left: auto; /*Center the card*/
-    margin-right: auto; /*Center the card*/
-    max-height: 80vh; /*Set max-height to make the container scrollable*/
-    overflow-y: auto; /*Enable vertical scrolling for content*/
+    margin-left: auto;
+    margin-right: auto;
+    max-height: 80vh;
+    overflow-y: auto;
 }
 
 /* Title */
@@ -25,7 +25,7 @@
     font-size: 1.75rem;
     font-weight: 600;
     margin-bottom: 1rem;
-    color: var(--color-dark-red-primary-1); /* Replaced with variable */
+    color: var(--color-dark-red-primary-1);
 }
 
 /*Filter and sorting controls*/
@@ -67,7 +67,7 @@
 
 .issue-details {
     font-size: 0.875rem;
-    color: var(--color-grey-secondary-darker-1); /*Replaced with variable*/
+    color: var(--color-grey-secondary-darker-1);
 }
 
 .category,
@@ -77,11 +77,11 @@
 
 /* Status styling */
 .status.open {
-    color: var(--color-light-red-primary-2); /*Replaced with variable*/
+    color: var(--color-light-red-primary-2);
 }
 
 .status.completed {
-    color: var(--color-red-primary-3); /*Replaced with variable*/
+    color: var(--color-red-primary-3);
 }
 
 /*Issue detail section*/
@@ -99,7 +99,7 @@
 
 .description {
     margin-top: 1rem;
-    color: var(--color-text-secondary-grey-1); /*Replaced with variable*/
+    color: var(--color-text-secondary-grey-1);
 }
 
 .resolution-section {
@@ -116,7 +116,7 @@
 }
 
 .complete-button {
-    background-color: var(--color-light-red-primary-2); /*Replaced with variable*/
+    background-color: var(--color-light-red-primary-2);
     color: white;
     padding: 0.75rem 1.25rem;
     font-size: 1rem;
@@ -127,13 +127,13 @@
 }
 
 .complete-button:hover {
-    background-color: var(--color-dark-red-primary-1); /*Replaced with variable*/
+    background-color: var(--color-dark-red-primary-1);
 }
 
 /*Close button*/
 .close-button {
     margin-top: 1.5rem;
-    color: var(--color-light-red-primary-2); /*Replaced with variable*/
+    color: var(--color-light-red-primary-2);
     padding: 0.5rem;
     border: none;
     background: none;

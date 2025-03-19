@@ -3,7 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #BBBBBB; /* Light grey */
+    background-color: #BBBBBB;
     width: 100%;
     height: 100vh;
 }
@@ -17,8 +17,8 @@
     padding: 2rem;
     width: 90%;
     max-width: 600px;
-    max-height: 80vh; /* Limits the height */
-    overflow-y: auto; /* Enables scrolling */
+    max-height: 80vh;
+    overflow-y: auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: white;
     border-radius: 8px;
@@ -30,12 +30,12 @@
     font-weight: 600;
     margin-bottom: 1.5rem;
     text-align: center;
-    color: #b71c1c; /* Dark red primary color */
+    color: #b71c1c;
 }
 
 /*Error Message*/
 .error-message {
-    background-color: #e57373; /* Light red */
+    background-color: #e57373;
     color: white;
     padding: 0.75rem;
     border-radius: 4px;
@@ -67,7 +67,7 @@
 .form-group textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #9ca3af; /* Grey border */
+    border: 1px solid #9ca3af;
     border-radius: 6px;
     font-size: 1rem;
     outline: none;
@@ -76,7 +76,7 @@
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-    border-color: #b71c1c; /* Dark red */
+    border-color: #b71c1c;
     box-shadow: 0 0 4px rgba(183, 28, 28, 0.5);
 }
 
@@ -93,7 +93,7 @@
     padding: 0.75rem;
     font-size: 1.125rem;
     font-weight: 600;
-    background-color: #d32f2f; /* Red */
+    background-color: #d32f2f;
     color: white;
     border: none;
     border-radius: 6px;
