@@ -1,4 +1,5 @@
 import { useState } from "react";
+import '../../styles/Moderator/ModeratorLogs.css';
 
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
@@ -86,28 +87,27 @@ const ModeratorLogs = () => {
     }
 
     return (
-        <div className="flex items-center justify-center bg-grey-secondary-lighter-1 w-full h-screen">
-            <div className="flex flex-col items-center mt-20 h-4/5 w-9/10 shadow-lg bg-white overflow-y-auto rounded-lg">
-                <section className="w-10/12 mt-10 border flex items-center justify-center bg-gray-100 border-3 border-dark-red-primary-1 rounded-full">
-                    <label htmlFor="search"><MagnifyingGlassIcon className="size-6 ml-3"/></label>
+        <div className="logs-container">
+            <div className="log-viewer">
+                <section className="search-section">
                     <input 
                         type="text" 
                         name='search' 
                         placeholder="Search logs by details..." 
-                        className="w-full p-2 outline-none border-none" 
+                        className="search-input" 
                         value={search}
                         onChange={handleChange}
                     />
                 </section>
-                <section className="w-full flex flex-col items-center justify-center mt-10 mb-10">
-                    <h2 className="font-medium text-2xl mb-2">📜 View Logs</h2>
-                    <ul className="space-y-5">
+                <section className="log-list-container">
+                    <h2 className="log-heading">📜 View Logs</h2>
+                    <ul className="log-list">
                     {filteredLogs.map((log) => (
-                        <li key={log.id} className="p-3 bg-gray-100 rounded-lg shadow-sm">
-                            <p className="font-bold">{log.action}</p>
-                            <p className="text-sm text-gray-500">Timestamp: {log.timestamp}</p>
-                            <p className="text-gray-700">User: {log.user}</p>
-                            <p className="text-gray-700">Details: {log.details}</p>
+                        <li key={log.id} className="log-item">
+                            <p className="log-action">{log.action}</p>
+                            <p className="log-timestamp">Timestamp: {log.timestamp}</p>
+                            <p className="log-user">User: {log.user}</p>
+                            <p className="log-details">Details: {log.details}</p>
                         </li>
                     ))}
                     </ul>

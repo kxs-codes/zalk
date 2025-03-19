@@ -1,0 +1,230 @@
+.create-classroom-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #BBBBBB;
+    width: 100%;
+    height: 100vh;
+}
+
+.inner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    height: calc(4/5 * 100%);
+    width: calc(9/10 * 100%);
+    box-shadow:  0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    background-color: white;
+    overflow-y: auto;
+    border-radius: 0.5rem;
+}
+
+.classroom-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    font-size: 1.5rem (24px);
+    line-height: calc(2 / 1.5);
+}
+
+.form-styling {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    width: 100%;
+}
+
+.form-tag {
+    width: calc(11/12 * 100%);
+    border-radius: 0.5rem;
+    background-color: #BBBBBB;
+    padding: 2rem;
+}
+
+.grade-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid black;
+    padding-bottom: 0.5rem;
+}
+
+.icon-style {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: oklch(0.623 0.214 259.815);
+}
+
+.select-style {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.educator-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid black;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.user-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: oklch(0.723 0.219 149.579);
+}
+
+.educator-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    color: black;
+}
+
+.student-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.student-input-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+label {
+    font-weight: 500;
+}
+
+.user-group-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: oklch(0.527 0.154 150.069);
+}
+
+.student-input {
+    width: 100%;
+    border-radius: 0.375rem;
+    outline: none;
+}
+
+.student-list {
+    max-height: 10rem;
+    overflow-y: auto;
+    border: 1px solid black;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+    background-color: oklch(0.967 0.003 264.542);
+}
+
+.student-in-list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 0.5rem;
+    background-color: oklch(0.985 0.002 247.839);
+}
+
+.selected-student-container {
+    padding: 0.5rem;
+    border: 1px solid black;
+    border-radius: 0.375rem;
+    background-color: oklch(0.985 0.002 247.839);
+}
+
+#paragraph {
+    font-weight: 500;
+    color: oklch(0.446 0.03 256.802);
+}
+
+.selected-students-div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    padding: 0.5rem;
+}
+
+.selected-student {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.x-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: oklch(0.505 0.213 27.518);
+}
+
+.x-icon:hover {
+    cursor: pointer;
+}
+
+.subject-container {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.book-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: oklch(0.795 0.184 86.047);
+}
+
+.subject-input {
+    width: 100%;
+    border: none;
+    outline: none;
+}
+
+.button-styling {
+    background-color: #911B0C;
+    cursor: pointer;
+    color: white;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 9999px;
+}
+.button-styling:hover {
+    background-color: #AD1905;
+}
+
+@media (width > 48rem) {
+    .form-tag {
+        width: calc(8/12 * 100%);
+    }
+}
+@media (width > 64rem) {
+    .form-tag {
+        width: calc(7/12 * 100%);
+    }
+}
