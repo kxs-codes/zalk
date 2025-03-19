@@ -8,7 +8,7 @@ const StudentBadges = () => {
         quizWiz: '📚', superAchiever: '🎯', sessionMaster: '🎮', sessionSuperstar: '✨'
     };
 
-    // Sample data, you can replace this with actual dynamic data
+    // Sample data
     const studentData = {
         totalQuestionsAnswered: 224, questionsRight: 95, timeSpent: 15,
         daysLoggedOn: 45, sessionsCompleted: 10,
@@ -60,7 +60,7 @@ const StudentBadges = () => {
             <div className="badges-content">
                 <h2 className="title">Student Badges</h2>
 
-                {/* Badges Grid */}
+                {/*Badges Grid*/}
                 <div className="badges-grid">
                     {Object.keys(EMOJIS).map((badgeKey, index) => (
                         <div key={index} className={`badge-card ${badgeKey}`}>
