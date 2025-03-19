@@ -10,16 +10,14 @@ import Portal from "./pages/Portal";
 import ForgotPassword from './pages/ForgotPassword.jsx';
 import NotFound from './pages/NotFound';
 
- import StudentImprovements from "./pages/Student/StudentImprovements.jsx";
  import StudentSession from "./pages/StudentSession";
  import StudentProgress from "./pages/Student/StudentProgress.jsx";
  import StudentBadges from "./pages/Student/StudentBadges.jsx";
 import StudentClassrooms from "./pages/Student/StudentClassrooms.jsx";
 
-// import AdvisoryBoardIssues from "./pages/AdvisoryBoardIssues";
 import ReportIssues from "./pages/AdvisoryModerator/ReportIssues.jsx";
 import Reports from "./pages/AdvisoryModerator/Reports.jsx"
-import AdvisoryProgress from './pages/AdvisoryModerator/AdvisoryProgress.jsx'
+import AdvisoryProgress from './pages/AdvisoryBoard/AdvisoryProgress.jsx'
 
     // Educator Routes 
 import Manage from './pages/Educator/Manage';
@@ -54,10 +52,6 @@ const AppRoutes = ({role, setRole}) => {
             path: "/settings",
             element: <Settings/>
         },
-         {
-             path: "/improvements",
-             element: <StudentImprovements/>
-         },
          {
              path: "/session",
              element: <StudentSession/>
