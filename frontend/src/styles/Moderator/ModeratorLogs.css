@@ -22,18 +22,31 @@
     border-radius: 0.5rem;
 }
 
+.magnifying-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding-left: 0.25rem;
+}
+
 /* Search input section */
 .search-section {
-    width: 100%;
+    width: calc(10/12 * 100%); 
     margin-top: 2.5rem; /* 1rem = mt-4 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 3px;
+    border-color: #911B0C;
+    border-radius: 9999px; 
 }
 
 .search-input {
-    width: calc(10/12 * 100%); 
+    width: 100%;
     padding: 0.5rem; 
     border-width: 3px; 
-    border-color: #911B0C;
-    border-radius: 9999px; 
+    outline: none;
+    border: none;
+    border-radius: 9999px;
 }
 
 /* Log list section */
