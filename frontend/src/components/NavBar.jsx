@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { PlayIcon, ChartBarIcon, AcademicCapIcon, ClipboardDocumentListIcon, AdjustmentsHorizontalIcon, UserGroupIcon, ExclamationTriangleIcon, EyeIcon, TableCellsIcon, DocumentTextIcon, PaintBrushIcon, UserPlusIcon, DocumentDuplicateIcon, Cog8ToothIcon, ArrowRightEndOnRectangleIcon} from '@heroicons/react/24/solid';
+import { PlayIcon, ChartBarIcon, AcademicCapIcon, ClipboardDocumentListIcon, CogIcon, AdjustmentsHorizontalIcon, UserGroupIcon, ExclamationTriangleIcon, EyeIcon, TableCellsIcon, DocumentTextIcon, PaintBrushIcon, UserPlusIcon, DocumentDuplicateIcon, Cog8ToothIcon, ArrowRightEndOnRectangleIcon} from '@heroicons/react/24/solid';
 
 const NavBar = ({role}) => {  
     const navigate = useNavigate();
@@ -56,6 +56,7 @@ const NavBar = ({role}) => {
                         <>
                             <li><Link to='/create-classroom' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><PaintBrushIcon className="size-6"/>Create Classroom</Link></li>
                             <li><Link to='/create-account' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><UserPlusIcon className="size-6"/>Create Account</Link></li>
+                            <li><Link to='/manage-accounts' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><CogIcon className="size-6"/>Manage Accounts</Link></li>
                             <li><Link to='/access-logs' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><DocumentDuplicateIcon className="size-6"/>Access Logs</Link></li>
                             <li><Link to='/access-reports' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><DocumentTextIcon className="size-6"/>Access Reports</Link></li>
                             <li><Link to='/report-issues' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ExclamationTriangleIcon className="size-6"/>Report Issues</Link></li>
