@@ -23,12 +23,7 @@
 }
 
 .img-style {
-    max-width: calc(4/7 * 100%);
-    height: auto;
-    border-radius: 9999px;
     padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    border: 2px solid white;
     cursor: pointer;
 }
 

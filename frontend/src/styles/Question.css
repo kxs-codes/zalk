@@ -1,0 +1,58 @@
+.qCont
+{
+    padding:1.75rem;
+    margin-bottom: 1rem;
+    background-color:#911B0C;
+    box-shadow:0 4px 6px rgba(0,0,0,0.1);
+    border-radius:0.75rem;
+    width:100%;
+    max-width:40rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height:250px;
+}
+
+.qHead
+{
+    color:white;
+    font-size:1.25rem;
+    font-weight:600;
+    margin-bottom:1rem;
+}
+
+    .aCont
+    {
+    display:flex;
+    flex-direction:column;
+    gap:0.5rem;
+    flex-grow:1;
+    }
+
+.aItem
+{
+    width:100%;
+    padding: 0.75rem;
+    text-align:center;
+    border:1px solid #ccc;
+    border-radius:0.5rem;
+    background-color: white;
+    cursor:pointer;
+}
+
+.aItem.selected
+{
+    background-color:#BBBBBB;
+}
+
+.aItem.correct
+{
+    background-color:green;
+    color:white;
+}
+
+.aItem.incorrect
+{
+    background-color:red;
+    color: white;
+}

@@ -10,7 +10,7 @@ import Portal from "./pages/Portal";
 import ForgotPassword from './pages/ForgotPassword.jsx';
 import NotFound from './pages/NotFound';
 
- import StudentSession from "./pages/StudentSession";
+ import StudentSession from "./pages/Student/StudentSession";
  import StudentProgress from "./pages/Student/StudentProgress.jsx";
  import StudentBadges from "./pages/Student/StudentBadges.jsx";
 import StudentClassrooms from "./pages/Student/StudentClassrooms.jsx";
@@ -76,10 +76,6 @@ const AppRoutes = ({role, setRole}) => {
             path: '*',
             element: <NotFound/>
         },
-        // {
-        //     path: "/results",
-        //     element: <StudentResults/>
-        // },
         {
             path: "/classrooms",
             element: <StudentClassrooms/>
