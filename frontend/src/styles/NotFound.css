@@ -1,0 +1,45 @@
+.not-found-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #FAE1A9;
+    background-image: url('/savannah.webp');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.not-found-title {
+    font-size: 10vw;
+    margin-bottom: 2rem;
+    position: absolute;
+    top: 0;
+    text-align: center;
+}
+
+.not-found-box {
+    width: 100%;
+    max-width: 50%;
+    background-color: #FBBF24;
+    color: #15803D;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    font-size: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.not-found-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.not-found-link:hover {
+    text-decoration: underline;
+}
