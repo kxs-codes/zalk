@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import '../../styles/Student/pages/StudentClassrooms.css'; //Import the CSS file
 
 const StudentClassrooms = () => {
     const classes = [
@@ -54,48 +55,39 @@ const StudentClassrooms = () => {
     const [selectedClass, setSelectedClass] = useState(classes[0]);
 
     return (
-        <div className="flex items-center justify-center bg-grey-secondary-lighter-1 min-h-screen w-screen p-4">
-
+        <div className="container">
             {/*Main container for the class information*/}
-            <div className="flex flex-col items-center mt-20 lg:mx-15 w-full max-w-5xl shadow-2xl bg-white p-6 rounded-lg h-[80vh] overflow-hidden">
+            <div className="class-container">
                 {/*Dropdown to select a class*/}
-                <div className="mb-6">
-                    <label className="font-medium text-lg mr-2">Select Class:</label>
+                <div className="select-class-container">
+                    <label className="select-class-label">Select Class:</label>
                     <select
-                        className="border rounded-md p-2"
-                        style = {{
-                            borderColor: "var(--color-text-secondary-grey-1)",
-                            backgroundColor: "var(--color-grey-secondary-lighter-1)",
-                            color: "black"
-                        }}
+                        className="select-class"
                         value={selectedClass.educatorId}
                         onChange={(e) => setSelectedClass(classes.find(c => c.educatorId === parseInt(e.target.value)))}>
-
                         {classes.map((cls) => (
                             <option key={cls.educatorId} value={cls.educatorId}>
                                 {cls.subject} - {cls.grade} ({cls.educatorName})
                             </option>
                         ))}
                     </select>
-               </div>
+                </div>
                 {/*Class details and educator's name*/}
-                <h1 className="font-bold text-2xl mb-4 text-center">
+                <h1 className="class-title">
                     Classroom: {selectedClass.subject} - {selectedClass.grade}
                 </h1>
-                <h2 className="font-semibold text-xl mb-6 text-center">
+                <h2 className="educator-name">
                     Educator: {selectedClass.educatorName}
                 </h2>
 
                 {/*List of students in the classroom utilizing cards*/}
-                <div className="w-full flex flex-col items-center max-h-[60vh] overflow-y-auto">
-                    <h3 className="font-medium text-lg mb-4 text-center">Current Students in Class:</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full justify-items-center">
+                <div className="students-container">
+                    <h3 className="students-title">Current Students in Class:</h3>
+                    <div className="students-grid">
                         {selectedClass.students.map(student => (
                             <div
                                 key={student.studentId}
-                                className="bg-[var(--color-grey-secondary-lighter-1)] text-center p-4 rounded-xl shadow-lg
-                                w-32 h-32 flex items-center justify-center text-lg font-semibold transition-transform
-                                transform hover:scale-110 hover:shadow-2xl hover:bg[var(--color-grey-secondary-lighter-1) cursor-pointer">
+                                className="student-card">
                                 {student.name}
                             </div>
                         ))}
