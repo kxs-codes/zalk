@@ -34,6 +34,7 @@ const SignUp = () => {
                                 <option value="student">Student</option>
                                 <option value="educator">Educator</option>
                                 <option value="guardian">Guardian</option>
+                                <option value="advisory">Advisory</option>
                             </select>
                         </div>
                         

@@ -51,6 +51,7 @@ function Login({ role, setRole }) {
               <option value="educator">Educator</option>
               <option value="guardian">Guardian</option>
               <option value="moderator">Moderator</option>
+              <option value="advisory">Advisory</option>
             </select>
 
             <label className="login-label">Username</label>

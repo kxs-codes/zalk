@@ -1,174 +1,157 @@
-/* Container for entire view */
 .manage-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Match "bg-grey-secondary-lighter-1" or your desired color */
-    background-color: #F3F4F6;
-    width: 100vw; /* Equivalent to w-screen */
-    height: 100vh; /* Equivalent to h-screen */
-    padding: 1.5rem; /* Tailwind p-6 = 1.5rem */
-  }
-  
-  /* Inner wrapper for content */
-  .manage-inner {
-    margin-top: 150px; /* Tailwind mt-35 is custom, adapt if needed */
-    width: 100%;
-    max-width: 64rem; /* Tailwind max-w-4xl = 64rem */
-    background-color: #FFFFFF;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tailwind shadow-lg approximation */
-    border-radius: 0.5rem; /* Tailwind rounded-lg */
-    padding: 1.5rem; /* Tailwind p-6 */
-    overflow-y: auto;
-  }
-  
-  /* Page Title */
-  .manage-title {
-    font-size: 1.5rem; /* Tailwind text-2xl ~ 1.5rem */
-    font-weight: bold;
-    margin-bottom: 1rem; /* Tailwind mb-4 ~ 1rem */
-    text-align: center;
-  }
-  
-  /* Section container */
-  .section {
-    margin-bottom: 1.5rem; /* Tailwind mb-6 = 1.5rem */
-  }
-  
-  /* Section Title */
-  .section-title {
-    font-size: 1.125rem; /* Tailwind text-lg ~ 1.125rem */
-    font-weight: 600; /* Tailwind font-semibold */
-    margin-bottom: 0.5rem; /* Tailwind mb-2 ~ 0.5rem */
-  }
-  
-  /* Table styling */
-  .manage-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 1rem;
-  }
-  
-  .manage-table thead tr {
-    background-color: #E5E7EB; /* Tailwind bg-gray-200 */
-  }
-  
-  .manage-table th,
-  .manage-table td {
-    border: 1px solid #D1D5DB; /* Tailwind border-gray-300 */
-    padding: 0.5rem 1rem; /* Tailwind px-4 py-2 */
-    text-align: center;
-  }
-  
-  /* Panel for classroom management */
-  .manage-panel {
-    width: 100%;
-    background-color: #F9FAFB; /* Tailwind bg-gray-50 */
-    border-radius: 0.5rem; /* Tailwind rounded-lg */
-    padding: 1rem; /* Adjust as desired */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
-  }
-  
-  .manage-panel-title {
-    font-size: 1.125rem; /* text-lg */
-    font-weight: 600; /* font-semibold */
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  
-  /* Student list section */
-  .student-list-section {
-    margin-bottom: 1rem;
-  }
-  
-  .student-list-heading {
-    font-size: 1rem; /* text-md in Tailwind is ~1rem */
-    font-weight: 500; /* font-medium */
-    margin-bottom: 0.5rem;
-  }
-  
-  /* Student list */
-  .student-list {
-    list-style: disc inside;
-    background-color: #FFFFFF;
-    padding: 0.5rem;
-    border-radius: 0.25rem; /* Tailwind rounded */
-  }
-  
-  .student-list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.25rem 0;
-    border-bottom: 1px solid #E5E7EB;
-  }
-  
-  .remove-link {
-    background: none;
-    border: none;
-    color: #EF4444; /* Tailwind text-red-500 */
-    cursor: pointer;
-  }
-  
-  .remove-link:hover {
-    color: #DC2626; /* Tailwind hover:text-red-700 */
-  }
-  
-  .no-students {
-    color: #6B7280; /* Tailwind text-gray-500 */
-  }
-  
-  /* Add student form */
-  .add-student-form {
-    display: flex;
-    gap: 0.5rem;
-  }
-  
-  /* Common input styling */
-  .input-text {
-    flex: 1;
-    padding: 0.5rem;
-    border: 1px solid #D1D5DB; /* border-gray-300 */
-    border-radius: 0.5rem; /* rounded-lg */
-  }
-  
-  /* Button styling */
-  .btn {
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem; /* Tailwind rounded */
-    border: none;
-    cursor: pointer;
-    font-size: 0.875rem; /* ~text-sm */
-  }
-  
-  /* Primary button (blue) */
-  .btn-primary {
-    background-color: #3B82F6; /* Tailwind bg-blue-500 */
-    color: #FFFFFF;
-    margin-right: 0.5rem;
-  }
-  
-  .btn-primary:hover {
-    background-color: #2563EB; /* Tailwind hover:bg-blue-600 */
-  }
-  
-  /* Danger button (red) */
-  .btn-danger {
-    background-color: #EF4444; /* Tailwind bg-red-500 */
-    color: #FFFFFF;
-  }
-  
-  .btn-danger:hover {
-    background-color: #DC2626; /* Tailwind hover:bg-red-600 */
-  }
-  
-  /* Success button (green) */
-  .btn-success {
-    background-color: #10B981; /* Tailwind bg-green-500 */
-    color: #FFFFFF;
-  }
-  
-  .btn-success:hover {
-    background-color: #059669; /* Tailwind hover:bg-green-600 */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #BBBBBB;
+  width: 100vw;
+  height: 100vh;
+  padding: 1.5rem;
+}
+
+.manage-inner {
+  margin-top: 150px;
+  width: 100%;
+  max-width: 64rem;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.manage-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.manage-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1rem;
+}
+
+.manage-table thead tr {
+  background-color: #E5E7EB;
+}
+
+.manage-table th,
+.manage-table td {
+  border: 1px solid #D1D5DB;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+.manage-panel {
+  width: 100%;
+  background-color: #F9FAFB;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.manage-panel-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.student-list-section {
+  margin-bottom: 1rem;
+}
+
+.student-list-heading {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.student-list {
+  list-style: disc inside;
+  background-color: #FFFFFF;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.student-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.remove-link {
+  background: none;
+  border: none;
+  color: #EF4444;
+  cursor: pointer;
+}
+
+.remove-link:hover {
+  color: #DC2626;
+}
+
+.no-students {
+  color: #6B7280;
+}
+
+.add-student-form {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.input-text {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #D1D5DB;
+  border-radius: 0.5rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.btn-primary {
+  background-color: #3B82F6;
+  color: #FFFFFF;
+  margin-right: 0.5rem;
+}
+
+.btn-primary:hover {
+  background-color: #2563EB;
+}
+
+.btn-danger {
+  background-color: #EF4444;
+  color: #FFFFFF;
+}
+
+.btn-danger:hover {
+  background-color: #DC2626;
+}
+
+.btn-success {
+  background-color: #10B981;
+  color: #FFFFFF;
+}
+
+.btn-success:hover {
+  background-color: #059669;
+}

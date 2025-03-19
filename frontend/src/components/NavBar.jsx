@@ -46,7 +46,6 @@ const NavBar = ({role}) => {
                     {role === "advisory" && (
                         <>
                             <li><Link to='/view-progress' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><EyeIcon className="size-6"/>View Progress</Link></li>
-                            <li><Link to='/access-spreadsheet' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><TableCellsIcon className="size-6"/>Access Spreadsheet</Link></li>
                             <li><Link to='/access-reports' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><DocumentTextIcon className="size-6"/>Access Reports</Link></li>
                             <li><Link to='/report-issues' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ExclamationTriangleIcon className="size-6"/>Report Issues</Link></li>
                         </>
