@@ -1,0 +1,116 @@
+.badges-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-grey-secondary-lighter-1);
+    width: 100%;
+    height: 100vh;
+}
+
+.badges-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    height: 80%;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    overflow-y: auto;
+    border-radius: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #333;
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: 400;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.badge-card {
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.hardLearner, .sessionMaster {
+    background-color: var(--color-dark-red-primary-1);
+}
+
+.quizConqueror, .quizWiz, .sessionSuperstar {
+    background-color: var(--color-light-red-primary-2);
+}
+
+.timeTraveler, .loyalLearner, .superAchiever {
+    background-color: var(--color-red-primary-3);
+}
+
+.emoji-large {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.progress-section, .earned-section {
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.badge-progress {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.progress-bar-container {
+    flex: 1;
+    height: 12px;
+    background-color: var(--color-grey-secondary-lighter-1);
+    border-radius: 6px;
+    margin-left: 10px;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--color-light-red-primary-2);
+    border-radius: 6px;
+    text-align: center;
+    line-height: 12px;
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.earned-badge {
+    background-color: var(--color-grey-secondary-lighter-1);
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+}

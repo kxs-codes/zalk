@@ -1,0 +1,85 @@
+.portal-logo-bar {
+  position: fixed;
+  top: 0;
+  left: 18rem;
+  right: 15rem;
+  width: calc(100vw - 30rem);
+  height: 60px;
+  background-color: #FAFAFA;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  z-index: 1000;
+  margin-top: 1rem;
+  border-radius: 5rem;
+  transition: all 0.3s ease;
+}
+
+.portal-logo-bar-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #000;
+  margin: 0;
+  transition: font-size 0.3s ease;
+}
+
+.portal-logo-bar-userinfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-title,
+.user-name {
+  margin: 0;
+}
+
+.profile-placeholder {
+  width: 3rem;
+  height: 3rem;
+  background-color: #ccc;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Tablet adjustments */
+@media (max-width: 768px) {
+  .portal-logo-bar {
+    left: 5rem;
+    right: 5rem;
+    width: calc(100vw - 10rem);
+  }
+
+  .portal-logo-bar-title {
+    font-size: 0.4rem;
+  }
+}
+
+/* When viewport is <= 480px, hide everything inside the bar */
+@media (width < 480px) {
+  .portal-logo-bar {
+    left: 1rem;
+    right: 1rem;
+    width: calc(100vw - 2rem);
+    padding: 0 0.5rem;
+    justify-content: center;
+  }
+
+  .portal-logo-bar-title {
+    display: hide !important;
+  }
+}

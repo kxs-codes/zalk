@@ -1,0 +1,37 @@
+.logo-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 70px;
+    background-color: #B91C1C;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .logo-text {
+    background-color: #7f1d1d;
+    width: 75%;
+    padding: 0.75rem 0 0.75rem 1.25rem;
+    border-top-right-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+    color: #fff;
+    font-weight: bold;
+    text-align: left;
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .logo-text {
+      font-size: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo-text {
+      font-size: 1.25rem;
+    }
+  }
+  

@@ -1,0 +1,110 @@
+   .outer-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #BBBBBB;
+    box-sizing: border-box;
+    padding-top: 80px; /* offset for top bar height */
+    display: flex;
+    align-items: flex-start; /* Start content below the top bar */
+    justify-content: center; /* Center horizontally */
+  }
+  
+
+  .white-container {
+    background-color: #ffffff;
+    width: 90%;
+    max-width: 1200px;
+    margin-top: 2rem;        
+    margin-bottom: 2rem;     
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    height: calc(100vh - 80px - 4rem); 
+    overflow-y: auto; 
+  }
+  
+  .view-progress-board {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    margin-right: 15rem;
+  }
+  
+  .spreadsheet-container {
+    position: relative;    
+  }
+  
+  .spreadsheet-button {
+    background-color: #10B981;
+    color: #ffffff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    margin-left: 10rem;
+    cursor: pointer;
+  }
+  
+  .spreadsheet-button:hover {
+    background-color: #059669;
+  }
+  
+  .spreadsheet-dropdown {
+    position: absolute;
+    top: 110%;
+    right: 0;
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-width: 150px;
+    z-index: 100;
+  }
+  
+  .dropdown-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f3f4f6;
+  }
+  
+  .charts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .chart-card {
+    background-color: #f9fafb;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .chart-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .error-message {
+    font-size: 1.5rem;
+    color: red;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
