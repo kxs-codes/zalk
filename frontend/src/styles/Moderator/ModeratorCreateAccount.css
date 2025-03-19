@@ -39,8 +39,26 @@
     line-height: calc(2 / 1.5);
 }
 
-.form-container {
-    width: 100vw;
+.icon-styling {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: oklch(0.723 0.219 149.579);
+}
+.select-account {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+}
+
+.select-tags {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.5rem;
+}
+
+.form-container-styling {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,6 +93,19 @@ input {
     background-color: white;
     border-radius: 0.5rem;
     padding: 0.25rem 0.5rem;
+}
+.button-styling {
+    background-color: #911B0C;
+    cursor: pointer;
+    color: white;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-radius: 9999px;
+}
+
+.button-styling:hover {
+    background-color: #AD1905;
 }
 
 @media (width > 48rem) {
