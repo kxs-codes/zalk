@@ -90,6 +90,7 @@ const ModeratorLogs = () => {
         <div className="logs-container">
             <div className="log-viewer">
                 <section className="search-section">
+                    <MagnifyingGlassIcon className="magnifying-icon"/>
                     <input 
                         type="text" 
                         name='search' 

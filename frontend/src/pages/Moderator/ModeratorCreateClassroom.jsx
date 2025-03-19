@@ -128,18 +128,6 @@ const ModeratorCreateClassroom = () => {
                                                 </div>
                                             ))}
                                         </div>
-
-                                        <div className="py-2 border rounded-md bg-gray-50 p-2">
-                                            <p className="font-medium text-gray-600">Selected Students</p>
-                                            <div className="flex flex-wrap gap-5 p-2">
-                                                {formData.students.map((student) => (
-                                                    <div key={student} className="flex items-center justify-center gap-2">
-                                                        {student}
-                                                        <XCircleIcon className="size-4 text-red-700 hover:cursor-pointer" onClick={() => removeStudent(student)}/>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
                                     </div>
                                 )}
                             </div>
