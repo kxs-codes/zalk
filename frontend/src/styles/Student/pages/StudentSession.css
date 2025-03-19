@@ -1,0 +1,177 @@
+.boxBorder
+{
+    align-items:center;
+    padding:1rem;
+    background-color:#BBBBBB;
+    display:flex;
+
+    justify-content: center;
+    min-height:100vh;
+    width:100%;
+}
+
+.sessionLayout
+{
+    height:85vh;
+    flex-direction:column;
+    max-width: 64rem;
+    display: flex;
+    margin-top: 5rem;
+    padding:1.5rem;
+    border-radius: 1rem;
+    align-items:center;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow:hidden;
+    width:100%;
+}
+
+.sessSumm
+{
+    display: flex;
+    flex-direction:column;
+    gap: 20px;
+    align-items: center;
+    width:100%;
+}
+
+.summationStat
+{
+    padding:5px;
+    display:flex;
+    color: white;
+    justify-content:space-between;
+    background-color:#911B0C;
+    max-width: 600px;
+    border-radius:30px;
+    width:100%;
+    font-family:"Tahoma", sans-serif;
+}
+
+.stat1, .stat2, .stat3
+{
+    flex:1;
+    text-align: center;
+}
+
+.secRev h2
+{
+    font-weight: bold;
+    animation:gradientShift 1.5s ease-in-out infinite,borderPulse 1.5s infinite;
+    text-align:center;
+    font-size:2.5rem;
+    background:linear-gradient(180deg,#AD1905,#D98285);
+    margin-bottom: 20px;
+    color:white;
+    background-size:20% 120%;
+    border-radius:30px;
+    border: 1px solid transparent;
+    font-family: "Tahoma", sans-serif;
+}
+@keyframes gradientShift
+{
+    0%
+    {
+        background-position:50% 0%;
+    }
+    50%
+    {
+        background-position:50% 100%;
+    }
+    100%
+    {
+        background-position:50% 0%;
+    }
+}
+
+@keyframes borderPulse
+{
+    0%,100%
+    {
+        border-color:black;
+    }
+    50%
+    {
+        border-color: white;
+    }
+}
+
+.tableContainer
+{
+    width:100%;
+    padding:1rem;
+    max-width:650px;
+    margin-top:20px;
+    max-height:350px;
+    position:relative;
+}
+
+.table
+{
+    border-spacing:0;
+    width:100%;
+    font-size:1.1rem;
+    font-family:"Tahoma", sans-serif;
+    display:block;
+    max-height:350px;
+    overflow-y:scroll;
+}
+
+.table thead
+{
+    position:sticky;
+    top:0;
+    background-color:#911B0C;
+    color:white;
+    padding:10px;
+    font-weight:bold;
+    border-bottom:2px solid #FFFFFF;
+    text-align: center;
+}
+
+.table tr.correct
+{
+    color:white;
+    background-color:green;
+}
+
+.table tr.incorrect
+{
+    background-color:red;
+    color: white;
+}
+
+.qSec
+{
+    text-align:center;
+}
+
+.qSec h1
+{
+    margin-bottom:20px;
+}
+
+.Submitter, .NEXT
+{
+    width:100%;
+    color:white;
+    border-radius:5px;
+    background-color:#911B0C;
+    font-size:1.2rem;
+    transition:background-color 0.3s ease;
+    padding:15px;
+    max-width:250px;
+    cursor:pointer;
+    margin-top:10px;
+    border:none;
+}
+
+.Submitter:hover, .NEXT:hover
+{
+    background-color:#BBBBBB;
+}
+
+.Submitter:disabled, .NEXT.disabled
+{cursor:not-allowed;
+    opacity:0.5;
+}

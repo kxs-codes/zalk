@@ -3,6 +3,7 @@ import StudentPortal from './Student/StudentPortal.jsx';
 import EducatorPortal from './Educator/Portal';
 import GuardianPortal from "./Guardian/GuardianPortal.jsx";
 import ModeratorPortal from './Moderator/ModeratorPortal.jsx';
+import AdvisorPortal from './Advisory/AdvisorPortal.jsx';
 
 const Portal = () => {
     // 1. Grab the useNavigate() data passed into /portal route with useLocation()
@@ -14,7 +15,8 @@ const Portal = () => {
         "student": <StudentPortal/>,
         "educator": <EducatorPortal/>,
         "guardian": <GuardianPortal/>,
-        "moderator": <ModeratorPortal/>
+        "moderator": <ModeratorPortal/>,
+        "advisor": <AdvisorPortal/>
     };
 
     // 3. Return the proper portal
