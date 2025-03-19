@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6233326d-db66-489f-b63e-56e755062704" name="Changes" comment="fix: Removed the portalLogo from StudentClassrooms.jsx StudentProgress.jsx and StudentBadges.jsx">
+    <list default="true" id="6233326d-db66-489f-b63e-56e755062704" name="Changes" comment="refactor: Refactored all completed pages and code that were not in vanilla css&#10;refactor: Moved AdvisoryProgress.jsx to the correct directory&#10;refactor: Changed Settings.jsx tailwindcss to a vanilla css Settings.css&#10;style: fixed the style of the settings page to accurately">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Routes.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Routes.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/AdvisoryModerator/AdvisoryProgress.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/AdvisoryBoard/AdvisoryProgress.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Settings.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Settings.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Student/StudentBadges.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Student/StudentBadges.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Student/StudentClassrooms.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Student/StudentClassrooms.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Student/StudentImprovements.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/Student/pages/StudentProgress.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/Student/pages/StudentProgress.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/NavBar.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +88,7 @@
     &quot;Application.FullConnectionApplication.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;140-refactoring-student-pages-to-vanilla-css&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;143-add-the-guardianportal-with-all-respective-pages&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/dev/Projects/cpsc-476/furhat-academic-advisor&quot;,
@@ -179,6 +173,7 @@
       <workItem from="1742243444243" duration="11317000" />
       <workItem from="1742267283359" duration="5452000" />
       <workItem from="1742340916146" duration="8529000" />
+      <workItem from="1742356693438" duration="524000" />
     </task>
     <task id="LOCAL-00001" summary="update the home route and refactor based on PR">
       <option name="closed" value="true" />
