@@ -37,7 +37,7 @@ const NavBar = ({role}) => {
                     {/* Guardian Navigation */}
                     {role === "guardian" && (
                         <>
-                            <li><Link to='/child-progress' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><UserGroupIcon className="size-6"/>Child Progress</Link></li>
+                            <li><Link to='/progress' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><UserGroupIcon className="size-6"/>Child Progress</Link></li>
                             <li><Link to='/report-issues' className="flex items-center justify-center gap-1 py-2 hover:bg-grey-secondary-darker-1"><ExclamationTriangleIcon className="size-6"/>Report Issues</Link></li>
                         </>
                     )}
