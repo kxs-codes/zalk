@@ -80,6 +80,34 @@
     box-shadow: 0 0 4px rgba(183, 28, 28, 0.5);
 }
 
+/* Date and Time Input Group */
+.date-time-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.date-time-group label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-secondary-grey-1);
+    margin-bottom: 0.5rem;
+}
+
+.date-time-input {
+    padding: 0.75rem;
+    width: 100%;
+    border: 1px solid var(--color-grey-secondary-darker-1);
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.date-time-input:focus {
+    border-color: var(--color-light-red-primary-2);
+    box-shadow: 0 0 4px rgba(232, 66, 44, 0.5);
+}
+
 /*Submit Button*/
 .submit-container {
     display: flex;

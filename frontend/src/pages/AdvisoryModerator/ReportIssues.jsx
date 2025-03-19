@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PortalLogoBar from "../../components/PortalLogoBar.jsx";
 import '../../styles/AdvisoryModerator/pages/ReportIssues.css'; //Import the CSS file
 
 const ReportIssues = () => {
@@ -35,7 +34,6 @@ const ReportIssues = () => {
 
     return (
         <div className="report-issues-container">
-            <PortalLogoBar />
             <div className="report-issues-form-container">
                 <h2 className="report-title">Report an Issue</h2>
 
@@ -70,31 +68,27 @@ const ReportIssues = () => {
                         </select>
                     </div>
                     {/* Date Occurred */}
-                    <div>
-                        <label htmlFor="dateOccurred" className="block text-lg font-medium text-[var(--color-text-secondary-grey-1)]">
-                            Date Occurred
-                        </label>
+                    <div className="date-time-group">
+                        <label htmlFor="dateOccurred">Date Occurred</label>
                         <input
                             type="date"
                             id="dateOccurred"
                             value={dateOccurred}
                             onChange={(e) => setDateOccurred(e.target.value)}
-                            className="mt-2 p-3 w-full border border-[var(--color-grey-secondary-darker-1)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-light-red-primary-2)]"
+                            className="date-time-input"
                             required
                         />
                     </div>
 
                     {/* Time Occurred */}
-                    <div>
-                        <label htmlFor="timeOccurred" className="block text-lg font-medium text-[var(--color-text-secondary-grey-1)]">
-                            Time Occurred
-                        </label>
+                    <div className="date-time-group">
+                        <label htmlFor="timeOccurred">Time Occurred</label>
                         <input
                             type="time"
                             id="timeOccurred"
                             value={timeOccurred}
                             onChange={(e) => setTimeOccurred(e.target.value)}
-                            className="mt-2 p-3 w-full border border-[var(--color-grey-secondary-darker-1)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--color-light-red-primary-2)]"
+                            className="date-time-input"
                             required
                         />
                     </div>
