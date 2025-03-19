@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+
 const ModeratorLogs = () => {
     const mockLogs = [
         {
@@ -86,17 +88,16 @@ const ModeratorLogs = () => {
     return (
         <div className="flex items-center justify-center bg-grey-secondary-lighter-1 w-full h-screen">
             <div className="flex flex-col items-center mt-20 h-4/5 w-9/10 shadow-lg bg-white overflow-y-auto rounded-lg">
-                <section className="w-full mt-10">
+                <section className="w-10/12 mt-10 border flex items-center justify-center bg-gray-100 border-3 border-dark-red-primary-1 rounded-full">
+                    <label htmlFor="search"><MagnifyingGlassIcon className="size-6 ml-3"/></label>
                     <input 
                         type="text" 
                         name='search' 
                         placeholder="Search logs by details..." 
-                        className="border-3 border-dark-red-primary-1 w-10/12 p-2 rounded-full" 
+                        className="w-full p-2 outline-none border-none" 
                         value={search}
                         onChange={handleChange}
                     />
-                    <button></button>
-                    <button></button>
                 </section>
                 <section className="w-full flex flex-col items-center justify-center mt-10 mb-10">
                     <h2 className="font-medium text-2xl mb-2">📜 View Logs</h2>
