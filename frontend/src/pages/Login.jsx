@@ -1,25 +1,10 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LogoBar from '../components/LogoBar';
 import '../styles/Login.css';
+import useLogin from './LoginLogic.js';
 
 function Login({ role, setRole }) {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setUsername('');
-    setPassword('');
-    // Navigate to portal, passing role in state
-    navigate('/portal', { state: { role } });
-  };
-
-  const handleChange = (e) => {
-    setRole(e.target.value);
-    console.log('role:', e.target.value);
-  };
+  const {username, setUsername, password, setPassword, onSubmit, handleChange} = useLogin(role, setRole)
 
   return (
     <div className="login-page">
