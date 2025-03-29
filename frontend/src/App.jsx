@@ -1,4 +1,5 @@
 import './App.css';
+import './index.css'
 import AppRoutes from './Routes.jsx';
 import NavBar from './components/NavBar.jsx';
 import { useLocation } from 'react-router-dom';
