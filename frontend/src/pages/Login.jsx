@@ -1,10 +1,28 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom';
+import { toast } from "react-toastify"
 import LogoBar from '../components/LogoBar';
 import '../styles/Login.css';
 import useLogin from './LoginLogic.js';
 
-function Login({ role, setRole }) {
-  const {username, setUsername, password, setPassword, onSubmit, handleChange} = useLogin(role, setRole)
+// eslint-disable-next-line react/prop-types
+function Login({ role, setRole, roleError}) {
+  const {username, setUsername, password, setPassword, onSubmit, handleChange} = useLogin(role, setRole);
+  const showRef = useRef(false);
+
+  useEffect(() => {
+    if (roleError && !showRef.current) {
+      toast.error(roleError, {
+        position: 'top-right'
+      });
+      showRef.current = true;
+
+      // Reset the ref after a delay to allow new errors later
+      setTimeout(() => {
+        showRef.current = false;
+      }, 500);
+    }
+  }, [roleError]);
 
   return (
     <div className="login-page">
