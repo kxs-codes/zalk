@@ -30,11 +30,11 @@ import ModeratorCreateClassroom from "./pages/Moderator/ModeratorCreateClassroom
 import ModeratorManageAccounts from './pages/Moderator/ModeratorManageAccounts';
 
 
-const AppRoutes = ({role, setRole}) => {
+const AppRoutes = ({role, setRole, roleError, setRoleError}) => {
     return useRoutes([
         {
             path: "/",
-            element: <Login role={role} setRole={setRole}/>
+            element: <Login role={role} setRole={setRole} roleError = {roleError}  />
         },
         {
             path: "/student-list",
@@ -70,7 +70,7 @@ const AppRoutes = ({role, setRole}) => {
         },
         {
             path: "/portal",
-            element: <Portal role={role}/>
+            element: <Portal role={role} setRoleError={setRoleError}/>
         },
         {
             path: '*',
