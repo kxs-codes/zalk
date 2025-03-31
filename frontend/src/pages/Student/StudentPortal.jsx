@@ -1,21 +1,17 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import "../../styles/Student/pages/StudentPortal.css";
+import StudentPortalLogic from "./StudentPortalLogic.js";
 
-const Portal = () =>
-{
-    const navigate = useNavigate();
+const { usePortalNavigation } = StudentPortalLogic;
 
-    const startSession = () =>
-    {
-        navigate("/session");
-    };
+const Portal = () => {
+    const { startSession } = usePortalNavigation();
 
     return (
         <div className="studentPorCont">
             <div className="porBox">
                 <div className="zalkCont">
-                    <img src="transparent-reading-zebra.png" className="smartZebra" />
+                    <img src="transparent-reading-zebra.png" className="smartZebra"/>
                 </div>
                 <h1 className="headPortal">
                     Ready to Show Off Your Skills?
