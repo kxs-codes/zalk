@@ -2,14 +2,15 @@ package com.example.full_connection.Entity;
 
 // JPA annotations like @Id, @Column, @GeneratedValue, etc.
 import jakarta.persistence.*;
-
 import java.util.UUID;
 
 @Entity
+@Table(name = "questions")
 public class Questions {
     @Id
     @GeneratedValue
-    private UUID id;
+    @Column(name = "questionId")
+    private UUID questionId;
 
     @Column(nullable = false)
     private String question;
@@ -24,11 +25,11 @@ public class Questions {
     private int gradeLevel;
 
     @Column(nullable = false)
-    private int rating;
+    private float difficulty;
 
     // Getters
-    public UUID getId() {
-        return id;
+    public UUID getQuestionId() {
+        return questionId;
     }
     public String getQuestion() {
         return question;
@@ -42,13 +43,13 @@ public class Questions {
     public int getGradeLevel() {
         return gradeLevel;
     }
-    public int getRating() {
-        return rating;
+    public float getDifficulty() {
+        return difficulty;
     }
 
     // Setters
-    public void setId(UUID id) {
-        this.id = id;
+    public void setQuestionId(UUID questionId) {
+        this.questionId = questionId;
     }
     public void setQuestion(String question) {
         this.question = question;
@@ -62,7 +63,7 @@ public class Questions {
     public void setGradeLevel(int gradeLevel) {
         this.gradeLevel = gradeLevel;
     }
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setDifficulty(float difficulty) {
+        this.difficulty = difficulty;
     }
 }
