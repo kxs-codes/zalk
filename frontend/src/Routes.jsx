@@ -20,7 +20,7 @@ import Reports from "./pages/AdvisoryModerator/Reports.jsx"
 import AdvisoryProgress from './pages/AdvisoryBoard/AdvisoryProgress.jsx'
 
     // Educator Routes 
-import Manage from './pages/Educator/Manage';
+import Manage from './pages/Educator/Manage.jsx';
 import SessionConfig from './pages/Educator/SessionConfig';
 import Progress from './pages/Educator/Progress';
 
