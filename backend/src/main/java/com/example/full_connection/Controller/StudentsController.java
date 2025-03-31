@@ -1,7 +1,7 @@
 package com.example.full_connection.Controller;
 
-import com.example.full_connection.Entity.Students;
-import com.example.full_connection.Service.StudentsService;
+import com.example.full_connection.Entity.Student;
+import com.example.full_connection.Service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,18 +13,18 @@ import java.util.List;
 public class StudentsController {
     // Step 1: Make the service to interact with students entity
     @Autowired
-    private StudentsService studentsService;
+    private StudentService studentService;
 
     // Step 2: Create GET Mapping
     @GetMapping
-    public List<Students> getAllStudents() {
-        return studentsService.getAllStudents();
+    public List<Student> getAllStudents() {
+        return studentService.getAllStudents();
     }
 
     // Step 3: Create POST mapping
     @PostMapping
-    public Students createStudent(@RequestBody Students student) {
+    public Student createStudent(@RequestBody Student student) {
         // Save student
-        return studentsService.addStudent(student);
+        return studentService.addStudent(student);
     }
 }

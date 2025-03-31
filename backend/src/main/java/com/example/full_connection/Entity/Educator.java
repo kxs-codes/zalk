@@ -1,7 +1,5 @@
 package com.example.full_connection.Entity;
 
-import com.example.full_connection.Entity.Classrooms;
-
 // JPA annotations like @Id, @Column, @GeneratedValue, etc.
 import jakarta.persistence.*;
 
@@ -10,10 +8,12 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Entity
-public class Educators {
+@Table(name = "educator")
+public class Educator {
     @Id
     @GeneratedValue
-    private UUID id;
+    @Column(name = "educator_id")
+    private UUID educatorId;
 
     @Column(nullable = false, unique = true)
     private String username;
@@ -21,19 +21,19 @@ public class Educators {
     @Column(name = "hashed_password", nullable = false)
     private String hashedPassword;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
     // Use cascade to make sure no orphan rows
-    @OneToMany(mappedBy = "educator", cascade = CascadeType.ALL)
-    private List<Classrooms> classroom = new ArrayList<>();
+    @OneToMany(mappedBy = "educator", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Classrooms> classrooms = new ArrayList<>();
 
     // Getters
     public UUID getId() {
-        return id;
+        return educatorId;
     }
     public String getUsername() {
         return username;
@@ -47,13 +47,13 @@ public class Educators {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    public void getClassrooms() {
-        // TODO
+    public List<Classrooms> getClassrooms() {
+        return classrooms;
     }
 
     // Setters
-    public void setId(UUID id) {
-        this.id = id;
+    public void setId(UUID educatorId) {
+        this.educatorId = educatorId;
     }
     public void setUsername(String username) {
         this.username = username;
@@ -67,7 +67,7 @@ public class Educators {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public void setClassrooms() {
-        // TODO
+    public void setClassrooms(List<Classrooms> classrooms) {
+        this.classrooms = classrooms;
     }
 }
