@@ -1,10 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export const useModeratorCreateClassroom = () => {
     const mockStudents = [
         "Alice Johnson", "Bob Smith", "Charlie Brown", "David Lee", "Emma Wilson",
         "Fiona Davis", "George Miller", "Hannah White", "Ian Scott", "Julia Roberts"
     ];
+
+    useEffect(() => {
+        const fetchStudentsAndEducators = async () => {
+            const response = await fetch("http://localhost:8080/api/moderator/students-and-educators");
+            const data = await response.json();
+            console.log("Data fetching students and educators: ", data);
+        }
+
+        fetchStudentsAndEducators();
+    }, [])
 
     const [formData, setFormData] = useState({
         subjectName: '',
@@ -22,8 +32,29 @@ export const useModeratorCreateClassroom = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // TODO: Send to backend (Backend Deadline)
-        console.log("Classroom created:", formData);
+        
+        const postClassroom = async () => {
+            console.log(formData);
+
+            const response = await fetch("http://localhost:8080/api/moderator/generate-classroom", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    subjectName: formData.subjectName,
+                    subjectLevel: formData.subjectLevel,
+                    educatorName: formData.educator,
+                    students: formData.students
+                })
+            })
+
+            if(response.ok) {
+                console.log("success in creating classroom");
+            }
+        }
+
+        postClassroom();
     };
 
     const handleSearch = (e) => {

@@ -37,6 +37,9 @@ public class Classrooms {
     @Column(nullable = false)
     private String subject;
 
+    @Column(name = "subject_level", nullable = false)
+    private String subjectLevel;
+
     // Getters
     public UUID getClassId() {
         return classId;
@@ -49,6 +52,9 @@ public class Classrooms {
     }
     public Educator getEducator() {
         return educator;
+    }
+    public String getSubjectLevel() {
+        return subjectLevel;
     }
 
     // Setters
@@ -63,5 +69,8 @@ public class Classrooms {
     }
     public void setEducator(Educator educator) {
         this.educator = educator;
+    }
+    public void setSubjectLevel(String subjectLevel) {
+        this.subjectLevel = subjectLevel;
     }
 }
