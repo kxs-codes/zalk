@@ -1,7 +1,6 @@
 package com.example.full_connection.Entity;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 public class BadgeProgressId implements Serializable {
     private Student student;
