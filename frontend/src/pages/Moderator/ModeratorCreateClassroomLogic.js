@@ -19,7 +19,7 @@ export const useModeratorCreateClassroom = () => {
     const [formData, setFormData] = useState({
         subjectName: '',
         subjectLevel: '',
-        educator: '',
+        educatorName: '',
         students: [],
     });
     const [searchStudent, setSearchStudent] = useState('');
@@ -44,7 +44,7 @@ export const useModeratorCreateClassroom = () => {
                 body: JSON.stringify({
                     subjectName: formData.subjectName,
                     subjectLevel: formData.subjectLevel,
-                    educatorName: formData.educator,
+                    educatorName: formData.educatorName,
                     students: formData.students
                 })
             })

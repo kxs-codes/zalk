@@ -47,7 +47,7 @@ const ModeratorCreateClassroom = () => {
                                     type="text"
                                     name="educator"
                                     placeholder="Educator Name"
-                                    value={formData.educator}
+                                    value={formData.educatorName}
                                     onChange={handleChange}
                                     className="educator-input"
                                 />
