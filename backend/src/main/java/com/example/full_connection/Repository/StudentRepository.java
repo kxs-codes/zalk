@@ -2,6 +2,7 @@ package com.example.full_connection.Repository;
 
 import com.example.full_connection.Entity.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.UUID;
@@ -12,5 +13,8 @@ import java.util.UUID;
     // findAll(): Retrieve all entities.
     // deleteById(ID id): Delete an entity by its id.
 public interface StudentRepository extends JpaRepository<Student, UUID> {
-    List<Student> findByNameIn(List<String> names);
+    List<Student> findByUsernameIn(List<String> usernames);
+
+    @Query("SELECT username FROM Student")
+    List<String> findAllStudents();
 }

@@ -1,10 +1,12 @@
 package com.example.full_connection.Controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,37 +51,39 @@ public class ModeratorController {
     private StudentRepository studentRepository;
 
     @GetMapping("/students-and-educators")
-    public Map<String, List<?>> getStudentsAndEducators() {
+    public ResponseEntity<Map<String, List<Object>>> getStudentsAndEducators() {
         // Grab all students, save in list
         List<Student> students = studentService.getAllStudents();
 
         // Grab all educators, save in list
         List<Educator> educators = educatorService.getAllEducators();
 
+        // TODO, just grab names of students and educators instead of objects
+
         // Store in a hashmap
-        Map<String, List<?>> users = new HashMap<>();
-        users.put("students", students);
-        users.put("educators", educators);
+        Map<String, List<Object>> users = new HashMap<>();
+        users.put("students", new ArrayList<>(students));
+        users.put("educators", new ArrayList<>(educators));
 
         // Return
-        return users;
+        return ResponseEntity.ok(users);
     }
 
     @PostMapping("/generate-classroom")
-    public void generateClassroom(@RequestBody FormDataModerator formDataModerator) {
-        Educator educator = educatorRepository.findByName(formDataModerator.getEducatorName())
+    public ResponseEntity<String> generateClassroom(@RequestBody FormDataModerator formDataModerator) {
+        Educator educator = educatorRepository.findByUsername(formDataModerator.getEducatorName())
             .orElseThrow(() -> new RuntimeException("Educator not found"));
 
-        List<Student> students = studentRepository.findByNameIn(formDataModerator.getStudents());
+        List<Student> students = studentRepository.findByUsernameIn(formDataModerator.getStudents());
 
         Classrooms classroom = new Classrooms();
         classroom.setSubject(formDataModerator.getSubjectName());
         classroom.setSubjectLevel(formDataModerator.getSubjectLevel());
         classroom.setStudents(students);
         classroom.setEducator(educator);
-        
+
         classroomsService.addClassroom(classroom);
 
-        // Send list of students and classroom id to the classroom_student_service to correlate students to a classroom
+        return ResponseEntity.ok("Classroom created successfully");
     }
 }
