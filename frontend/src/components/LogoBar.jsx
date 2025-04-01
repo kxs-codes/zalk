@@ -1,13 +1,14 @@
 import React from 'react';
-import '../styles/LogoBar.css'
+import '../styles/LogoBar.css';
+import { useLogoBar } from './LogoBarLogic';
 const LogoBar = () => {
-  return (
-    <div className="logo-bar">
-      <p className="logo-text">
-        Zebra Advanced Learning and Knowledge
-      </p>
-    </div>
-  );
+    const { logoText } = useLogoBar();
+
+    return (
+        <div className="logo-bar">
+            <p>{logoText}</p>
+        </div>
+    );
 };
 
 export default LogoBar;
