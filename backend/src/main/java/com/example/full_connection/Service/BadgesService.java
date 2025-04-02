@@ -27,31 +27,44 @@ public class BadgesService {
     public Map<String, Object> getAllBadgesWithEarned(UUID studentId) {
         List<Badges> allBadges = badgesRepository.findAll();
         List<EarnedBadgesDTO> earnedBadges = new ArrayList<>();
+        List<Map<String, Object>> allBadgesWithProgress = new ArrayList<>();
 
         Optional<Student> studentOptional = studentRepository.findById(studentId);
         if (studentOptional.isPresent()) {
             Student student = studentOptional.get();
 
             for (Badges badge : allBadges) {
-                Optional<BadgeProgress> badgeProgressOptional = badgeProgressRepository
-                        .findByStudentAndBadge(student, badge);
-                if (badgeProgressOptional.isPresent()) {
-                    BadgeProgress badgeProgress = badgeProgressOptional.get();
-                    if (badgeProgress.getProgress() >= badge.getBadgeRequirement()) {
-                        earnedBadges.add(new EarnedBadgesDTO(
-                                badge.getId(),
-                                badge.getBadgeName(),
-                                badge.getBadgeDescription(),
-                                badgeProgress.getProgress()
-                        ));
-                    }
+                Optional<BadgeProgress> badgeProgressOptional = badgeProgressRepository.findByStudentAndBadge(student, badge);
+
+                // Get progress
+                int progress = badgeProgressOptional.map(BadgeProgress::getProgress).orElse(0); // Default to 0 if no progress found
+
+                int badgeRequirement = badge.getBadgeRequirement();
+
+                // Construct badge object containin a badge's id, name, description, requirement and progress
+                Map<String, Object> badgeData = new HashMap<>();
+                badgeData.put("id", badge.getId());
+                badgeData.put("badgeName", badge.getBadgeName());
+                badgeData.put("badgeDescription", badge.getBadgeDescription());
+                badgeData.put("badgeRequirement", badgeRequirement);
+                badgeData.put("progress", progress);
+
+                allBadgesWithProgress.add(badgeData);
+
+                // Check if the badge is earned based on progress and requirement
+                if (progress >= badgeRequirement) {
+                    earnedBadges.add(new EarnedBadgesDTO(
+                            badge.getId(),
+                            badge.getBadgeName(),
+                            badge.getBadgeDescription(),
+                            progress
+                    ));
                 }
             }
         }
-
-        // Create a response object with all badges and earned badges
+        // Response object to be sent to controller
         Map<String, Object> response = new HashMap<>();
-        response.put("allBadges", allBadges);
+        response.put("allBadges", allBadgesWithProgress);
         response.put("earnedBadges", earnedBadges);
 
         return response;

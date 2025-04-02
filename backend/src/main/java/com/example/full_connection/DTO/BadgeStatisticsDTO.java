@@ -15,7 +15,7 @@ public class BadgeStatisticsDTO {
         this.daysLoggedIn = daysLoggedIn;
     }
 
-    // Getters
+    //Getters
     public int getTotalQuestions() {
         return totalQuestions;
     }

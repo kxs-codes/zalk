@@ -1,62 +1,62 @@
+import { useState, useEffect } from 'react';
+
+// Placeholder student ID for testing
+const studentIdTemp = 'c64663b5-b686-4f5f-b901-8a1575b13aae';
+
+// Define the emojis for each badge
 const EMOJIS = {
-    hardLearner: '🏅', quizConqueror: '🏆', timeTraveler: '⏳', loyalLearner: '💎',
-    quizWiz: '📚', superAchiever: '🎯', sessionMaster: '🎮', sessionSuperstar: '✨'
+    hardLearner: '🏅',
+    quizConquerer: '🏆',
+    timeTraveler: '⏳',
+    loyalLearner: '💎',
+    quizWizard: '📚',
+    superAchiever: '🎯',
+    sessionMaster: '🎮',
+    sessionSuperstar: '✨'
 };
 
-//Sample data
-const studentData = {
-    totalQuestionsAnswered: 224, questionsRight: 95, timeSpent: 15,
-    daysLoggedOn: 45, sessionsCompleted: 10,
-};
+const StudentBadgesLogic = () => {
+    const [badges, setBadges] = useState([]);
+    const [progressMap, setProgressMap] = useState({});
+    const [loading, setLoading] = useState(true);
 
-//Max values for each badge
-const maxValues = {
-    hardLearner: 200, quizConqueror: 300, timeTraveler: 60, loyalLearner: 30, quizWiz: 200,
-    superAchiever: 250, sessionMaster: 30, sessionSuperstar: 15,
-};
+    // Fetch badges and progress from backend
+    useEffect(() => {
+        const fetchBadgesData = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/api/badges/student/${studentIdTemp}/all-badges`);
+                const data = await response.json();
 
-const getRequirementText = (badgeKey) => {
-    const requirementMap = {
-        hardLearner: "questions answered",
-        quizConqueror: "questions answered correctly",
-        timeTraveler: "minutes spent studying",
-        loyalLearner: "days logged in",
-        quizWiz: "quiz questions attempted",
-        superAchiever: "total points earned",
-        sessionMaster: "sessions completed",
-        sessionSuperstar: "sessions attended",
+                const allBadges = data.allBadges || [];
+                const progressMapping = {};
+
+                // Assign progress for all badges, even if not earned
+                allBadges.forEach(badge => {
+                    progressMapping[badge.badgeName] = badge.progress || 0;
+                });
+
+                setBadges(allBadges);
+                setProgressMap(progressMapping);
+                setLoading(false);
+            } catch (error) {
+                console.error("Error fetching badge data:", error);
+                setLoading(false);
+            }
+        };
+        fetchBadgesData();
+    }, []);
+
+    const capitalizeWords = (str) => {
+        return str.replace(/([A-Z])/g, ' $1').trim().replace(/\b\w/g, (char) => char.toUpperCase());
     };
-    return requirementMap[badgeKey] || "achievements";
-};
 
-//Progress calculations for each badge
-const progressValues = {
-    hardLearner: Math.min((studentData.totalQuestionsAnswered / maxValues.hardLearner) * 100, 100),
-    quizConqueror: Math.min((studentData.questionsRight / maxValues.quizConqueror) * 100, 100),
-    timeTraveler: Math.min((studentData.timeSpent / maxValues.timeTraveler) * 100, 100),
-    loyalLearner: Math.min((studentData.daysLoggedOn / maxValues.loyalLearner) * 100, 100),
-    quizWiz: Math.min((studentData.totalQuestionsAnswered / maxValues.quizWiz) * 100, 100),
-    superAchiever: Math.min((studentData.totalQuestionsAnswered / maxValues.superAchiever) * 100, 100),
-    sessionMaster: Math.min((studentData.sessionsCompleted / maxValues.sessionMaster) * 100, 100),
-    sessionSuperstar: Math.min((studentData.sessionsCompleted / maxValues.sessionSuperstar) * 100, 100),
-};
-
-//Earned badges
-const earnedBadges = Object.entries(progressValues)
-    .filter(([_, progress]) => progress >= 100)
-    .map(([key]) => `${key.replace(/([A-Z])/g, ' $1').trim()} ${EMOJIS[key]}`);
-
-const capitalizeWords = (str) => {
-    return str.replace(/([A-Z])/g, ' $1').trim().replace(/\b\w/g, (char) => char.toUpperCase());
-};
-
-const StudentBadgesLogic = {
-    EMOJIS,
-    maxValues,
-    getRequirementText,
-    progressValues,
-    earnedBadges,
-    capitalizeWords
+    return {
+        EMOJIS,
+        badges,
+        progressMap,
+        loading,
+        capitalizeWords,
+    };
 };
 
 export default StudentBadgesLogic;

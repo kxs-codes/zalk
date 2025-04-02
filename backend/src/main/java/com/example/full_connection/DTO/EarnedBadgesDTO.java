@@ -15,7 +15,7 @@ public class EarnedBadgesDTO {
         this.progress = progress;
     }
 
-    // Getters and Setters
+    //Getters and Setters
     public UUID getBadgeId() {
         return badgeId;
     }

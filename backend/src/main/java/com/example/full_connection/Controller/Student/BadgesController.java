@@ -19,8 +19,8 @@ public class BadgesController {
     @Autowired
     private BadgesService badgesService;
 
-    // POST request to update badge progress
-    @PostMapping("/updateProgress")
+    // POST request to update badge progress FOR THE FUTURE
+    /*@PostMapping("/updateProgress")
     public void updateBadgeProgress(
             @RequestParam UUID studentId,
             @RequestParam UUID badgeId,
@@ -28,7 +28,7 @@ public class BadgesController {
     )
     {
         badgesService.updateBadgeProgress(studentId, badgeId, newProgress);
-    }
+    } */
 
     @GetMapping("/student/{id}/all-badges")
     public ResponseEntity<Map<String, Object>> getAllBadgesWithEarned(@PathVariable UUID id) {
