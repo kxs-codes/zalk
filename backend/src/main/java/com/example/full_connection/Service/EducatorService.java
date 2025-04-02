@@ -16,7 +16,15 @@ public class EducatorService {
         return educatorRepository.findAll();
     }
 
+    public List<String> getAllEducatorNames() {
+        return educatorRepository.findAllEducators();
+    }
+
     public Educator addEducator(Educator educator) {
         return educatorRepository.save(educator);
+    }
+
+    public boolean existsByUsername(String name) {
+        return educatorRepository.findByUsername(name).isPresent();
     }
 }
