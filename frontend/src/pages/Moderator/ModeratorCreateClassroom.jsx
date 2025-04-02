@@ -1,18 +1,25 @@
 import { AcademicCapIcon, UserIcon, UserGroupIcon, BookOpenIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import '../../styles/Moderator/ModeratorCreateClassroom.css';
 import { useModeratorCreateClassroom } from "./ModeratorCreateClassroomLogic";
+import { useEffect } from "react";
 
 const ModeratorCreateClassroom = () => {
     const {
         formData,
         searchStudent,
         filteredStudents,
+        educatorsList,
         handleChange,
         handleSubmit,
         handleSearch,
         addStudent,
         removeStudent,
+        fetchStudentsAndEducators
     } = useModeratorCreateClassroom();
+
+    useEffect(() => {
+        fetchStudentsAndEducators();
+    }, [])
 
     return (
         <div className="create-classroom-container">
@@ -31,6 +38,8 @@ const ModeratorCreateClassroom = () => {
                                     onChange={handleChange}
                                     className="select-style"
                                 >
+                                    <option value="" disabled>Select a grade level...</option>
+                                    <option value="K">Kindergarten</option>
                                     <option value="1">Grade 1</option>
                                     <option value="2">Grade 2</option>
                                     <option value="3">Grade 3</option>
@@ -43,14 +52,19 @@ const ModeratorCreateClassroom = () => {
                             {/* Educator */}
                             <div className="educator-container">
                                 <UserIcon className="user-icon" />
-                                <input
-                                    type="text"
-                                    name="educator"
-                                    placeholder="Educator Name"
-                                    value={formData.educator}
+                                <select
+                                    name="educatorName"
+                                    id="educator"
+                                    value={formData.educatorName}
                                     onChange={handleChange}
-                                    className="educator-input"
-                                />
+                                >
+                                    <option value="" disabled>Select an educator...</option>
+                                    {
+                                        educatorsList.map((educator) => (
+                                            <option key={educator} value={educator}>{educator}</option>
+                                        ))
+                                    }
+                                </select>
                             </div>
 
                             {/* Student Selection */}

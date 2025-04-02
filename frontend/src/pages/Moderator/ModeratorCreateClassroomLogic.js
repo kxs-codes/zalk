@@ -1,19 +1,26 @@
 import { useState } from "react";
 
 export const useModeratorCreateClassroom = () => {
-    const mockStudents = [
-        "Alice Johnson", "Bob Smith", "Charlie Brown", "David Lee", "Emma Wilson",
-        "Fiona Davis", "George Miller", "Hannah White", "Ian Scott", "Julia Roberts"
-    ];
+    const [studentsList, setStudentsList] = useState([]);
+    const [educatorsList, setEducatorsList] = useState([]);
+    const [searchStudent, setSearchStudent] = useState('');
+    const [filteredStudents, setFilteredStudents] = useState(studentsList);
+
+    const fetchStudentsAndEducators = async () => {
+        const response = await fetch("http://localhost:8080/api/moderator/students-and-educators");
+        const data = await response.json();
+        setStudentsList(data.students);
+        setEducatorsList(data.educators);
+
+        console.log("Data fetching students and educators: ", data);
+    }
 
     const [formData, setFormData] = useState({
         subjectName: '',
         subjectLevel: '',
-        educator: '',
+        educatorName: '',
         students: [],
     });
-    const [searchStudent, setSearchStudent] = useState('');
-    const [filteredStudents, setFilteredStudents] = useState(mockStudents);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,14 +29,37 @@ export const useModeratorCreateClassroom = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // TODO: Send to backend (Backend Deadline)
-        console.log("Classroom created:", formData);
+        
+        const postClassroom = async () => {
+            console.log(formData);
+
+            const response = await fetch("http://localhost:8080/api/moderator/generate-classroom", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    subjectName: formData.subjectName,
+                    subjectLevel: formData.subjectLevel,
+                    educatorName: formData.educatorName,
+                    students: formData.students
+                })
+            })
+
+            const data = response.text();
+
+            if(response.ok) {
+                console.log("success in creating classroom, ", data);
+            }
+        }
+
+        postClassroom();
     };
 
     const handleSearch = (e) => {
         const term = e.target.value.toLowerCase();
         setSearchStudent(term);
-        setFilteredStudents(mockStudents.filter((student) => student.toLowerCase().includes(term)));
+        setFilteredStudents(studentsList.filter((student) => student.toLowerCase().includes(term)));
     };
 
     const addStudent = (student) => {
@@ -54,10 +84,12 @@ export const useModeratorCreateClassroom = () => {
         formData,
         searchStudent,
         filteredStudents,
+        educatorsList,
         handleChange,
         handleSubmit,
         handleSearch,
         addStudent,
         removeStudent,
+        fetchStudentsAndEducators
     };
 };

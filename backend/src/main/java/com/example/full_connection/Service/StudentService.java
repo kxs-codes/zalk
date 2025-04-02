@@ -17,7 +17,15 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+    public List<String> getAllStudentNames() {
+        return studentRepository.findAllStudents();
+    }
+
     public Student addStudent(Student student) {
         return studentRepository.save(student);
+    }
+
+    public boolean existsByUsernames(List<String> students) {
+        return studentRepository.existsAllByUsernames(students);
     }
 }
