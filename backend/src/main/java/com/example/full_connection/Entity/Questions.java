@@ -25,7 +25,7 @@ public class Questions {
     private int gradeLevel;
 
     @Column(nullable = false)
-    private float difficulty;
+    private String difficulty;
 
     // Getters
     public UUID getQuestionId() {
@@ -43,7 +43,7 @@ public class Questions {
     public int getGradeLevel() {
         return gradeLevel;
     }
-    public float getDifficulty() {
+    public String getDifficulty() {
         return difficulty;
     }
 
@@ -63,7 +63,7 @@ public class Questions {
     public void setGradeLevel(int gradeLevel) {
         this.gradeLevel = gradeLevel;
     }
-    public void setDifficulty(float difficulty) {
+    public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
     }
 }

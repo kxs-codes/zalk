@@ -24,7 +24,7 @@ public class Student {
     private String email;
 
     @Column(name = "zlo_rating", nullable = false)
-    private int zloRating;
+    private double zloRating;
 
     @Column(name = "badges_earned", nullable = false)
     private int badgesEarned;
@@ -53,7 +53,7 @@ public class Student {
     public String getHashedPassword() {
         return hashedPassword;
     }
-    public int getZloRating() {
+    public double getZloRating() {
         return zloRating;
     }
     public int getBadgesEarned() {

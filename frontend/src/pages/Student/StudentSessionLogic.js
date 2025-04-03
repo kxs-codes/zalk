@@ -8,10 +8,11 @@ const useStudentSessionLogic = () => {
     const [wrongCount, setWrongCount] = useState(0);
     const [timeRemaining, setTimeRemaining] = useState(10.00);
     const [sessionConcluded, setSessionConcluded] = useState(false);
+    const [currentQuestion, setCurrentQuestion] = useState(null);
 
      const fetchNextQuestion = async () => {
             try {
-                const response = await fetch("http://localhost:8080/api/sessions/generate-question", {
+                const response = await fetch("http://localhost:5173/api/sessions/generate-question", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -20,7 +21,8 @@ const useStudentSessionLogic = () => {
                         studentforSession: "studentName",
                     }),
                 });
-                setCurrentQuestion(response.data);
+                const data = await response.json();
+                setCurrentQuestion(data);
             } catch (error) {
                 console.error("Question Fetch Error");
             }
@@ -29,7 +31,7 @@ const useStudentSessionLogic = () => {
         fetchNextQuestion();
     }, []);
 
-    const prePer = ((correctCount / sampleQuestions.length) * 100.00);
+    const prePer = currentQuestion ? ((correctCount / currentQuestion.length) * 100.00) : 0;
     const sessionPercent = prePer.toFixed(2);
 
     const nextQ = () => {
@@ -38,7 +40,7 @@ const useStudentSessionLogic = () => {
                 setWrongCount(wrongCount + 1);
             }
         }
-        if (qIndex < sampleQuestions.length - 1) {
+        if (qIndex < currentQuestion.length - 1) {
             setQIndex(qIndex + 1);
             setSubmitted(false);
             fetchNextQuestion();
@@ -50,7 +52,7 @@ const useStudentSessionLogic = () => {
     const answerChoice = (choose) => {
         setSelAnswer((x) => {
             const y = [...x];
-            y[qIndex] = { q: sampleQuestions[qIndex].q, pick: choose };
+            y[qIndex] = { q: currentQuestion[qIndex].q, pick: choose };
             return y;
         });
     };
@@ -58,7 +60,7 @@ const useStudentSessionLogic = () => {
     const submitAnswer = () => {
         setSubmitted(true);
         const chosenAnswer = selAnswer[qIndex]?.pick;
-        const isCorrect = chosenAnswer === sampleQuestions[qIndex].rightChoice;
+        const isCorrect = chosenAnswer === currentQuestion[qIndex].rightChoice;
         if (isCorrect) {
             setCorrectCount(correctCount + 1);
         } else {
@@ -72,7 +74,7 @@ const useStudentSessionLogic = () => {
                 setWrongCount(wrongCount + 1);
             } else {
                 const chosenAnswer = selAnswer[qIndex]?.pick;
-                const isCorrect = chosenAnswer === sampleQuestions[qIndex].rightChoice;
+                const isCorrect = chosenAnswer === currentQuestion[qIndex].rightChoice;
                 if (isCorrect) {
                     setCorrectCount(correctCount + 1);
                 } else {

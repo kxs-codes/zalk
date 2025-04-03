@@ -11,7 +11,7 @@ const StudentSession = () => {
         correctCount,
         wrongCount,
         sessionConcluded,
-        sampleQuestions,
+        currentQuestion,
         sessionPercent,
         minutes,
         seconds,
@@ -53,7 +53,7 @@ const StudentSession = () => {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {sampleQuestions.map((question, index) => {
+                                    {currentQuestion.map((question, index) => {
                                         const val = selAnswer[index]?.pick;
                                         const isCorrect = val === question.rightChoice;
                                         return (
@@ -75,12 +75,12 @@ const StudentSession = () => {
                     <div className="qSec">
                         <h1>Question {qIndex + 1}</h1>
                         <Question
-                            q={sampleQuestions[qIndex].q}
-                            items={sampleQuestions[qIndex].choose}
+                            q={currentQuestion[qIndex].q}
+                            items={currentQuestion[qIndex].choose}
                             pickAns={answerChoice}
                             pickedAns={selAnswer[qIndex]?.pick}
                             submitted={submitted}
-                            correctAnswer={sampleQuestions[qIndex].rightChoice}/>
+                            correctAnswer={currentQuestion[qIndex].rightChoice}/>
                         <p>Session Time Remaining: {minutes}:{seconds}</p>
                         <button
                             onClick={submitAnswer}
