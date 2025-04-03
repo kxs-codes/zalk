@@ -41,7 +41,7 @@ public class ClassroomsService {
         classroom.setEducator(educator.get());
         classroom.setStudents(students);
         classroom.setSubject(formDataModerator.getSubjectName());
-        classroom.setSubjectLevel(formDataModerator.getSubjectLevel());
+        classroom.setSubjectLevel(formDataModerator.getSubjectLevel()); 
 
         // 4. Save classroom object in the database
         return classroomsRepository.save(classroom);

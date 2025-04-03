@@ -12,6 +12,8 @@ public class Student {
     @Id
     @GeneratedValue
     @Column(name = "student_id")
+
+    
     private UUID studentId;
 
     @Column(nullable = false, unique = true)
@@ -37,8 +39,8 @@ public class Student {
     @JoinColumn(name = "guardian_id", nullable = false, foreignKey = @ForeignKey(name = "fk_guardian" ))
     private Guardian guardian;
 
-    @OneToOne
-    private Statistics statistic;
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Statistics statistics;
 
     // Getters
     public UUID getId() {
@@ -62,6 +64,9 @@ public class Student {
     public Guardian getGuardian() {
         return guardian;
     }
+    public Statistics getStatistics() {
+        return statistics;
+    }
 
     // Setters
     public void setId(UUID id) {
@@ -84,5 +89,9 @@ public class Student {
     }
     public void setGuardian(Guardian guardian) {
         this.guardian = guardian;
+    }
+
+    public void setStatistics(Statistics statistics){
+        this.statistics = statistics;
     }
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -28,7 +29,11 @@ public class Classrooms {
         joinColumns = @JoinColumn(name = "classroom_id"),
         inverseJoinColumns = @JoinColumn(name = "student_id")
     )
+    
     private List<Student> students;
+
+    @ManyToMany
+    private List<Educator> educators;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "educator_id", referencedColumnName = "educator_id", nullable = false)
@@ -53,6 +58,10 @@ public class Classrooms {
     public Educator getEducator() {
         return educator;
     }
+    public List<Educator> getEducators() {
+        return educators;
+    }
+    
     public String getSubjectLevel() {
         return subjectLevel;
     }
@@ -72,5 +81,8 @@ public class Classrooms {
     }
     public void setSubjectLevel(String subjectLevel) {
         this.subjectLevel = subjectLevel;
+    }
+    public void setEducators(List<Educator> educators) {
+        this.educators = educators;
     }
 }

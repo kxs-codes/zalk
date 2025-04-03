@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
 const useEducationPortal = () => {
+
+    // TODO -> Need to add fetch hook to replace static data with the dashboard
     const [activeClassroom, setActiveClassroom] = useState('');
 
     const classrooms = ["Classroom A", "Classroom B", "Classroom C"];
