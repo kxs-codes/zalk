@@ -2,7 +2,7 @@ import '../../styles/Moderator/ModeratorManageAccounts.css';
 import { useModeratorManageAccounts } from "./ModeratorManageAccountsLogic";
 
 const ModeratorManageAccounts = () => {
-    const { selectValue, handleChange, filteredAccounts } = useModeratorManageAccounts();
+    const { selectValue, filteredAccounts, handleChange, handleDeletion } = useModeratorManageAccounts();
 
     return (
         <div className="flex items-center justify-center bg-grey-secondary-lighter-1 w-full h-screen">
@@ -20,23 +20,31 @@ const ModeratorManageAccounts = () => {
                         <option value="student">Student</option>
                         <option value="educator">Educator</option>
                         <option value="guardian">Guardian</option>
-                        <option value="advisory">Advisory</option>
+                        <option value="advisory_board">Advisory</option>
                     </select>
                 </div>
-                {/* TODO: Need to add a Are you sure toast message when deleting an account */}
                 <div className="accounts-list">
                     <h2 className="header-list">Available Accounts To Manage</h2>
-                    {selectValue &&
-                        filteredAccounts.map((account) => (
-                            <div key={account.id} className="account-card">
-                                <div>
-                                    <p><strong>{account.name}</strong></p>
-                                    <p>Created: {account.created}</p>
-                                    <p>Last Logged In: {account.lastLoggedIn}</p>
-                                </div>
-                                <button>Delete Account</button>
-                            </div>
-                        ))}
+                    {selectValue && (
+                        <table className="accounts-table">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {filteredAccounts.map((account) => (
+                                    <tr key={account.id}>
+                                        <td>{account.username}</td>
+                                        <td>
+                                            <button onClick={() => handleDeletion(account.id, selectValue)}>Delete</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )}
                 </div>
             </div>
         </div>

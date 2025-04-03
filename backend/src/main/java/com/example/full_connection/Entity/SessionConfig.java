@@ -26,7 +26,7 @@ public class SessionConfig {
     @Column(name = "question_format", nullable = false)
     private String questionFormat;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "class_id", referencedColumnName = "class_id")
     private Classrooms classroom;
 
