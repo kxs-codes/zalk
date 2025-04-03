@@ -40,6 +40,7 @@ public class EducatorController {
     
     @GetMapping("/{educatorId}")
     public ResponseEntity<List<ClassroomSummaryDTO>> getClassroomsByEducatorId(@PathVariable UUID educatorId) {
+        System.out.println("this is educator it -> "+ educatorId);
         List<ClassroomSummaryDTO> summary = educatorService.getClassroomsByEducatorID(educatorId);
         return ResponseEntity.ok(summary);
 }
