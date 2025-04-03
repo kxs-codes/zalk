@@ -12,7 +12,9 @@ const AccessIssues = () => {
         resolution,
         setResolution,
         filteredIssues,
-        handleComplete
+        handleUpdateStatus,
+        formatDateAndTime,
+        handleStatusChange
     } = useAccessIssues();
 
     return (
@@ -21,6 +23,7 @@ const AccessIssues = () => {
             <div className="card">
                 <h2 className="title">Access Issue Reports</h2>
 
+                {/*Filters for sorting and issue type*/}
                 <div className="filters">
                     <select onChange={(e) => setSortBy(e.target.value)} className="select">
                         <option value="date">Sort by Date</option>
@@ -35,54 +38,72 @@ const AccessIssues = () => {
                     </select>
                 </div>
 
+                {/*Issue list*/}
                 <div className="issue-list">
                     {filteredIssues.map((issue) => (
                         <div
-                            key={issue.id}
+                            key={issue.reportId}
                             className="issue-item"
                             onClick={() => setSelectedIssue(issue)}
                         >
-                            <h3 className="issue-title">{issue.title}</h3>
+                            <h3 className="issue-title">{issue.reportName || 'Untitled Report'}</h3>
                             <p className="issue-details">
-                                {issue.dateOccurred} at {issue.timeOccurred}
+                                {formatDateAndTime(issue.timeOccurred)}
                             </p>
                             <p className="category">Category: {issue.category}</p>
-                            <p className={`status ${issue.status === "Completed" ? "completed" : "open"}`}>
+                            <p className={`status ${issue.status === "Completed" ? "completed" : "open"}`} >
                                 Status: {issue.status}
                             </p>
                         </div>
                     ))}
                 </div>
 
+                {/*Display selected issue details*/}
                 {selectedIssue && (
                     <div className="issue-detail">
-                        <h3 className="issue-detail-title">{selectedIssue.title}</h3>
-                        <p className="description">{selectedIssue.description}</p>
+                        <h3 className="issue-detail-title">{selectedIssue.reportName || 'Untitled Report'}</h3>
+                        <p className="description">{selectedIssue.reportDescription}</p>
                         <p className="issue-details">
-                            Occurred on {selectedIssue.dateOccurred} at {selectedIssue.timeOccurred}
+                            Occurred on {formatDateAndTime(selectedIssue.timeOccurred)}
                         </p>
                         <p className="category">Category: {selectedIssue.category}</p>
-                        <p className={`status ${selectedIssue.status === "Completed" ? "completed" : "open"}`}>
+                        <p className={`status ${selectedIssue.status === "Completed" ? "completed" : "open"}`} >
                             Status: {selectedIssue.status}
                         </p>
 
+                        {/*Dropdown for changing the status*/}
+                        {selectedIssue.status !== "Completed" && (
+                            <div className="status-change">
+                                <select
+                                    value={selectedIssue.status}
+                                    onChange={(e) => handleStatusChange(e.target.value)}
+                                    className="select">
+                                    <option value="Open">Open</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
+                        )}
+
+                        {/* Input field for resolution if the issue is Open */}
                         {selectedIssue.status === "Open" && (
                             <div className="resolution-section">
-                <textarea
-                    className="resolution-input"
-                    rows="3"
-                    placeholder="Describe resolution..."
-                    value={resolution}
-                    onChange={(e) => setResolution(e.target.value)}
-                />
+                                <textarea
+                                    className="resolution-input"
+                                    rows="3"
+                                    placeholder="Describe resolution..."
+                                    value={resolution}
+                                    onChange={(e) => setResolution(e.target.value)}
+                                />
                                 <button
                                     className="complete-button"
-                                    onClick={() => handleComplete(selectedIssue.id)}
+                                    onClick={() => handleUpdateStatus(selectedIssue.reportId, "Completed")}
                                 >
                                     Mark as Completed
                                 </button>
                             </div>
                         )}
+
                         <button className="close-button" onClick={() => setSelectedIssue(null)}>
                             Close
                         </button>
