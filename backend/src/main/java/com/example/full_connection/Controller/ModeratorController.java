@@ -86,7 +86,7 @@ public class ModeratorController {
     @GetMapping("/grab-accounts")
     public ResponseEntity<List<AccountDTO>> grabAccounts(@RequestParam String accountType) {
         // 1. Verify the account type is an existing type
-        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList("student", "educator", "guardian", "advisory"));
+        ArrayList<String> arrayList = new ArrayList<>(Arrays.asList("student", "educator", "guardian", "advisory_board"));
         if (!arrayList.contains(accountType.toLowerCase())) {
             AccountDTO accountDTO = new AccountDTO("Account Type Not Valid");
             List<AccountDTO> accounts = new ArrayList<>();
@@ -103,7 +103,10 @@ public class ModeratorController {
 
     @PostMapping("/delete-account")
     public ResponseEntity<String> deleteAccount(@RequestParam UUID id, @RequestParam String accountType) {
+        // 1. Call remove account from service layer
         String message = moderatorService.removeAccount(id, accountType);
+
+        // 2. Send back the response message
         return ResponseEntity.ok(message);
     }
 }

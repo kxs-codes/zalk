@@ -22,7 +22,7 @@ public class Classrooms {
     @Column(name = "class_id")
     private UUID classId;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
         name = "classroom_student", 
         joinColumns = @JoinColumn(name = "classroom_id"),
@@ -30,7 +30,7 @@ public class Classrooms {
     )
     private List<Student> students;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "educator_id", referencedColumnName = "educator_id", nullable = false)
     private Educator educator;
 

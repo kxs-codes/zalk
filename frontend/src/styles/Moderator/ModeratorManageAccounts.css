@@ -81,20 +81,36 @@ select {
     text-align: center;
 }
 
-.account-card {
+
+.accounts-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
     background: var(--background-secondary);
-    color: var(--text-light);
-    padding: 15px;
+    color: var(--text-dark);
     border-radius: var(--border-radius);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1.5rem;
-    transition: transform 0.2s ease-in-out;
+    overflow: hidden;
 }
 
-.account-card:hover {
-    transform: scale(1.02);
+.accounts-table th, .accounts-table td {
+    padding: 12px;
+    border: 1px solid var(--secondary-color);
+    text-align: center;
+}
+
+.accounts-table th {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    font-weight: bold;
+}
+
+.accounts-table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.accounts-table tr:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: background 0.2s ease-in-out;
 }
 
 button {
@@ -110,6 +126,7 @@ button {
 button:hover {
     background-color: #C0392B;
 }
+
 
 /* Responsive Styling */
 @media (max-width: 600px) {
