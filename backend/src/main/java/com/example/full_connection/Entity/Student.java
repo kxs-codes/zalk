@@ -40,6 +40,9 @@ public class Student {
     @OneToOne
     private Statistics statistic;
 
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<BadgeProgress> badgeProgress;
+
     // Getters
     public UUID getId() {
         return studentId;
