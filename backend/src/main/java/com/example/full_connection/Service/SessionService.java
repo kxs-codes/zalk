@@ -1,9 +1,8 @@
 package com.example.full_connection.Service;
 
-import com.example.full_connection.DTO.SessionDTO;
 import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Entity.Student;
-import com.example.full_connection.Entity.Questions; 
+import com.example.full_connection.Entity.Questions;
 import com.example.full_connection.Repository.StatisticsRepository;
 import com.example.full_connection.Repository.QuestionsRepository;
 import com.example.full_connection.Repository.StudentRepository;
@@ -13,14 +12,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SessionService {
-
+public class SessionService
+{
     private final StatisticsRepository statisticsRepository;
     private final QuestionsRepository questionsRepository;
     private final StudentRepository studentRepository;
 
     @Autowired
-    public SessionService(StatisticsRepository statisticsRepository, QuestionsRepository questionsRepository, StudentRepository studentRepository) {
+    public SessionService(StatisticsRepository statisticsRepository, QuestionsRepository questionsRepository, StudentRepository studentRepository)
+    {
         this.statisticsRepository = statisticsRepository;
         this.questionsRepository = questionsRepository;
         this.studentRepository = studentRepository;
@@ -35,72 +35,71 @@ public class SessionService {
     private static final double weightPCorr1 = 0.1;
     private static final double weightPCorrAvg = 0.1;
 
-    private static final double zloHard = 0.8; // For "hard" difficulty
-    private static final double zloMed = 0.5; // For "medium" difficulty
-    private static final double zloEasy = 0.3; // For "easy" difficulty
+    private static final double zloHard = 0.8;
+    private static final double zloMed = 0.5;
+    private static final double zloEasy = 0.3;
 
-    public List<Questions> getQuestions() {
+    public List<Questions> getQuestions()
+    {
         return questionsRepository.findAll();
     }
 
-    public double calculateZLO(SessionDTO sessionDTO) {
-        double knowledgeProbabilitySession = calculateKnowledgeProbability(sessionDTO.getTotalQuestionsRight(), sessionDTO.getTotalQuestions());
-        double knowledgeProbabilityAvg = calculateKnowledgeProbability(sessionDTO.getTotalQuestionsRight(), sessionDTO.getTotalQuestions());
-        double studentStreak = sessionDTO.getStreak();
-        double avgTimeSpentInSession = sessionDTO.getAvgTimeSpentInSession();
-        double avgTimePerQuestion = sessionDTO.getAvgTimePerQuestion();
-        double successRate = sessionDTO.getSuccessRate();
-        double avgSuccessRate = sessionDTO.getSuccessRate();
+    public double calculateZLO(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate)
+    {
+        double knowledgeProbabilitySession = calculateKnowledgeProbability(totalQuestionsRight, totalQuestions);
+        double knowledgeProbabilityAvg = calculateKnowledgeProbability(totalQuestionsRight, totalQuestions);
 
         double zlo =
                 (weightPKSession * knowledgeProbabilitySession) +
                         (weightPKAvg * knowledgeProbabilityAvg) +
-                        (weightSStreak1 * studentStreak * (1 - knowledgeProbabilitySession)) +
-                        (weightSStreak2 * studentStreak * knowledgeProbabilitySession) +
+                        (weightSStreak1 * streak * (1 - knowledgeProbabilitySession)) +
+                        (weightSStreak2 * streak * knowledgeProbabilitySession) +
                         (weightTq * (1 - avgTimeSpentInSession)) +
                         (weightTqAvg * (1 - avgTimePerQuestion)) +
                         (weightPCorr1 * successRate * knowledgeProbabilitySession) +
-                        (weightPCorrAvg * avgSuccessRate * knowledgeProbabilityAvg);
+                        (weightPCorrAvg * successRate * knowledgeProbabilityAvg);
+
         return zlo;
     }
 
-    private double calculateKnowledgeProbability(int totalCorrect, int totalQuestions) {
-        if (totalQuestions == 0) {
+    private double calculateKnowledgeProbability(int totalCorrect, int totalQuestions)
+    {
+        if (totalQuestions == 0)
+        {
             return -1;
         }
         return (double) totalCorrect / totalQuestions;
     }
 
-    public Statistics createSession(SessionDTO sessionDTO) {
-        List<Student> students = studentRepository.findByUsernameIn(sessionDTO.getStudentforSession());
+    public Statistics createSession(List<String> studentUsernames, int totalTimeInSessions, int streak, int totalQuestions, int totalQuestionsRight, int totalQuestionsWrong, int sessionsCompleted, int daysLoggedIn, int subjectMasteryValue, float guessRate, float avgTimeSpentInSession, float successRate, float avgTimePerQuestion)
+    {
+        List<Student> students = studentRepository.findByUsernameIn(studentUsernames);
 
-        if (students.isEmpty()) {
+        if (students.isEmpty())
+        {
             throw new RuntimeException("Student not found!");
         }
 
         Student student = students.get(0);
-        double zloRating = calculateZLO(sessionDTO);
-
+        double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
 
         String questionDifficulty = getQuestionDifficulty(zloRating);
-
-
         Questions nextQuestion = getNextQuestionBasedOnDifficulty(questionDifficulty);
-        
+
         Statistics statistics = new Statistics();
         statistics.setStudent(student);
-        statistics.setTotalTimeInSessions(sessionDTO.getTotalTimeInSessions());
-        statistics.setStreak(sessionDTO.getStreak());
-        statistics.setTotalQuestions(sessionDTO.getTotalQuestions());
-        statistics.setTotalQuestionsRight(sessionDTO.getTotalQuestionsRight());
-        statistics.setTotalQuestionsWrong(sessionDTO.getTotalQuestionsWrong());
-        statistics.setSessionsCompleted(sessionDTO.getSessionsCompleted());
-        statistics.setDaysLoggedIn(sessionDTO.getDaysLoggedIn());
-        statistics.setSubjectMasteryValue(sessionDTO.getSubjectMasteryValue());
-        statistics.setGuessRate(sessionDTO.getGuessRate());
-        statistics.setAvgTimeSpentInSession(sessionDTO.getAvgTimeSpentInSession());
-        statistics.setSuccessRate(sessionDTO.getSuccessRate());
-        statistics.setAvgTimePerQuestion(sessionDTO.getAvgTimePerQuestion());
+        statistics.setTotalTimeInSessions(totalTimeInSessions);
+        statistics.setStreak(streak);
+        statistics.setTotalQuestions(totalQuestions);
+        statistics.setTotalQuestionsRight(totalQuestionsRight);
+        statistics.setTotalQuestionsWrong(totalQuestionsWrong);
+        statistics.setSessionsCompleted(sessionsCompleted);
+        statistics.setDaysLoggedIn(daysLoggedIn);
+        statistics.setSubjectMasteryValue(subjectMasteryValue);
+        statistics.setGuessRate(guessRate);
+        statistics.setAvgTimeSpentInSession(avgTimeSpentInSession);
+        statistics.setSuccessRate(successRate);
+        statistics.setAvgTimePerQuestion(avgTimePerQuestion);
         student.setZloRating(zloRating);
 
         studentRepository.save(student);
@@ -109,17 +108,24 @@ public class SessionService {
         return statistics;
     }
 
-    private String getQuestionDifficulty(double zloRating) {
-        if (zloRating >= zloHard) {
+    private String getQuestionDifficulty(double zloRating)
+    {
+        if (zloRating >= zloHard)
+        {
             return "hard";
-        } else if (zloRating >= zloMed) {
+        }
+        else if (zloRating >= zloMed)
+        {
             return "medium";
-        } else {
+        }
+        else
+        {
             return "easy";
         }
     }
 
-    private Questions getNextQuestionBasedOnDifficulty(String difficulty) {
+    private Questions getNextQuestionBasedOnDifficulty(String difficulty)
+    {
         List<Questions> questions = questionsRepository.findByDifficulty(difficulty);
 
         if (!questions.isEmpty())
@@ -127,10 +133,12 @@ public class SessionService {
             return questions.get(0);
         }
 
-        return questionsRepository.findByDifficulty("medium").get(0); // fallback
+        return questionsRepository.findByDifficulty("medium").get(0);
     }
-    public Questions getNextQuestion(SessionDTO sessionDTO) {
-        double zloRating = calculateZLO(sessionDTO);
+
+    public Questions getNextQuestion(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate)
+    {
+        double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
         String questionDifficulty = getQuestionDifficulty(zloRating);
         return getNextQuestionBasedOnDifficulty(questionDifficulty);
     }

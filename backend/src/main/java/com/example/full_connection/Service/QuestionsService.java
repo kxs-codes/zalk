@@ -8,15 +8,18 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class QuestionsService {
-    @Autowired // Wired the service to the correct repository
+public class QuestionsService
+{
+    @Autowired
     private QuestionsRepository questionsRepository;
 
-    public List<Questions> getAllQuestions() {
+    public List<Questions> getAllQuestions()
+    {
         return questionsRepository.findAll();
     }
 
-    public Questions addQuestion(Questions question) {
+    public Questions addQuestion(Questions question)
+    {
         return questionsRepository.save(question);
     }
 }
