@@ -39,6 +39,10 @@ public class SessionService {
     private static final double zloMed = 0.5; // For "medium" difficulty
     private static final double zloEasy = 0.3; // For "easy" difficulty
 
+    public List<Questions> getQuestions() {
+        return questionsRepository.findAll();
+    }
+
     public double calculateZLO(SessionDTO sessionDTO) {
         double knowledgeProbabilitySession = calculateKnowledgeProbability(sessionDTO.getTotalQuestionsRight(), sessionDTO.getTotalQuestions());
         double knowledgeProbabilityAvg = calculateKnowledgeProbability(sessionDTO.getTotalQuestionsRight(), sessionDTO.getTotalQuestions());
@@ -62,7 +66,7 @@ public class SessionService {
 
     private double calculateKnowledgeProbability(int totalCorrect, int totalQuestions) {
         if (totalQuestions == 0) {
-            return 0;
+            return -1;
         }
         return (double) totalCorrect / totalQuestions;
     }
@@ -81,7 +85,7 @@ public class SessionService {
         String questionDifficulty = getQuestionDifficulty(zloRating);
 
 
-        Question nextQuestion = getNextQuestionBasedOnDifficulty(questionDifficulty);
+        Questions nextQuestion = getNextQuestionBasedOnDifficulty(questionDifficulty);
         
         Statistics statistics = new Statistics();
         statistics.setStudent(student);
@@ -99,7 +103,6 @@ public class SessionService {
         statistics.setAvgTimePerQuestion(sessionDTO.getAvgTimePerQuestion());
         student.setZloRating(zloRating);
 
-        student.setStatistics(statistics);
         studentRepository.save(student);
         statisticsRepository.save(statistics);
 
@@ -116,8 +119,8 @@ public class SessionService {
         }
     }
 
-    private Question getNextQuestionBasedOnDifficulty(String difficulty) {
-        List<Question> questions = questionsRepository.findByDifficulty(difficulty);
+    private Questions getNextQuestionBasedOnDifficulty(String difficulty) {
+        List<Questions> questions = questionsRepository.findByDifficulty(difficulty);
 
         if (!questions.isEmpty())
         {
@@ -126,7 +129,7 @@ public class SessionService {
 
         return questionsRepository.findByDifficulty("medium").get(0); // fallback
     }
-    public Question getNextQuestion(SessionDTO sessionDTO) {
+    public Questions getNextQuestion(SessionDTO sessionDTO) {
         double zloRating = calculateZLO(sessionDTO);
         String questionDifficulty = getQuestionDifficulty(zloRating);
         return getNextQuestionBasedOnDifficulty(questionDifficulty);
