@@ -42,11 +42,11 @@ const Classrooms = ({classrooms, activeClassroom, setActiveClassroom}) => {
             <div
               key={cls.classroom_id} // Use a unique key
               className={`p-3 cursor-pointer
-                ${activeClassroom === cls
+                ${activeClassroom === cls.classroom_id
                     ? 'bg-grey-secondary-darker-1 text-amber-400 font-bold hover:text-white'  // Active Classroom
                     : 'bg-grey-secondary-lighter-1 hover:text-dark-red-primary-1 text-black font-normal'     // Inactive Classroom
                   }`}
-                  onClick={() => setActiveClassroom(cls)} // Update active classroom
+                  onClick={() => setActiveClassroom(cls.classroom_id)} // Update active classroom
             >
               {cls.subject} {/* Render the subject property */}
       </div>
