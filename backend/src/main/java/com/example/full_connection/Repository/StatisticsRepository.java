@@ -8,5 +8,5 @@ import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Entity.Student;
 
 public interface StatisticsRepository extends JpaRepository<Statistics, UUID> {
-    Optional<Statistics> findByStudent(Student student);
+    Optional<Statistics> findByStudent(Student student);  // Find statistics by student entity
 }
