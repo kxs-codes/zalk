@@ -1,11 +1,37 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const studentData = {
-    currentHoursCompleted: 45,
-    totalQuestionsAnswered: 224,
-    questionsRight: 150,
-    sessionsCompleted: 10,
-    daysLoggedOn: 30,
+const studentIdTemp = "c64663b5-b686-4f5f-b901-8a1575b13aae";
+
+const useStudentProgress = (studentId = studentIdTemp) => {
+    const [studentData, setStudentData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchStudentProgress = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/api/student-progress/progress/${studentId}`);
+
+                if (!response.ok) {
+                    setError(`Failed to fetch student progress: ${response.status} ${response.statusText}`);
+                    return;
+                }
+
+                const data = await response.json();
+                setStudentData(data);
+            } catch (error) {
+                console.error("Error fetching student progress:", error);
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchStudentProgress();
+    }, [studentId]);
+
+    return { studentData, loading, error };
 };
 
 const useStudentProgressNavigation = () => {
@@ -17,7 +43,7 @@ const useStudentProgressNavigation = () => {
 };
 
 const StudentProgressLogic = {
-    studentData,
+    useStudentProgress,
     useStudentProgressNavigation
 };
 

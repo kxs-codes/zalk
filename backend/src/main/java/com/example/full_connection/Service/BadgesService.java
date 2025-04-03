@@ -41,7 +41,7 @@ public class BadgesService {
 
                 int badgeRequirement = badge.getBadgeRequirement();
 
-                // Construct badge object containin a badge's id, name, description, requirement and progress
+                // Constructing a badge object containin a badge's id, name, description, requirement and progress
                 Map<String, Object> badgeData = new HashMap<>();
                 badgeData.put("id", badge.getId());
                 badgeData.put("badgeName", badge.getBadgeName());
@@ -51,7 +51,7 @@ public class BadgesService {
 
                 allBadgesWithProgress.add(badgeData);
 
-                // Check if the badge is earned based on progress and requirement
+                // Checking if the badge is earned based on student's progress and student's requirement
                 if (progress >= badgeRequirement) {
                     earnedBadges.add(new EarnedBadgesDTO(
                             badge.getId(),

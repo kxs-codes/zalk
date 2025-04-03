@@ -2,20 +2,24 @@ import React from "react";
 import "../../styles/Student/pages/StudentProgress.css";
 import StudentProgressLogic from "./StudentProgressLogic";
 
-const { studentData, useStudentProgressNavigation } = StudentProgressLogic;
+const { useStudentProgress, useStudentProgressNavigation } = StudentProgressLogic;
 
 const StudentProgress = () => {
+    const { studentData, loading, error } = useStudentProgress();
     const { handleNavigateToBadges } = useStudentProgressNavigation();
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
 
     return (
         <div className="student-progress-container">
             <div className="content-container">
                 <h2 className="title">Student Progress</h2>
-                {/*Progress Stats*/}
+                {/* Progress Stats */}
                 <div className="stats-container">
                     <div className="stat-card stat-card-1">
                         <h3 className="stat-title">Current Hours Completed</h3>
-                        <p className="stat-value">{studentData.currentHoursCompleted} Hours</p>
+                        <p className="stat-value">{(studentData.currentHoursCompleted / 60)} Hours</p>
                     </div>
                     <div className="stat-card stat-card-2">
                         <h3 className="stat-title">Number of Questions Answered</h3>
@@ -34,7 +38,7 @@ const StudentProgress = () => {
                         <p className="stat-value">{studentData.daysLoggedOn} Days</p>
                     </div>
                 </div>
-                {/*Button Container*/}
+                {/* Button Container */}
                 <div className="button-container">
                     <button onClick={handleNavigateToBadges} className="go-to-badges-btn">
                         Go to Badges
