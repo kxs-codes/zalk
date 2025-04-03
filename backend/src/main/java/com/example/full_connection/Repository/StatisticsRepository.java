@@ -4,7 +4,8 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Entity.Student;
+import java.util.Optional;
 
 public interface StatisticsRepository extends JpaRepository<Statistics, UUID> {
-    Statistics findByStudent(Student student);  // Find statistics by student entity
+    Optional<Statistics> findByStudent(Student student);  // Find statistics by student entity
 }

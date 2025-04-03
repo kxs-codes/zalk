@@ -1,4 +1,4 @@
-package com.example.full_connection.Controller;
+package com.example.full_connection.Controller.Student;
 
 import com.example.full_connection.Service.BadgesService;
 import com.example.full_connection.DTO.EarnedBadgesDTO;

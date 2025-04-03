@@ -24,8 +24,10 @@ public class StudentProgressService {
         Optional<Student> student = studentRepository.findById(studentId);
 
         if (student.isPresent()) {
-            Statistics stats = statisticsRepository.findByStudent(student.get());
-            if (stats != null) {
+            Optional<Statistics> statsOpt = statisticsRepository.findByStudent(student.get());
+
+            if (statsOpt.isPresent()) {
+                Statistics stats = statsOpt.get();
                 return new StudentProgressDTO(
                         stats.getTotalTimeInSessions(),
                         stats.getTotalQuestions(),
