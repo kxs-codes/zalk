@@ -14,12 +14,12 @@ import jakarta.persistence.JoinColumn;
 @IdClass(BadgeProgressId.class)
 public class BadgeProgress {
     @Id
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student student;
     
     @Id
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "badge_id", referencedColumnName = "badge_id")
     private Badges badge;
     

@@ -46,7 +46,7 @@ export const useModeratorCreateClassroom = () => {
                 })
             })
 
-            const data = response.text();
+            const data = await response.text();
 
             if(response.ok) {
                 console.log("success in creating classroom, ", data);
