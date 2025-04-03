@@ -32,7 +32,8 @@ public class SessionController {
     }
 
     @PostMapping("/generate-question")
-    public ResponseEntity<?> generateQuestion(@RequestBody SessionDTO sessionDTO) {
-        return ResponseEntity.ok(sessionService.questionGenerator(sessionDTO));
+    public ResponseEntity<Question> generateNextQuestion(@RequestBody SessionDTO sessionDTO) {
+        Question nextQuestion = sessionService.getNextQuestion(sessionDTO);
+        return ResponseEntity.ok(nextQuestion);
     }
 }

@@ -9,58 +9,25 @@ const useStudentSessionLogic = () => {
     const [timeRemaining, setTimeRemaining] = useState(10.00);
     const [sessionConcluded, setSessionConcluded] = useState(false);
 
-    const sampleQuestions = [
-        {
-            q: "2+2?",
-            choose: ["2","3","4","5"],
-            rightChoice: "4"
-        },
-        {
-            q: "3+5?",
-            choose: ["5", "6","7", "8"],
-            rightChoice: "8"
-        },
-        {
-            q: "6-3?",
-            choose: ["3","4","2","1"],
-            rightChoice: "3"
-        },
-        {
-            q: "8-5?" ,
-            choose: ["3","2","1", "4"],
-            rightChoice: "3"
-        },
-        {
-            q: "7+9?",
-            choose: ["16", "14", "13", "15"],
-            rightChoice: "16"
-        },
-        {
-            q: "10-6?",
-            choose: ["5", "4", "3", "2"],
-            rightChoice: "4"
-        },
-        {
-            q: "5x3?",
-            choose: ["15", "12","10", "13"],
-            rightChoice:"15"
-        },
-        {
-            q: "6x4?",
-            choose: ["24", "20", "30", "18"],
-            rightChoice: "24"
-        },
-        {
-            q: "9/3?",
-            choose: ["3", "2", "1", "4"],
-            rightChoice: "3"
-        },
-        {
-            q: "12/4?",
-            choose: ["4", "3", "5", "6"],
-            rightChoice: "3"
-        }
-    ];
+     const fetchNextQuestion = async () => {
+            try {
+                const response = await fetch("http://localhost:8080/api/sessions/generate-question", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        studentforSession: "studentName",
+                    }),
+                });
+                setCurrentQuestion(response.data);
+            } catch (error) {
+                console.error("Question Fetch Error");
+            }
+        };
+    useEffect(() => {
+        fetchNextQuestion();
+    }, []);
 
     const prePer = ((correctCount / sampleQuestions.length) * 100.00);
     const sessionPercent = prePer.toFixed(2);
@@ -74,6 +41,7 @@ const useStudentSessionLogic = () => {
         if (qIndex < sampleQuestions.length - 1) {
             setQIndex(qIndex + 1);
             setSubmitted(false);
+            fetchNextQuestion();
         } else {
             setSessionConcluded(true);
         }
@@ -145,13 +113,10 @@ const useStudentSessionLogic = () => {
         correctCount,
         wrongCount,
         sessionConcluded,
-        sampleQuestions,
-        sessionPercent,
-        minutes,
-        seconds,
+        currentQuestion,
         nextQ,
-        answerChoice,
-        submitAnswer
+        submitAnswer,
+        answerChoice
     };
 };
 

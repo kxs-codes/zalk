@@ -73,7 +73,7 @@ public class Student {
     public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
     }
-    public void setZloRating(int zloRating) {
+    public void setZloRating(double zloRating) {
         this.zloRating = zloRating;
     }
     public void setBadgesEarned(int badgesEarned) {
