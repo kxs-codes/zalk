@@ -51,12 +51,12 @@
 
 .aItem.correct
 {
-    background-color:green;
+    background-color:#4CBB17;
     color:white;
 }
 
 .aItem.incorrect
 {
-    background-color:red;
+    background-color:#E03C31;
     color: white;
 }

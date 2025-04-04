@@ -2,83 +2,72 @@ import { useState, useEffect } from "react";
 
 const useStudentSessionLogic = () =>
 {
-    const [qIndex, setQIndex] = useState(0);
-    const [selAnswer, setSelAnswer] = useState([]);
+    const [currentQuestion, setCurrentQuestion] = useState(null);
+    const [questionId, setQuestionId] = useState(null);
+    const [sessionQuestionNumber, setSessionQuestionNumber] = useState(1);
+    const [selAnswer, setSelAnswer] = useState(new Map());
     const [submitted, setSubmitted] = useState(false);
     const [correctCount, setCorrectCount] = useState(0);
     const [wrongCount, setWrongCount] = useState(0);
-    const [timeRemaining, setTimeRemaining] = useState(10.00);
+    const [totalTimeRemaining, setTotalTimeRemaining] = useState(10);
     const [sessionConcluded, setSessionConcluded] = useState(false);
-    const [currentQuestion, setCurrentQuestion] = useState([]);
-    const [streak, setStreak] = useState(0);
-    const [totalTimeInSessions, setTotalTimeInSessions] = useState(0);
-    const [sessionsCompleted, setSessionsCompleted] = useState(0);
-    const [daysLoggedIn, setDaysLoggedIn] = useState(0);
-    const [subjectMasteryValue, setSubjectMasteryValue] = useState(0);
-    const [guessRate, setGuessRate] = useState(0);
-    const [avgTimeSpentInSession, setAvgTimeSpentInSession] = useState(0);
-    const [successRate, setSuccessRate] = useState(0);
-    const [avgTimePerQuestion, setAvgTimePerQuestion] = useState(0);
+    const [answeredQuestions, setAnsweredQuestions] = useState(new Set());
 
-    const createDummyStudent = async () =>
+    const formatTimeRemaining = (seconds) =>
     {
-        const studentData = {
-            username: "studentName",
-            fullName: "John Doe",
-            email: "john.doe@example.com",
-            password: "password123"
-        };
-
-        try
-        {
-            const response = await fetch("http://localhost:5173/api/students",
-            {
-                method: "POST",
-                headers:
-                {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(studentData),
-            });
-
-            if (response.ok)
-            {
-                const result = await response.json();
-                console.log("Created Student:", result);
-            }
-            else
-            {
-                console.error("Failed to create student. Status:", response.status);
-            }
-        }
-        catch (error)
-        {
-            console.error("Error creating student:", error);
-        }
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
     };
 
     const fetchNextQuestion = async () =>
     {
         try
         {
-            const response = await fetch("http://localhost:5173/api/sessions/generate-question",
-            {
-                method: "POST",
-                headers:
-                {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    studentforSession: "studentName",
-                }),
+            const response = await fetch("http://localhost:8080/api/sessions/questions", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
             });
-            const data = await response.json();
-            console.log("Fetched Question:", data);
-            setCurrentQuestion(data);
+
+            if (!response.ok)
+            {
+                console.error("Failed to fetch question:", response.status);
+                return;
+            }
+
+            const questionSet = await response.json();
+
+            if (questionSet.length > 0)
+            {
+                let newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
+
+                while (answeredQuestions.has(newQuestion.questionId))
+                {
+                    newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
+                }
+
+                setAnsweredQuestions((prev) => new Set(prev).add(newQuestion.questionId));
+                console.log("Fetched question:", newQuestion);
+
+                if (typeof newQuestion.options === "string")
+                {
+                    newQuestion.options = newQuestion.options.split(" ").map(option => option.trim());
+                }
+
+                if (Array.isArray(newQuestion.options))
+                {
+                    setCurrentQuestion(newQuestion);
+                    setQuestionId(newQuestion.questionId);
+                }
+                else
+                {
+                    console.error("Invalid options format:", newQuestion.options);
+                }
+            }
         }
         catch (error)
         {
-            console.error("Question Fetch Error");
+            console.error("Question Fetch Error:", error);
         }
     };
 
@@ -87,160 +76,90 @@ const useStudentSessionLogic = () =>
         fetchNextQuestion();
     }, []);
 
-    const prePer = currentQuestion ? ((correctCount / currentQuestion.length) * 100.00) : 0;
-    const sessionPercent = prePer.toFixed(2);
-
-    const nextQ = () =>
+    useEffect(() =>
     {
-        if (!submitted)
+        if (sessionConcluded || !currentQuestion) return;
+
+        const timer = setInterval(() =>
         {
-            if (selAnswer[qIndex] === undefined || !selAnswer[qIndex].pick)
+            setTotalTimeRemaining((prev) =>
             {
-                setWrongCount(wrongCount + 1);
-            }
-        }
-        if (qIndex < currentQuestion.length - 1)
+                if (prev <= 0)
+                {
+                    clearInterval(timer);
+                    setSessionConcluded(true);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [currentQuestion, sessionConcluded]);
+
+    useEffect(() =>
+    {
+        if (totalTimeRemaining <= 0 && !submitted && currentQuestion)
         {
-            setQIndex(qIndex + 1);
-            setSubmitted(false);
-            fetchNextQuestion();
+            setSubmitted(true);
         }
-        else
-        {
-            setSessionConcluded(true);
-            updateSessionData();
-        }
-    };
+    }, [totalTimeRemaining]);
 
     const answerChoice = (choose) =>
     {
-        setSelAnswer((x) =>
+        setSelAnswer((prev) =>
         {
-            const y = [...x];
-            y[qIndex] = { q: currentQuestion[qIndex].q, pick: choose };
-            return y;
+            const newAnswers = new Map(prev);
+            newAnswers.set(questionId, { q: currentQuestion.question, pick: choose, correct: currentQuestion.answer });
+            return newAnswers;
         });
     };
 
     const submitAnswer = () =>
     {
-        setSubmitted(true);
-        const chosenAnswer = selAnswer[qIndex]?.pick;
-        const isCorrect = chosenAnswer === currentQuestion[qIndex].rightChoice;
+        if (!currentQuestion) return;
+
+        const chosenAnswer = selAnswer.get(questionId)?.pick;
+        const isCorrect = chosenAnswer === currentQuestion.answer;
+
         if (isCorrect)
         {
-            setCorrectCount(correctCount + 1);
-            setStreak(streak + 1);
+            setCorrectCount((prev) => prev + 1);
         }
         else
         {
-            setWrongCount(wrongCount + 1);
-            setStreak(0);
+            setWrongCount((prev) => prev + 1);
         }
+
+        setSubmitted(true);
     };
 
-    const updateSessionData = async () =>
+    const nextQ = async () =>
     {
-        const sessionData = {
-            studentforSession: ["studentName"],
-            totalTimeInSessions: totalTimeInSessions,
-            streak: streak,
-            totalQuestions: currentQuestion.length,
-            totalQuestionsRight: correctCount,
-            totalQuestionsWrong: wrongCount,
-            sessionsCompleted: sessionsCompleted,
-            daysLoggedIn: daysLoggedIn,
-            subjectMasteryValue: subjectMasteryValue,
-            guessRate: guessRate,
-            avgTimeSpentInSession: avgTimeSpentInSession,
-            successRate: successRate,
-            avgTimePerQuestion: avgTimePerQuestion
-        };
-
-        try
+        if (!submitted)
         {
-            const response = await fetch("http://localhost:5173/api/sessions/create",
+            if (!selAnswer.get(questionId)?.pick)
             {
-                method: "POST",
-                headers:
-                {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(sessionData)
-            });
-            const result = await response.json();
-            console.log("Session updated:", result);
+                setWrongCount((prev) => prev + 1);
+            }
         }
-        catch (error)
-        {
-            console.error("Error updating session:", error);
-        }
+
+        setSubmitted(false);
+        await fetchNextQuestion();
+        setSessionQuestionNumber((prev) => prev + 1);
     };
-
-    useEffect(() =>
-    {
-        if (timeRemaining <= 0)
-        {
-            if (!selAnswer[qIndex] || !selAnswer[qIndex].pick)
-            {
-                setWrongCount(wrongCount + 1);
-            }
-            else
-            {
-                const chosenAnswer = selAnswer[qIndex]?.pick;
-                const isCorrect = chosenAnswer === currentQuestion[qIndex].rightChoice;
-                if (isCorrect)
-                {
-                    setCorrectCount(correctCount + 1);
-                }
-                else
-                {
-                    setWrongCount(wrongCount + 1);
-                }
-            }
-            setSessionConcluded(true);
-            updateSessionData();
-            return;
-        }
-
-        const timeFunction = setInterval(() =>
-        {
-            setTimeRemaining((secZ) =>
-            {
-                if (secZ <= 0)
-                {
-                    clearInterval(timeFunction);
-                    setSessionConcluded(true);
-                    updateSessionData();
-                    return 0;
-                }
-                return secZ - 1;
-            });
-        }, 1000.00);
-
-        return () => clearInterval(timeFunction);
-    }, [timeRemaining]);
-
-    const minutes = timeRemaining - (timeRemaining % 60);
-    const secCore = timeRemaining % 60.00;
-    let seconds;
-    if (secCore < 10.00)
-    {
-        seconds = `0${secCore}`;
-    }
-    else
-    {
-        seconds = secCore;
-    }
 
     return {
-        qIndex,
+        questionId,
+        sessionQuestionNumber,
         selAnswer,
         submitted,
         correctCount,
         wrongCount,
         sessionConcluded,
         currentQuestion,
+        totalTimeRemaining,
+        formatTimeRemaining,
         nextQ,
         submitAnswer,
         answerChoice

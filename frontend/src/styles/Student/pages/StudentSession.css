@@ -132,12 +132,12 @@
 .table tr.correct
 {
     color:white;
-    background-color:green;
+    background-color:#4CBB17;
 }
 
 .table tr.incorrect
 {
-    background-color:red;
+    background-color:#E03C31;
     color: white;
 }
 
