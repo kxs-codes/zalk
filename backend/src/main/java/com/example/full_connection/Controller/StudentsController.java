@@ -17,6 +17,7 @@ import java.util.UUID;
 @RequestMapping("/api/students")
 public class StudentsController
 {
+    //Gets ZLO score for student ratins
     private final SessionService sessionService;
     private final StudentRepository studentRepository;
     private final StatisticsRepository statisticsRepository;
@@ -30,7 +31,7 @@ public class StudentsController
         this.studentRepository = studentRepository;
         this.statisticsRepository = statisticsRepository;
     }
-
+    //Post for ZLO rating; saves to student data
     @PostMapping("/{usernameId}/updateZlo")
     public ResponseEntity<Double> updateZLO(
             @PathVariable UUID usernameId,
@@ -52,15 +53,16 @@ public class StudentsController
         statistics.setStudent(student);
         statisticsRepository.save(statistics);
 
+        //Return updated elo
         return ResponseEntity.ok(updatedZLO);
     }
-
+    //Get students
     @GetMapping
     public List<Student> getAllStudents()
     {
         return studentRepository.findAll();
     }
-
+    //Get ZLO for user
     @GetMapping("{usernameId}/zlo")
     public Double getZloRating(@PathVariable UUID usernameId)
     {
@@ -73,7 +75,7 @@ public class StudentsController
 
         return student.getZloRating();
     }
-
+    //Student handling
     @PostMapping
     public Student createStudent(@RequestBody Student student)
     {

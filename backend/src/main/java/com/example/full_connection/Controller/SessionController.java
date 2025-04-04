@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+//Controller handles API endpoints for the sessions
+//Creates questions; generates with ZLO
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/sessions")
@@ -21,7 +23,7 @@ public class SessionController
     {
         this.sessionService = sessionService;
     }
-
+    //Create updates to student statistics
     @PostMapping("/create")
     public ResponseEntity<Statistics> createSession(
             @RequestParam List<String> studentforSession,
@@ -39,6 +41,7 @@ public class SessionController
             @RequestParam float avgTimePerQuestion
     )
     {
+        //Cont, stats update
         Statistics statistics = sessionService.createSession(
                 studentforSession,
                 totalTimeInSessions,
@@ -57,14 +60,14 @@ public class SessionController
 
         return ResponseEntity.ok(statistics);
     }
-
+    //Gets from question pool
     @GetMapping("/questions")
     public ResponseEntity<List<Questions>> getAllQuestions()
     {
         List<Questions> questions = sessionService.getQuestions();
         return ResponseEntity.ok(questions);
     }
-
+    //Generate new question logic
     @PostMapping("/generate-question")
     public ResponseEntity<Questions> generateNextQuestion(
             @RequestParam int totalQuestionsRight,
