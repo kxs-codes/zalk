@@ -21,6 +21,11 @@ public class StudentsController {
         return studentService.getAllStudents();
     }
 
+    @GetMapping("/{username}/zlo")
+    public Double getZloRating(@PathVariable String username) {
+        return studentService.getZloRating(username);
+    }
+
     // Step 3: Create POST mapping
     @PostMapping
     public Student createStudent(@RequestBody Student student) {

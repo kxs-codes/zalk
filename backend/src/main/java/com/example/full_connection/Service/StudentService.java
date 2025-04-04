@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService
@@ -31,5 +32,16 @@ public class StudentService
     public boolean existsByUsernames(List<String> students)
     {
         return studentRepository.existsAllByUsernames(students);
+    }
+
+    public Double getZloRating(String username) {
+        Optional<Student> studentOptional = studentRepository.findByUsername(username);
+        if (studentOptional.isPresent()) {
+            Student student = studentOptional.get();
+            return student.getZloRating();
+        }
+
+
+        return null;
     }
 }

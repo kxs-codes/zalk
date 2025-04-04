@@ -84,7 +84,7 @@ public class SessionController
 
         if (nextQuestion == null)
         {
-            System.out.println("No question found for the session parameters");
+            System.out.println("No question");
             return ResponseEntity.noContent().build();
         }
 

@@ -8,7 +8,7 @@ const Question = ({ q, options, pickAns, pickedAns, submitted, correctAnswer }) 
 
     if (!Array.isArray(options))
     {
-        return <div>Invalid data for options</div>;
+        return <div>Invalid</div>;
     }
 
     const clickItem = (item) =>

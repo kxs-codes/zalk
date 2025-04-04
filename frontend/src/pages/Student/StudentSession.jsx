@@ -18,6 +18,7 @@ const StudentSession = () =>
         totalTimeRemaining,
         nextQ,
         answerChoice,
+        studentZLO,
         submitAnswer
     } = useStudentSessionLogic();
 
@@ -37,6 +38,10 @@ const StudentSession = () =>
                     <div className="stat3">
                         <p>Session Percent</p>
                         <p>{((correctCount / (correctCount + wrongCount)) * 100).toFixed(2)}%</p>
+                    </div>
+                    <div className="stat4">
+                        <p>Current ZLO</p>
+                        <p>{studentZLO !== null ? studentZLO.toFixed(2) : "Loading..."}</p>
                     </div>
                 </div>
 
