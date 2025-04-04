@@ -53,6 +53,7 @@ public class AuthenticationService {
                         return map;
                     } else {
                         map.put("id", student.getId().toString());
+                        map.put("role", "student");
                     }
                 } else {
                     map.put("message", "No account found of type Student.");
@@ -69,6 +70,7 @@ public class AuthenticationService {
                         return map;
                     } else {
                         map.put("id", guardian.getId().toString());
+                        map.put("role", "guardian");
                     }
                 } else {
                     map.put("message", "No account found of type Guardian.");
@@ -85,6 +87,7 @@ public class AuthenticationService {
                         return map;
                     } else {
                         map.put("id", educator.getId().toString());
+                        map.put("role", "educator");
                     }
                 } else {
                     map.put("message", "No account found of type Educator.");
@@ -101,6 +104,7 @@ public class AuthenticationService {
                         return map;
                     } else {
                         map.put("id", advisoryBoard.getId().toString());
+                        map.put("role", "advisory_board");
                     }
                 } else {
                     map.put("message", "No account found of type AdvisoryBoard.");
@@ -117,6 +121,7 @@ public class AuthenticationService {
                         return map;
                     } else {
                         map.put("id", moderator.getId().toString());
+                        map.put("role", "moderator");
                     }
                 } else {
                     map.put("message", "No account found of type Moderator.");
