@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export const useModeratorCreateClassroom = () => {
     const [studentsList, setStudentsList] = useState([]);
@@ -50,6 +51,9 @@ export const useModeratorCreateClassroom = () => {
 
             if(response.ok) {
                 console.log("success in creating classroom, ", data);
+                toast.success("Success in creating classroom");
+            } else {
+                toast.error("error in creating classroom");
             }
         }
 
