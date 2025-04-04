@@ -14,7 +14,6 @@ const AccessIssues = () => {
         filteredIssues,
         handleUpdateStatus,
         formatDateAndTime,
-        handleStatusChange
     } = useAccessIssues();
 
     return (
@@ -44,8 +43,7 @@ const AccessIssues = () => {
                         <div
                             key={issue.reportId}
                             className="issue-item"
-                            onClick={() => setSelectedIssue(issue)}
-                        >
+                            onClick={() => setSelectedIssue(issue)}>
                             <h3 className="issue-title">{issue.reportName || 'Untitled Report'}</h3>
                             <p className="issue-details">
                                 {formatDateAndTime(issue.timeOccurred)}
@@ -76,7 +74,7 @@ const AccessIssues = () => {
                             <div className="status-change">
                                 <select
                                     value={selectedIssue.status}
-                                    onChange={(e) => handleStatusChange(e.target.value)}
+                                    onChange={(e) => handleUpdateStatus(selectedIssue.reportId, e.target.value)}
                                     className="select">
                                     <option value="Open">Open</option>
                                     <option value="In Progress">In Progress</option>
@@ -93,12 +91,10 @@ const AccessIssues = () => {
                                     rows="3"
                                     placeholder="Describe resolution..."
                                     value={resolution}
-                                    onChange={(e) => setResolution(e.target.value)}
-                                />
+                                    onChange={(e) => setResolution(e.target.value)}/>
                                 <button
                                     className="complete-button"
-                                    onClick={() => handleUpdateStatus(selectedIssue.reportId, "Completed")}
-                                >
+                                    onClick={() => handleUpdateStatus(selectedIssue.reportId, "Completed")}>
                                     Mark as Completed
                                 </button>
                             </div>
