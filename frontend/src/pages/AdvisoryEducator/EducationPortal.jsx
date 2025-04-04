@@ -9,7 +9,8 @@ const EducationPortal = () => {
     activeClassroom,
     setActiveClassroom,
     classrooms,
-    classroomStat
+    classroomStat,
+    loading
   } = useEducationPortal();
 
   return (
@@ -29,17 +30,13 @@ const EducationPortal = () => {
             </div>
 
             <p style={{ marginTop: '2.5rem' }}>Charts</p>
-            <div className="charts">
+            <div className="charts gap-29">
               <Chart
                   activeClassroom={activeClassroom}
                   statistics={classroomStat[activeClassroom]}
                   ChartType="area"
               />
-              <Chart
-                  activeClassroom={activeClassroom}
-                  statistics={classroomStat[activeClassroom]}
-                  ChartType="radar"
-              />
+              
             </div>
           </div>
         </div>

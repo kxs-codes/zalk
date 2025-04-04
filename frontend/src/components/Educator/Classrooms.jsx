@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
+import React, { useState } from 'react';
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 
-const Classrooms = ({classrooms, activeClassroom, setActiveClassroom}) => {
-  // Create a state for the search input
-  const [search, setSearch] = useState('')
+const Classrooms = ({ classrooms, activeClassroom, setActiveClassroom }) => {
+  const [search, setSearch] = useState('');
 
-  // Filter the classrooms based on the search input
-  const filteredClassrooms = Array.isArray(classrooms)
-    ? classrooms.filter(classroom =>
-        classroom.subject.toLowerCase().includes(search.toLowerCase())
-      )
-    : [];
+  // Filter classrooms based on subject + level
+  const filteredClassrooms = classrooms.filter(classroom =>
+    (`${classroom.subject} ${classroom.subjectLevel || ''}`).toLowerCase().includes(search.toLowerCase())
+  );
 
-  useEffect(() => {
-  },[filteredClassrooms])
+  const handleSelect = (classroom) => {
+    setActiveClassroom(prev => prev?.classroomId === classroom.classroomId ? null : classroom); 
+  };
 
   return (
     <div className='bg-dark-red-primary-1 h-80 w-200 rounded-2xl overflow-y-auto'>
@@ -30,24 +28,24 @@ const Classrooms = ({classrooms, activeClassroom, setActiveClassroom}) => {
         <MagnifyingGlassIcon className="h-5 w-5 text-grey-secondary-darker-1 absolute right-4 top-10 mr-65 mt-0.5" />
       </div>
 
-      {/* Display the filtered classrooms */}
+      {/* Render list */}
       <div className='mt-10'>
-        {filteredClassrooms.map((cls) => (
+        {filteredClassrooms.map(classroom => (
           <div
-            key={cls.classroom_id}
-            className={`p-3 cursor-pointer
-              ${activeClassroom === cls.classroom_id
+            key={classroom.classroomId}
+            className={`p-3 cursor-pointer ${
+              activeClassroom?.classroomId === classroom.classroomId
                 ? 'bg-grey-secondary-darker-1 text-amber-400 font-bold hover:text-white'
                 : 'bg-grey-secondary-lighter-1 hover:text-dark-red-primary-1 text-black font-normal'
-              }`}
-            onClick={() => setActiveClassroom(cls.classroom_id)}
+            }`}
+            onClick={() => handleSelect(classroom)}
           >
-            {cls.subject}
+            {classroom.subject} {classroom.subjectLevel && `- Level ${classroom.subjectLevel}`}
           </div>
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Classrooms
+export default Classrooms;
