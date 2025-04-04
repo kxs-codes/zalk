@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.time.LocalDateTime;
 
 @Service
 public class ReportsService {
@@ -31,6 +32,27 @@ public class ReportsService {
                         report.getSubmitterEmail()
                 ))
                 .collect(Collectors.toList());
+    }
+    public ReportsDTO createReport(ReportsDTO reportDTO) {
+        Reports newReport = new Reports();
+        newReport.setReportName(reportDTO.getReportName());
+        newReport.setReportDescription(reportDTO.getReportDescription());
+        newReport.setTimeOccurred(reportDTO.getTimeOccurred() != null ? reportDTO.getTimeOccurred() : LocalDateTime.now());
+        newReport.setCategory(reportDTO.getCategory());
+        newReport.setStatus(reportDTO.getStatus() != null ? reportDTO.getStatus() : "Open");
+        newReport.setSubmitterEmail(reportDTO.getSubmitterEmail());
+
+        Reports savedReport = reportsRepository.save(newReport);
+
+        return new ReportsDTO(
+                savedReport.getReportId(),
+                savedReport.getReportName(),
+                savedReport.getReportDescription(),
+                savedReport.getTimeOccurred(),
+                savedReport.getCategory(),
+                savedReport.getStatus(),
+                savedReport.getSubmitterEmail()
+        );
     }
 
     // fetch a specific report by an Id
