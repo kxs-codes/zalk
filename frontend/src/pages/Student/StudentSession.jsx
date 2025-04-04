@@ -2,7 +2,7 @@ import useStudentSessionLogic from "./StudentSessionLogic";
 import Question from "../../components/Question.jsx";
 import PortalLogoBar from "../../components/PortalLogoBar";
 import "../../styles/Student/pages/StudentSession.css";
-
+//Handles question session for students handling question and timing for the frontend
 const StudentSession = () =>
 {
     const {
@@ -21,7 +21,7 @@ const StudentSession = () =>
         studentZLO,
         submitAnswer
     } = useStudentSessionLogic();
-
+    //Results Screen
     const renderResults = () =>
     {
         return (
@@ -37,11 +37,11 @@ const StudentSession = () =>
                     </div>
                     <div className="stat3">
                         <p>Session Percent</p>
-                        <p>{((correctCount / (correctCount + wrongCount)) * 100).toFixed(2)}%</p>
+                        <p>{((correctCount/(correctCount + wrongCount))*100.00).toFixed(2)}%</p>
                     </div>
                     <div className="stat4">
                         <p>Current ZLO</p>
-                        <p>{studentZLO !== null ? studentZLO.toFixed(2) : "Loading..."}</p>
+                        <p>{studentZLO!==null?studentZLO.toFixed(2):"Loading..."}</p>
                     </div>
                 </div>
 
@@ -75,7 +75,7 @@ const StudentSession = () =>
             </div>
         );
     };
-
+    //Handles session space for active questions
     return (
         <div className="boxBorder">
             <div className="sessionLayout">

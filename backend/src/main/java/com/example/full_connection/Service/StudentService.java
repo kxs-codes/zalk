@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
+//Service for the students
 @Service
 public class StudentService
 {
@@ -34,7 +34,7 @@ public class StudentService
     {
         return studentRepository.existsAllByUsernames(students);
     }
-
+    //Used to get current ZLO value
     public Double getZloRating(UUID usernameId) {
         Optional<Student> student = studentRepository.findById(usernameId);
         return student.map(Student::getZloRating).orElseThrow(() -> new RuntimeException("Student not found"));
