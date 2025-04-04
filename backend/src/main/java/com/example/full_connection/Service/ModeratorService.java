@@ -3,11 +3,14 @@ package com.example.full_connection.Service;
 import java.security.Guard;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.example.full_connection.DTO.AccountDTO;
@@ -15,6 +18,8 @@ import com.example.full_connection.Entity.AdvisoryBoard;
 import com.example.full_connection.Entity.Classrooms;
 import com.example.full_connection.Entity.Educator;
 import com.example.full_connection.Entity.Guardian;
+import com.example.full_connection.Entity.Logs;
+import com.example.full_connection.Entity.Reports;
 import com.example.full_connection.Entity.SessionConfig;
 import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Entity.Student;
@@ -22,6 +27,8 @@ import com.example.full_connection.Repository.AdvisoryBoardRepository;
 import com.example.full_connection.Repository.ClassroomsRepository;
 import com.example.full_connection.Repository.EducatorRepository;
 import com.example.full_connection.Repository.GuardianRepository;
+import com.example.full_connection.Repository.LogsRepository;
+import com.example.full_connection.Repository.ReportsRepository;
 import com.example.full_connection.Repository.SessionConfigRepository;
 import com.example.full_connection.Repository.StatisticsRepository;
 import com.example.full_connection.Repository.StudentRepository;
@@ -48,6 +55,12 @@ public class ModeratorService {
 
     @Autowired
     private SessionConfigRepository sessionConfigRepository;
+
+    @Autowired
+    private ReportsRepository reportsRepository;
+
+    @Autowired
+    private LogsRepository logsRepository;
 
     public List<AccountDTO> grabListAccounts(String accountType) {
         // 1. Create generic accounts List
@@ -156,4 +169,33 @@ public class ModeratorService {
         return "Deleted Successfully Account with id: " + id;
     }
 
+    public Map<String, Integer> fetchSummaryStatistics() {
+        // 1. Grab count of all users
+        long users = studentRepository.count() + educatorRepository.count() + guardianRepository.count() + advisoryBoardRepository.count();
+        
+        // 2. Query classrooms, all users, and reports to grab counts of each. Add to map
+        Map<String, Integer> statsMap = Map.of(
+            "classrooms", (int)classroomsRepository.count(), 
+            "users", (int)users,
+            "reports", (int)reportsRepository.count());
+
+        // 3. Return map
+        return statsMap;
+    }
+
+    public List<Logs> fetchRecentLogs() {
+        // 1. Define limit of recent logs to fetch being 3
+        Pageable limit = PageRequest.of(0, 3);
+        
+        // 2. Query logs and return results
+        return logsRepository.findAll(limit).getContent();
+    }
+
+    public List<Reports> fetchRecentReports() {
+        // 1. Define limit of recent reports to fetch being 3
+        Pageable limit = PageRequest.of(0, 3);
+        
+        // 2. Query logs and return results
+        return reportsRepository.findAll(limit).getContent();
+    }
 }

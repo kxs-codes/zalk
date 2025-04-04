@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.full_connection.DTO.AccountDTO;
 import com.example.full_connection.DTO.FormDataModerator;
 import com.example.full_connection.Entity.Classrooms;
+import com.example.full_connection.Entity.Logs;
+import com.example.full_connection.Entity.Reports;
 import com.example.full_connection.Service.ClassroomsService;
 import com.example.full_connection.Service.EducatorService;
 import com.example.full_connection.Service.ModeratorService;
@@ -108,5 +110,32 @@ public class ModeratorController {
 
         // 2. Send back the response message
         return ResponseEntity.ok(message);
+    }
+
+    @GetMapping("/summary-statistics")
+    public ResponseEntity<Map<String, Integer>> getSummaryStatistics() {
+        // 1. Call service to grab the stats
+        Map<String, Integer> stats = moderatorService.fetchSummaryStatistics();
+
+        // 2. Return the stats list to frontend
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/recent-logs")
+    public ResponseEntity<List<Logs>> getRecentLogs() {
+        // 1. Call service to grab the recent logs
+        List<Logs> logList = moderatorService.fetchRecentLogs();
+
+        // 2. Return the list of logs to the frontend
+        return ResponseEntity.ok(logList);
+    }
+
+    @GetMapping("/recent-reports")
+    public ResponseEntity<List<Reports>> getRecentReports() {
+        // 1. Call service to grab the recent logs
+        List<Reports> reportList = moderatorService.fetchRecentReports();
+
+        // 2. Return the list of logs to the frontend
+        return ResponseEntity.ok(reportList);
     }
 }
