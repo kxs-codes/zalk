@@ -15,6 +15,7 @@ const useStudentSessionLogic = () =>
     const [sessionConcluded, setSessionConcluded] = useState(false);
     const [answeredQuestions, setAnsweredQuestions] = useState(new Set());
     const [studentZLO, setStudentZLO] = useState(null);
+    const [streak, setStreak] = useState(0);
 
     const formatTimeRemaining = (seconds) =>
     {
@@ -216,10 +217,12 @@ const useStudentSessionLogic = () =>
         if (isCorrect)
         {
             setCorrectCount((prev) => prev + 1);
+            setStreak((prev) => prev + 1);
         }
         else
         {
             setWrongCount((prev) => prev + 1);
+            setStreak(0);
         }
 
         setSubmitted(true);
@@ -257,7 +260,8 @@ const useStudentSessionLogic = () =>
         nextQ,
         submitAnswer,
         answerChoice,
-        studentZLO
+        studentZLO,
+        streak
     };
 };
 

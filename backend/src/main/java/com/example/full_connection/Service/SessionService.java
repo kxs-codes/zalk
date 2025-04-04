@@ -49,7 +49,7 @@ public class SessionService
         double knowledgeProbabilitySession = calculateKnowledgeProbability(totalQuestionsRight, totalQuestions);
         double knowledgeProbabilityAvg = calculateKnowledgeProbability(totalQuestionsRight, totalQuestions);
 
-        double zlo =
+        double zloRating =
                 (weightPKSession * knowledgeProbabilitySession) +
                         (weightPKAvg * knowledgeProbabilityAvg) +
                         (weightSStreak1 * streak * (1 - knowledgeProbabilitySession)) +
@@ -59,7 +59,7 @@ public class SessionService
                         (weightPCorr1 * successRate * knowledgeProbabilitySession) +
                         (weightPCorrAvg * successRate * knowledgeProbabilityAvg);
 
-        return zlo;
+        return zloRating;
     }
 
     private double calculateKnowledgeProbability(int totalCorrect, int totalQuestions)
@@ -162,7 +162,6 @@ public class SessionService
     public double updateZLO(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate, Student student)
     {
         double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
-
         student.setZloRating(zloRating);
         studentRepository.save(student);
 
