@@ -26,7 +26,7 @@ public class AdvisoryBoard {
     private String email;
 
     // Getters
-    public UUID getAdvisoryId() {
+    public UUID getId() {
         return advisoryId;
     }
     public String getUsername() {

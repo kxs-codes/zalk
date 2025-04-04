@@ -42,6 +42,9 @@ public class Student {
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Statistics statistics;
 
+    @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<BadgeProgress> badgeProgress;
+
     // Getters
     public UUID getId() {
         return studentId;

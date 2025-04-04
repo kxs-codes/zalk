@@ -1,3 +1,4 @@
+/* General Layout */
 .badges-container {
     display: flex;
     align-items: center;
@@ -27,57 +28,96 @@
     font-weight: 400;
 }
 
+/* Title Styling */
 .title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
+/* Badge Grid Layout */
 .badges-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust grid layout for better flexibility */
     gap: 16px;
     width: 100%;
     margin-top: 20px;
 }
 
+/* Badge Card Styles */
 .badge-card {
     padding: 20px;
     border-radius: 10px;
     color: white;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.hardLearner, .sessionMaster {
+/* Add Hover Effect */
+.badge-card:hover {
+    transform: scale(1.05); /* Slightly enlarge the card */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Add shadow effect on hover */
+}
+
+/* Badge Types with corresponding colors */
+.hardLearner {
     background-color: var(--color-dark-red-primary-1);
 }
 
-.quizConqueror, .quizWiz, .sessionSuperstar {
+.quizConquerer {
     background-color: var(--color-light-red-primary-2);
 }
 
-.timeTraveler, .loyalLearner, .superAchiever {
+.timeTraveler {
     background-color: var(--color-red-primary-3);
 }
 
+.loyalLearner {
+    background-color: var(--color-light-red-primary-2);
+}
+
+.quizWizard {
+    background-color: var(--color-red-primary-3);
+}
+
+.superAchiever {
+    background-color: var(--color-light-red-primary-2);
+}
+
+.sessionMaster {
+    background-color: var(--color-dark-red-primary-1);
+}
+
+.sessionSuperstar {
+    background-color: var(--color-red-primary-3);
+}
+
+/* Emoji Styling */
 .emoji-large {
     font-size: 2rem;
     margin-bottom: 10px;
 }
 
+/* Badge Progress Section */
 .progress-section, .earned-section {
     width: 100%;
     margin-top: 30px;
     text-align: center;
 }
 
+/* Section Title */
 .section-title {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
+/* Progress Bar Styling */
 .badge-progress {
     display: flex;
     align-items: center;
@@ -105,6 +145,7 @@
     font-weight: bold;
 }
 
+/* Earned Badges Section */
 .earned-badge {
     background-color: var(--color-grey-secondary-lighter-1);
     padding: 10px;
