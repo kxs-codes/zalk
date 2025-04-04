@@ -2,10 +2,10 @@ import {
     useState,
     useEffect
 } from "react";
-
+import {useAuth} from '../../components/AuthProvider';
 const useStudentSessionLogic = () =>
 {
-
+    const {token} = useAuth();
     const [currentQuestion, setCurrentQuestion] = useState(null);
     const [questionId, setQuestionId] = useState(null);
     const [sessionQuestionNumber, setSessionQuestionNumber] = useState(1);
@@ -27,14 +27,14 @@ const useStudentSessionLogic = () =>
 
     const fetchZLO = async () => {
         const username = localStorage.getItem("username");
-
+        const usernameId = token.jti;
         if (!username) {
             console.error("Username is not available");
             return;
         }
 
         try {
-            const response = await fetch(`http://localhost:8080/api/students/{username}/zlo`);
+            const response = await fetch(`http://localhost:8080/api/students/${usernameId}/zlo`);
             if (!response.ok) {
                 throw new Error("Failed to fetch ZLO");
             }
