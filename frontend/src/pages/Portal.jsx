@@ -1,26 +1,36 @@
-import { useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
+import {useEffect} from "react";
+import { useAuth } from '../components/AuthProvider.jsx';
 import StudentPortal from './Student/StudentPortal.jsx';
-import EducatorPortal from './Educator/Portal';
+import EducationPortal from './AdvisoryEducator/EducationPortal.jsx';
 import GuardianPortal from "./Guardian/GuardianPortal.jsx";
 import ModeratorPortal from './Moderator/ModeratorPortal.jsx';
-import AdvisorPortal from './Advisory/AdvisorPortal.jsx';
 
-const Portal = () => {
-    // 1. Grab the useNavigate() data passed into /portal route with useLocation()
-    const location = useLocation();
-    const role = location.state?.role;
+// eslint-disable-next-line react/prop-types
+const Portal = ({ setRoleError }) => {
+  const { token } = useAuth(); // Access token from context
 
-    // 2. Map the role with the correct portal
-    const dict = {
-        "student": <StudentPortal/>,
-        "educator": <EducatorPortal/>,
-        "guardian": <GuardianPortal/>,
-        "moderator": <ModeratorPortal/>,
-        "advisor": <AdvisorPortal/>
-    };
 
-    // 3. Return the proper portal
-    return dict[role] || <div>invalid role</div>;
-}
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const dict = {
+    "student": <StudentPortal />,
+    "educator": <EducationPortal />,
+    "guardian": <GuardianPortal />,
+    "moderator": <ModeratorPortal />,
+    "advisory_board": <EducationPortal />
+  };
+
+  useEffect(() => {
+    if (!(token.role in dict)) {
+      setRoleError("Account type not selected.");
+    }
+  }, [token.role, dict, setRoleError]);
+
+  if (token.role in dict) {
+    return dict[token.role];
+  } else {
+    return <Navigate to="/" />;
+  }
+};
 
 export default Portal;

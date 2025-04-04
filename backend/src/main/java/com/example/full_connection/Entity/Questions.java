@@ -1,15 +1,16 @@
 package com.example.full_connection.Entity;
 
-// JPA annotations like @Id, @Column, @GeneratedValue, etc.
 import jakarta.persistence.*;
-
 import java.util.UUID;
 
 @Entity
-public class Questions {
+@Table(name = "questions")
+public class Questions
+{
     @Id
     @GeneratedValue
-    private UUID id;
+    @Column(name = "questionId")
+    private UUID questionId;
 
     @Column(nullable = false)
     private String question;
@@ -20,49 +21,82 @@ public class Questions {
     @Column(name = "question_type", nullable = false)
     private String questionType;
 
+    @Column(name = "options", nullable = false)
+    private String options;
+
     @Column(name = "grade_level", nullable = false)
     private int gradeLevel;
 
     @Column(nullable = false)
-    private int rating;
+    private String difficulty;
 
-    // Getters
-    public UUID getId() {
-        return id;
+    public UUID getQuestionId()
+    {
+        return questionId;
     }
-    public String getQuestion() {
+
+    public String getQuestion()
+    {
         return question;
     }
-    public String getAnswer() {
+
+    public String getAnswer()
+    {
         return answer;
     }
-    public String getQuestionType() {
+
+    public String getQuestionType()
+    {
         return questionType;
     }
-    public int getGradeLevel() {
+
+    public int getGradeLevel()
+    {
         return gradeLevel;
     }
-    public int getRating() {
-        return rating;
+
+    public String getDifficulty()
+    {
+        return difficulty;
     }
 
-    // Setters
-    public void setId(UUID id) {
-        this.id = id;
+    public String getOptions()
+    {
+        return options;
     }
-    public void setQuestion(String question) {
+
+    public void setQuestionId(UUID questionId)
+    {
+        this.questionId = questionId;
+    }
+
+    public void setQuestion(String question)
+    {
         this.question = question;
     }
-    public void setAnswer(String answer) {
+
+    public void setAnswer(String answer)
+    {
         this.answer = answer;
     }
-    public void setQuestionType(String questionType) {
+
+    public void setQuestionType(String questionType)
+    {
         this.questionType = questionType;
     }
-    public void setGradeLevel(int gradeLevel) {
+
+    public void setGradeLevel(int gradeLevel)
+    {
         this.gradeLevel = gradeLevel;
     }
-    public void setRating(int rating) {
-        this.rating = rating;
+
+    public void setDifficulty(String difficulty)
+    {
+        this.difficulty = difficulty;
+    }
+
+    public void setOptions(String options)
+    {
+        this.options = options;
     }
 }

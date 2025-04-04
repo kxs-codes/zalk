@@ -1,9 +1,20 @@
+// React and core library imports
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
+// Third-party libraries
+import { ToastContainer } from 'react-toastify';
+
+// Styles
 import './App.css';
+import './index.css';
+
+// App-specific components and routes
 import AppRoutes from './Routes.jsx';
 import NavBar from './components/NavBar.jsx';
-import { useLocation } from 'react-router-dom';
 import PortalLogoBar from './components/PortalLogoBar.jsx';
-import { useState } from 'react';
+import { AuthProvider } from './components/AuthProvider.jsx';
+
 
 function App() {  
     // Only show navbar when not on these routes below
@@ -20,19 +31,22 @@ function App() {
                          '/access-reports', '/report-issues', '/view-progress', 
                          '/access-spreadsheet', ];
 
-    // Set the role for use in specific portal returns based on role
-    const [role, setRole] = useState('no-role-set');
+    // Prop for errors when the user does not select a valid 
+    const [roleError, setRoleError] = useState('');
 
     const isValid = () => {
-        return noNavigation.includes(location.pathname) == false && validRoutes.includes(location.pathname) == true;
+        return noNavigation.includes(location.pathname) === false && validRoutes.includes(location.pathname) === true;
     }
 
     return (
-        <div className='flex'>
-            {isValid() && <NavBar role={role}/>}
-            {isValid() && <PortalLogoBar/>}
-            <AppRoutes role={role} setRole={setRole}/>
-        </div>
+        <AuthProvider>
+            <div className='flex'>
+                {isValid() && <NavBar/>}
+                {isValid() && <PortalLogoBar/>}
+                <AppRoutes roleError={roleError} setRoleError={setRoleError}/>
+                <ToastContainer autoClose={4000} stacked /> {/* Added logic to show toast success/error messages */}
+            </div>
+        </AuthProvider>
     );
 }
 

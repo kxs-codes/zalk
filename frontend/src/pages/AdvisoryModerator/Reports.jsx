@@ -1,68 +1,28 @@
-import React, { useState } from "react";
-import PortalLogoBar from "../../components/PortalLogoBar.jsx"; //Import the logo bar
-import "../../styles/AdvisoryModerator/pages/Reports.css"; //Import the custom CSS
-
-//Mock Data for the issues
-const mockIssues = [
-    {
-        id: 1,
-        title: "Login not working",
-        description: "Users are unable to log in with correct credentials.",
-        category: "Bug",
-        dateOccurred: "2025-03-15",
-        timeOccurred: "10:30",
-        status: "Open",
-        resolution: ""
-    },
-    {
-        id: 2,
-        title: "Slow page loading",
-        description: "Dashboard takes too long to load.",
-        category: "Performance Issue",
-        dateOccurred: "2025-03-14",
-        timeOccurred: "14:00",
-        status: "Open",
-        resolution: ""
-    }
-];
+import "react";
+import "../../styles/AdvisoryModerator/pages/Reports.css";
+import PortalLogoBar from "../../components/PortalLogoBar.jsx";
+import useAccessIssues from "./Report.js";
 
 const AccessIssues = () => {
-    //State variables
-    const [issues, setIssues] = useState(mockIssues);
-    const [sortBy, setSortBy] = useState("date");
-    const [filter, setFilter] = useState("");
-    const [selectedIssue, setSelectedIssue] = useState(null);
-    const [resolution, setResolution] = useState("");
-
-    //Sorting issues based on the date
-    const sortedIssues = [...issues].sort((a, b) =>
-        sortBy === "date"
-            ? new Date(b.dateOccurred) - new Date(a.dateOccurred)
-            : a.category.localeCompare(b.category)
-    );
-
-    //Filtering issues based on category
-    const filteredIssues = filter
-        ? sortedIssues.filter((issue) => issue.category === filter)
-        : sortedIssues;
-
-    //Marks that an issue is completed
-    const handleComplete = (id) => {
-        setIssues(
-            issues.map((issue) =>
-                issue.id === id ? { ...issue, status: "Completed", resolution } : issue
-            )
-        );
-        setSelectedIssue(null);
-        setResolution("");
-    };
+    const {
+        setSortBy,
+        setFilter,
+        selectedIssue,
+        setSelectedIssue,
+        resolution,
+        setResolution,
+        filteredIssues,
+        handleUpdateStatus,
+        formatDateAndTime,
+    } = useAccessIssues();
 
     return (
         <div className="container">
             <PortalLogoBar />
             <div className="card">
                 <h2 className="title">Access Issue Reports</h2>
-                {/*Filters for sorting and filtering the issues*/}
+
+                {/*Filters for sorting and issue type*/}
                 <div className="filters">
                     <select onChange={(e) => setSortBy(e.target.value)} className="select">
                         <option value="date">Sort by Date</option>
@@ -77,40 +37,53 @@ const AccessIssues = () => {
                     </select>
                 </div>
 
-                {/*List of filtered and sorted issues*/}
+                {/*Issue list*/}
                 <div className="issue-list">
                     {filteredIssues.map((issue) => (
                         <div
-                            key={issue.id}
+                            key={issue.reportId}
                             className="issue-item"
-                            onClick={() => setSelectedIssue(issue)}
-                        >
-                            <h3 className="issue-title">{issue.title}</h3>
+                            onClick={() => setSelectedIssue(issue)}>
+                            <h3 className="issue-title">{issue.reportName || 'Untitled Report'}</h3>
                             <p className="issue-details">
-                                {issue.dateOccurred} at {issue.timeOccurred}
+                                {formatDateAndTime(issue.timeOccurred)}
                             </p>
                             <p className="category">Category: {issue.category}</p>
-                            <p className={`status ${issue.status === "Completed" ? "completed" : "open"}`}>
+                            <p className={`status ${issue.status === "Completed" ? "completed" : "open"}`} >
                                 Status: {issue.status}
                             </p>
                         </div>
                     ))}
                 </div>
 
-                {/*If an issue is selected, display its details*/}
+                {/*Display selected issue details*/}
                 {selectedIssue && (
                     <div className="issue-detail">
-                        <h3 className="issue-detail-title">{selectedIssue.title}</h3>
-                        <p className="description">{selectedIssue.description}</p>
+                        <h3 className="issue-detail-title">{selectedIssue.reportName || 'Untitled Report'}</h3>
+                        <p className="description">{selectedIssue.reportDescription}</p>
                         <p className="issue-details">
-                            Occurred on {selectedIssue.dateOccurred} at {selectedIssue.timeOccurred}
+                            Occurred on {formatDateAndTime(selectedIssue.timeOccurred)}
                         </p>
                         <p className="category">Category: {selectedIssue.category}</p>
-                        <p className={`status ${selectedIssue.status === "Completed" ? "completed" : "open"}`}>
+                        <p className={`status ${selectedIssue.status === "Completed" ? "completed" : "open"}`} >
                             Status: {selectedIssue.status}
                         </p>
 
-                        {/*Show resolution section if the issue is still open*/}
+                        {/*Dropdown for changing the status*/}
+                        {selectedIssue.status !== "Completed" && (
+                            <div className="status-change">
+                                <select
+                                    value={selectedIssue.status}
+                                    onChange={(e) => handleUpdateStatus(selectedIssue.reportId, e.target.value)}
+                                    className="select">
+                                    <option value="Open">Open</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
+                        )}
+
+                        {/* Input field for resolution if the issue is Open */}
                         {selectedIssue.status === "Open" && (
                             <div className="resolution-section">
                                 <textarea
@@ -118,16 +91,15 @@ const AccessIssues = () => {
                                     rows="3"
                                     placeholder="Describe resolution..."
                                     value={resolution}
-                                    onChange={(e) => setResolution(e.target.value)}
-                                ></textarea>
+                                    onChange={(e) => setResolution(e.target.value)}/>
                                 <button
                                     className="complete-button"
-                                    onClick={() => handleComplete(selectedIssue.id)}
-                                >
+                                    onClick={() => handleUpdateStatus(selectedIssue.reportId, "Completed")}>
                                     Mark as Completed
                                 </button>
                             </div>
                         )}
+
                         <button className="close-button" onClick={() => setSelectedIssue(null)}>
                             Close
                         </button>

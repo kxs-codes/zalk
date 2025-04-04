@@ -20,7 +20,7 @@
     overflow-y: auto;
 }
 
-/* Title */
+/*Title*/
 .title {
     font-size: 1.75rem;
     font-weight: 600;
@@ -75,13 +75,17 @@
     font-size: 0.875rem;
 }
 
-/* Status styling */
+/*Status styling*/
 .status.open {
+    color: var(--color-red-primary-3);
+}
+
+.status.inProgress {
     color: var(--color-light-red-primary-2);
 }
 
 .status.completed {
-    color: var(--color-red-primary-3);
+    color: #388E3C;
 }
 
 /*Issue detail section*/
@@ -133,11 +137,15 @@
 /*Close button*/
 .close-button {
     margin-top: 1.5rem;
-    color: var(--color-light-red-primary-2);
+    color: var(--color-black);
     padding: 0.5rem;
     border: none;
     background: none;
     cursor: pointer;
+}
+
+.close-button:hover {
+    background-color: var(--color-light-red-primary-2);
 }
 
 /*Responsive Design for smaller screens*/

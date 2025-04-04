@@ -1,25 +1,36 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import LogoBar from '../components/LogoBar';
+import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import '../styles/Login.css';
+import LogoBar from '../components/LogoBar';
+import useLogin from './LoginLogic.js';
+import { useAuth } from '../components/AuthProvider.jsx';
 
-function Login({ role, setRole }) {
-  const navigate = useNavigate();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-    setUsername('');
-    setPassword('');
-    // Navigate to portal, passing role in state
-    navigate('/portal', { state: { role } });
-  };
+// eslint-disable-next-line react/prop-types
+function Login({ roleError }) {
+  const {username, setUsername, password, setPassword, accountType, setAccountType, onSubmit} = useLogin();
+  const showRef = useRef(false);
+  const { setToken } = useAuth();
+  
+  useEffect(() => {
+    localStorage.removeItem("accessToken");
+    setToken(null);
+  }, [])
 
-  const handleChange = (e) => {
-    setRole(e.target.value);
-    console.log('role:', e.target.value);
-  };
+  useEffect(() => {
+    if (roleError && !showRef.current) {
+      toast.error(roleError, {
+        position: 'top-right'
+      });
+      showRef.current = true;
+
+      // Reset the ref after a delay to allow new errors later
+      setTimeout(() => {
+        showRef.current = false;
+      }, 500);
+    }
+  }, [roleError]);
 
   return (
     <div className="login-page">
@@ -43,15 +54,15 @@ function Login({ role, setRole }) {
             <label className="login-label">Account Type</label>
             <select
               className="login-select"
-              value={role}
-              onChange={handleChange}
+              value={accountType}
+              onChange={(e) => setAccountType(e.target.value)}
             >
               <option value="start">-</option>
               <option value="student">Student</option>
               <option value="educator">Educator</option>
               <option value="guardian">Guardian</option>
               <option value="moderator">Moderator</option>
-              <option value="advisor">Advisor</option>
+              <option value="advisory_board">Advisor</option>
             </select>
 
             <label className="login-label">Username</label>

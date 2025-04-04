@@ -1,44 +1,30 @@
-import React, { useState } from 'react';
-import '../../styles/AdvisoryModerator/pages/ReportIssues.css'; //Import the CSS file
+import '../../styles/AdvisoryModerator/pages/ReportIssues.css';
+import useReportIssues from './ReportIssue.js';
 
 const ReportIssues = () => {
-    const [issueTitle, setIssueTitle] = useState('');
-    const [issueDescription, setIssueDescription] = useState('');
-    const [issueCategory, setIssueCategory] = useState('');
-    const [dateOccurred, setDateOccurred] = useState('');
-    const [timeOccurred, setTimeOccurred] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [formError, setFormError] = useState('');
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (!issueTitle || !issueDescription || !issueCategory || !dateOccurred || !timeOccurred) {
-            setFormError('All fields are required.');
-            return;
-        }
-
-        setFormError('');
-        setIsSubmitting(true);
-
-        setTimeout(() => {
-            setIsSubmitting(false);
-            alert('Issue reported successfully!');
-            setIssueTitle('');
-            setIssueDescription('');
-            setIssueCategory('');
-            setDateOccurred('');
-            setTimeOccurred('');
-        }, 1000);
-    };
+    const {
+        issueTitle,
+        setIssueTitle,
+        issueDescription,
+        setIssueDescription,
+        issueCategory,
+        setIssueCategory,
+        dateOccurred,
+        setDateOccurred,
+        timeOccurred,
+        setTimeOccurred,
+        submitterEmail,
+        setSubmitterEmail,
+        isSubmitting,
+        formError,
+        handleSubmit,
+    } = useReportIssues();
 
     return (
         <div className="report-issues-container">
             <div className="report-issues-form-container">
                 <h2 className="report-title">Report an Issue</h2>
-
                 {formError && <div className="error-message">{formError}</div>}
-
                 <form onSubmit={handleSubmit} className="report-form">
                     <div className="form-group">
                         <label htmlFor="issueTitle">Issue Title</label>
@@ -53,13 +39,24 @@ const ReportIssues = () => {
                     </div>
 
                     <div className="form-group">
+                        <label htmlFor="submitterEmail">Your Email</label>
+                        <input
+                            type="email"
+                            id="submitterEmail"
+                            value={submitterEmail}
+                            onChange={(e) => setSubmitterEmail(e.target.value)}
+                            placeholder="Enter your email"
+                            required
+                        />
+                    </div>
+
+                    <div className="form-group">
                         <label htmlFor="issueCategory">Issue Category</label>
                         <select
                             id="issueCategory"
                             value={issueCategory}
                             onChange={(e) => setIssueCategory(e.target.value)}
-                            required
-                        >
+                            required>
                             <option value="">Select a category</option>
                             <option value="Bug">Bug</option>
                             <option value="Feature Request">Feature Request</option>
@@ -67,7 +64,7 @@ const ReportIssues = () => {
                             <option value="Performance Issue">Performance Issue</option>
                         </select>
                     </div>
-                    {/* Date Occurred */}
+
                     <div className="date-time-group">
                         <label htmlFor="dateOccurred">Date Occurred</label>
                         <input
@@ -76,11 +73,9 @@ const ReportIssues = () => {
                             value={dateOccurred}
                             onChange={(e) => setDateOccurred(e.target.value)}
                             className="date-time-input"
-                            required
-                        />
+                            required/>
                     </div>
 
-                    {/* Time Occurred */}
                     <div className="date-time-group">
                         <label htmlFor="timeOccurred">Time Occurred</label>
                         <input
@@ -89,9 +84,9 @@ const ReportIssues = () => {
                             value={timeOccurred}
                             onChange={(e) => setTimeOccurred(e.target.value)}
                             className="date-time-input"
-                            required
-                        />
+                            required/>
                     </div>
+
                     <div className="form-group">
                         <label htmlFor="issueDescription">Issue Description</label>
                         <textarea
@@ -100,8 +95,7 @@ const ReportIssues = () => {
                             onChange={(e) => setIssueDescription(e.target.value)}
                             rows="5"
                             placeholder="Describe your report..."
-                            required
-                        />
+                            required/>
                     </div>
 
                     <div className="submit-container">
