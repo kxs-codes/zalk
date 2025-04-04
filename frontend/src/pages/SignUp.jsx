@@ -2,20 +2,10 @@ import { useNavigate, Link } from "react-router-dom";
 import LogoBar from "../components/LogoBar";
 import { useState } from "react";
 import "../styles/SignUp.css";
+import useSignUp from "./SignUpLogic";
 
 const SignUp = () => {
-    const navigate = useNavigate();
-    const [role, setRole] = useState('');
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        navigate('/');
-    }
-
-    const handleChange = (e) => {
-        e.preventDefault();
-        setRole(e.target.value);
-    }
+    const {formData, handleChange, handleSubmit} = useSignUp();
 
     return (
         <div className="signup-container">
@@ -30,32 +20,32 @@ const SignUp = () => {
                     <form className="signup-form" onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label htmlFor="account-type">Account Type</label>
-                            <select name="account-type" id="account-type" value={role} onChange={handleChange}>
+                            <select name="account-type" id="account-type" value={formData.accountType} onChange={handleChange}>
                                 <option value="student">Student</option>
                                 <option value="educator">Educator</option>
                                 <option value="guardian">Guardian</option>
-                                <option value="advisory">Advisory</option>
+                                <option value="advisory_board">Advisory</option>
                             </select>
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="email">Email</label>
-                            <input type="email" id="email" name="email" placeholder="Enter Email Here..." />
+                            <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} placeholder="Enter Email Here..." />
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="username">Username</label>
-                            <input type="text" id="username" name="username" placeholder="Enter Username Here..." />
+                            <input type="text" id="username" name="username"value={formData.username} onChange={handleChange} placeholder="Enter Username Here..." />
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="password">Password</label>
-                            <input type="password" id="password" name="password" placeholder="•••••••••" />
+                            <input type="password" id="password" name="password"value={formData.password} onChange={handleChange} placeholder="•••••••••" />
                         </div>
 
                         <div className="form-group">
                             <label htmlFor="confirm-password">Confirm Password</label>
-                            <input type="password" id="confirm-password" name="confirm-password" placeholder="•••••••••" />
+                            <input type="password" id="confirm-password" name="confirm-password"value={formData.confirmPassword} onChange={handleChange} placeholder="•••••••••" />
                         </div>
 
                         <div>

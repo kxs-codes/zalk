@@ -36,7 +36,7 @@ public class Student {
     private List<Classrooms> classrooms;
 
     @ManyToOne
-    @JoinColumn(name = "guardian_id", nullable = false, foreignKey = @ForeignKey(name = "fk_guardian" ))
+    @JoinColumn(name = "guardian_id", foreignKey = @ForeignKey(name = "fk_guardian" ))
     private Guardian guardian;
 
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

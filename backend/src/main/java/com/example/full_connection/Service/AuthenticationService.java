@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.full_connection.DTO.LoginDTO;
+import com.example.full_connection.DTO.SignupDTO;
 import com.example.full_connection.Entity.AdvisoryBoard;
 import com.example.full_connection.Entity.Educator;
 import com.example.full_connection.Entity.Guardian;
@@ -135,5 +136,21 @@ public class AuthenticationService {
         map.put("message", "Found Account.");
         map.put("username", loginDTO.getUsername());
         return map;
+    }
+
+    public String createAccount(SignupDTO signupDTO) {
+        // 1. Create empty jwt
+
+        // 2. Verify valid account type
+
+        // 3. Verify account doesn't exist
+
+        // 4. Verify password and confirmPassword match
+
+        // 5. Create account
+
+
+        return "TODO";
+
     }
 }
