@@ -1,6 +1,5 @@
 import { useRoutes } from 'react-router-dom';
 
-
 // Importing components from /pages
 import Login from "./pages/Login";
 import Settings from "./pages/Settings";
@@ -10,16 +9,16 @@ import Portal from "./pages/Portal";
 import ForgotPassword from './pages/ForgotPassword.jsx';
 import NotFound from './pages/NotFound';
 
- import StudentSession from "./pages/Student/StudentSession";
- import StudentProgress from "./pages/Student/StudentProgress.jsx";
- import StudentBadges from "./pages/Student/StudentBadges.jsx";
+import StudentSession from "./pages/Student/StudentSession";
+import StudentProgress from "./pages/Student/StudentProgress.jsx";
+import StudentBadges from "./pages/Student/StudentBadges.jsx";
 import StudentClassrooms from "./pages/Student/StudentClassrooms.jsx";
 
 import ReportIssues from "./pages/AdvisoryModerator/ReportIssues.jsx";
 import Reports from "./pages/AdvisoryModerator/Reports.jsx"
 import AdvisoryProgress from './pages/AdvisoryBoard/AdvisoryProgress.jsx'
 
-    // Educator Routes 
+// Educator Routes 
 import Manage from './pages/Educator/Manage.jsx';
 import SessionConfig from './pages/Educator/SessionConfig';
 import Progress from './pages/Educator/Progress';
@@ -30,11 +29,11 @@ import ModeratorCreateClassroom from "./pages/Moderator/ModeratorCreateClassroom
 import ModeratorManageAccounts from './pages/Moderator/ModeratorManageAccounts';
 
 
-const AppRoutes = ({role, setRole, roleError, setRoleError}) => {
+const AppRoutes = ({ roleError, setRoleError }) => {
     return useRoutes([
         {
             path: "/",
-            element: <Login role={role} setRole={setRole} roleError = {roleError}  />
+            element: <Login roleError={roleError}  />
         },
         {
             path: "/student-list",
@@ -70,7 +69,7 @@ const AppRoutes = ({role, setRole, roleError, setRoleError}) => {
         },
         {
             path: "/portal",
-            element: <Portal role={role} setRoleError={setRoleError}/>
+            element: <Portal setRoleError={setRoleError}/>
         },
         {
             path: '*',

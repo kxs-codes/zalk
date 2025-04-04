@@ -18,9 +18,11 @@ import {
 } from '@heroicons/react/24/solid';
 import '../styles/NavBar.css';
 import useNavBarLogic from './NavBarLogic';
+import { useAuth } from './AuthProvider';
 
-const NavBar = ({ role }) => {
-  const { handleClick } = useNavBarLogic(role);
+const NavBar = ({ userDetails }) => {
+  const { handleClick } = useNavBarLogic(userDetails);
+  const { token } = useAuth();
 
   return (
     <nav className="nav-container">
@@ -34,7 +36,7 @@ const NavBar = ({ role }) => {
           />
         </li>
 
-        {role === 'student' && (
+        {token.role === 'student' && (
           <>
             <li><Link to='/session' className='link-item'><PlayIcon className='icon-size' />Begin Session</Link></li>
             <li><Link to='/progress' className='link-item'><ChartBarIcon className='icon-size' />Progress Report</Link></li>
@@ -42,7 +44,7 @@ const NavBar = ({ role }) => {
           </>
         )}
 
-        {role === 'educator' && (
+        {token.role === 'educator' && (
           <>
             <li><Link to='/classroom-progress' className='link-item'><ChartBarIcon className='icon-size' />Class Progress</Link></li>
             <li><Link to='/classrooms-management' className='link-item'><ClipboardDocumentListIcon className='icon-size' />Classroom Management</Link></li>
@@ -50,14 +52,14 @@ const NavBar = ({ role }) => {
           </>
         )}
 
-        {role === 'guardian' && (
+        {token.role === 'guardian' && (
           <>
             <li><Link to='/progress' className='link-item'><UserGroupIcon className='icon-size' />Child Progress</Link></li>
             <li><Link to='/report-issues' className='link-item'><ExclamationTriangleIcon className='icon-size' />Report Issues</Link></li>
           </>
         )}
 
-        {role === 'advisor' && (
+        {token.role === 'advisory_board' && (
           <>
             <li><Link to='/view-progress' className='link-item'><EyeIcon className='icon-size' />View Progress</Link></li>
             <li><Link to='/access-reports' className='link-item'><DocumentTextIcon className='icon-size' />Access Reports</Link></li>
@@ -65,7 +67,7 @@ const NavBar = ({ role }) => {
           </>
         )}
 
-        {role === 'moderator' && (
+        {token.role === 'moderator' && (
           <>
             <li><Link to='/create-classroom' className='link-item'><PaintBrushIcon className='icon-size' />Create Classroom</Link></li>
             <li><Link to='/create-account' className='link-item'><UserPlusIcon className='icon-size' />Create Accounts</Link></li>
