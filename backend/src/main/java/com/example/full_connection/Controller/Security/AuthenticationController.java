@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.full_connection.DTO.LoginDTO;
+import com.example.full_connection.DTO.SignupDTO;
 import com.example.full_connection.Security.JWTClass;
 import com.example.full_connection.Service.AuthenticationService;
 
@@ -54,8 +55,9 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    void signup() {
+    void signup(@RequestBody SignupDTO signupDTO) {
         // 1. Make an account by calling the auth service
+        String response = authenticationService.createAccount(signupDTO);
 
         // 2. Return ResponseEntity, contains message about the success of the account creation, and user account details if successful
 
