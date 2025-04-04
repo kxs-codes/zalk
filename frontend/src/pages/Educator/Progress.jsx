@@ -17,6 +17,7 @@ const Progress = () => {
     handleSpreadsheetClick,
     handleDownload,
     getChartData,
+    isLoading,
   } = useProgressLogic();
 
   return (
@@ -24,7 +25,7 @@ const Progress = () => {
       <div className="progress-inner">
         <div className="title-container">
           <h2 className="progress-title">Class Progress</h2>
-          {selectedClass && selectedStudent && (
+          {/* {selectedClass && selectedStudent && (
             <div className="spreadsheet-container">
               <button className="spreadsheet-button" onClick={handleSpreadsheetClick}>
                 Spreadsheet
@@ -36,7 +37,7 @@ const Progress = () => {
                 </div>
               )}
             </div>
-          )}
+          )} */}
         </div>
 
         {/* Class/Student Select */}
@@ -51,7 +52,7 @@ const Progress = () => {
             >
               <option value="">-- Choose a Class --</option>
               {classrooms.map((c) => (
-                <option key={c.id} value={c.id}>{c.name}</option>
+                <option key={c.classId} value={c.classId}>{c.name}</option>
               ))}
             </select>
           </div>
@@ -68,7 +69,7 @@ const Progress = () => {
               <option value="">-- Choose a Student --</option>
               {selectedClass &&
                 students[selectedClass]?.map((s) => (
-                  <option key={s.id} value={s.id}>{s.name}</option>
+                  <option key={s.studentId} value={s.studentId}>{s.studentUsername}</option>
                 ))}
             </select>
           </div>
@@ -77,7 +78,9 @@ const Progress = () => {
         {/* Chart */}
         <div className="chart-container">
           <h3 className="chart-title">Performance Comparison</h3>
-          {selectedClass && selectedStudent ? (
+          {isLoading ? (
+            <p className="chart-loading">Loading data...</p>
+          ) : selectedClass && selectedStudent ? (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={getChartData()}>
                 <XAxis dataKey="name" />

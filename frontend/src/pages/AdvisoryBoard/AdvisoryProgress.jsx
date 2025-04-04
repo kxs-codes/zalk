@@ -38,7 +38,7 @@ const ViewProgressBoard = () => {
             <div className="header">
               <h2 className="title">View Progress</h2>
               <div className="spreadsheet-container">
-                <button className="spreadsheet-button" onClick={handleSpreadsheetClick}>
+                {/* <button className="spreadsheet-button" onClick={handleSpreadsheetClick}>
                   Spreadsheet
                 </button>
                 {showSpreadsheetDropdown && (
@@ -50,7 +50,7 @@ const ViewProgressBoard = () => {
                         Selected Student
                       </div>
                     </div>
-                )}
+                )} */}
               </div>
             </div>
 

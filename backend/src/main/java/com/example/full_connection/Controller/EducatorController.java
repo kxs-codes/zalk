@@ -2,6 +2,7 @@ package com.example.full_connection.Controller;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.ArrayList;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,13 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.full_connection.DTO.Educator.ClassroomSummaryDTO;
 import com.example.full_connection.DTO.Educator.ManageClassroomDTO;
+import com.example.full_connection.Entity.Educator;
+import com.example.full_connection.Entity.Statistics;
+import com.example.full_connection.DTO.Educator.ClassProgressDTO;
 import com.example.full_connection.Repository.EducatorRepository;
 import com.example.full_connection.Service.EducatorService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/educator")
 public class EducatorController {
+
+    private static final Logger logger = LoggerFactory.getLogger(EducatorController.class);
 
     private EducatorRepository educatorRepository;
     private EducatorService educatorService;
@@ -61,4 +70,46 @@ public class EducatorController {
             .header("Content-Type", "application/json") // Explicitly set Content-Type
             .body(classrooms);
     }
+
+  @GetMapping("/progress")
+    public ResponseEntity<List<ClassProgressDTO>> getProgress(
+            @RequestParam(required = false) UUID educatorId,
+            @RequestParam(required = false) UUID classId,
+            @RequestParam(required = false) UUID studentId) {
+
+        if (educatorId == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+        Educator educator = educatorRepository.findById(educatorId)
+                .orElseThrow(() -> new IllegalArgumentException("Educator not found"));
+
+        List<ClassProgressDTO> progressList = new ArrayList<>();
+
+        educator.getClassrooms().forEach(classroom -> {
+            UUID currentClassId = classroom.getClassId();
+            String className = classroom.getSubject();
+
+            if (classId != null && !currentClassId.equals(classId)) return; // Filter specific class if provided
+
+            classroom.getStudents().forEach(student -> {
+                if (studentId != null && !student.getId().equals(studentId)) return; // Filter specific student
+
+                Statistics stats = student.getStatistics();
+                if (stats != null) {
+                    ClassProgressDTO dto = new ClassProgressDTO();
+                    dto.setClassId(currentClassId.toString());
+                    dto.setName(className);
+                    dto.setUsername(student.getUsername());
+                    int total = stats.getTotalQuestionsRight() + stats.getTotalQuestionsWrong();
+                    int score = total > 0 ? (stats.getTotalQuestionsRight() * 100 / total) : 0;
+                    dto.setScore(score);
+                    progressList.add(dto);
+                }
+            });
+        });
+
+        return ResponseEntity.ok(progressList);
+    }
+
 }

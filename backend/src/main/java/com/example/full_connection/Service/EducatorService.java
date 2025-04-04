@@ -2,6 +2,7 @@ package com.example.full_connection.Service;
 
 import com.example.full_connection.DTO.Educator.ClassroomSummaryDTO;
 import com.example.full_connection.DTO.Educator.ManageClassroomDTO;
+import com.example.full_connection.DTO.Educator.ClassProgressDTO;
 import com.example.full_connection.Entity.Classrooms;
 import com.example.full_connection.Entity.Educator;
 import com.example.full_connection.Entity.Statistics;
@@ -15,6 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
 
 @Service
 public class EducatorService {
@@ -117,5 +119,30 @@ public class EducatorService {
                 avgTime
             );
         }).collect(Collectors.toList());
+    }
+
+    public List<ClassProgressDTO> getClassProgressByEducatorId(UUID educatorId) {
+        List<ClassProgressDTO> progressList = new ArrayList<>();
+
+        // Fetch the educator from the database
+        Educator educator = educatorRepository.findById(educatorId).orElseThrow(() -> 
+            new IllegalArgumentException("Educator not found for ID: " + educatorId)
+        );
+
+        // Iterate through the educator's classrooms
+        educator.getClassrooms().forEach(classroom -> {
+            // Iterate through the students in each classroom
+            classroom.getStudents().forEach(student -> {
+                ClassProgressDTO progressDTO = new ClassProgressDTO();
+                progressDTO.setName(classroom.getSubject() + " - " + classroom.getSubjectLevel());
+                progressDTO.setClassId(classroom.getClassId().toString());
+                progressDTO.setUsername(student.getUsername());
+                progressDTO.setScore(student.getStatistics() != null ? 
+                    (student.getStatistics().getTotalQuestionsRight() - student.getStatistics().getTotalQuestionsWrong()) : 0); 
+                progressList.add(progressDTO);
+            });
+        });
+
+        return progressList;
     }
 }
