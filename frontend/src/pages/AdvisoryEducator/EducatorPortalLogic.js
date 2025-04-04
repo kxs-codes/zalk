@@ -19,19 +19,21 @@ import { useEffect, useState } from 'react';
 
       const statsByClass = {};
       data.forEach(c => {
-        const total = c.totalQuestionRight + c.totalQuestionWrong;
-        statsByClass[c.classroom_id] = {
+        const total = c.totalRight + c.totalWrong;
+        statsByClass[c.classroomId] = {
           students: 1,
-          avgScore: total > 0 ? (c.totalQuestionRight / total) * 100 : 0,
-          engagement: c.totalTimeInSessions + c.daysLoggedIn + c.sessionsCompleted
+          avgScore: total > 0 ? (c.totalRight / total) * 100 : 0,
+          engagement: c.totalTimeInSession + c.daysLoggedIn + c.sessionsCompleted,
         };
-      });
+        console.log("Mapped classroomStat:", statsByClass);
 
-      console.log("Mapped classroomStat:", statsByClass);
+      });
+      
+
 
       setClassroomStat(statsByClass);
       setClassrooms(data);
-      if (data.length > 0) setActiveClassroom(data[0].classroom_id);
+      if (data.length > 0) setActiveClassroom(data[0].classroomId);
     } catch (error) {
       console.error("Error fetching classroom data:", error);
     } finally {
