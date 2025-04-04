@@ -81,7 +81,6 @@ const StudentSession = () =>
             <div className="sessionLayout">
                 <PortalLogoBar />
                 {sessionConcluded && renderResults()}
-
                 {!sessionConcluded && currentQuestion && (
                     <div className="qSec">
                         <h1>Question {sessionQuestionNumber}</h1>
@@ -91,21 +90,18 @@ const StudentSession = () =>
                             pickAns={answerChoice}
                             pickedAns={selAnswer.get(questionId)?.pick}
                             submitted={submitted}
-                            correctAnswer={currentQuestion?.answer}
-                        />
+                            correctAnswer={currentQuestion?.answer} />
                         <p>Time Remaining: {formatTimeRemaining(totalTimeRemaining)}</p>
                         <button
                             onClick={submitAnswer}
                             disabled={!selAnswer.get(questionId)?.pick || submitted}
-                            className="Submitter"
-                        >
+                            className="Submitter">
                             Check Answer
                         </button>
                         <button
                             onClick={nextQ}
                             disabled={!submitted}
-                            className={`NEXT ${!submitted && "disabled"}`}
-                        >
+                            className={`NEXT ${!submitted && "disabled"}`}>
                             Next Question
                         </button>
                     </div>

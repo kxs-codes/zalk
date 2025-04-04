@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/students")
 public class StudentsController {
+
     // Step 1: Make the service to interact with students entity
     @Autowired
     private StudentService studentService;
@@ -21,15 +23,16 @@ public class StudentsController {
         return studentService.getAllStudents();
     }
 
-    @GetMapping("/{username}/zlo")
-    public Double getZloRating(@PathVariable String username) {
-        return studentService.getZloRating(username);
+    @GetMapping("{usernameId}/zlo")
+    public Double getZloRating(@PathVariable UUID usernameId) {
+        return studentService.getZloRating(usernameId);
     }
 
     // Step 3: Create POST mapping
     @PostMapping
     public Student createStudent(@RequestBody Student student) {
-        // Save student
         return studentService.addStudent(student);
     }
+
+
 }

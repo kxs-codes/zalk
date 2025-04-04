@@ -71,7 +71,21 @@ public class SessionService
         return (double) totalCorrect / totalQuestions;
     }
 
-    public Statistics createSession(List<String> studentUsernames, int totalTimeInSessions, int streak, int totalQuestions, int totalQuestionsRight, int totalQuestionsWrong, int sessionsCompleted, int daysLoggedIn, int subjectMasteryValue, float guessRate, float avgTimeSpentInSession, float successRate, float avgTimePerQuestion)
+    public Statistics createSession(
+            List<String> studentUsernames,
+            int totalTimeInSessions,
+            int streak,
+            int totalQuestions,
+            int totalQuestionsRight,
+            int totalQuestionsWrong,
+            int sessionsCompleted,
+            int daysLoggedIn,
+            int subjectMasteryValue,
+            float guessRate,
+            float avgTimeSpentInSession,
+            float successRate,
+            float avgTimePerQuestion
+    )
     {
         List<Student> students = studentRepository.findByUsernameIn(studentUsernames);
 
@@ -81,6 +95,7 @@ public class SessionService
         }
 
         Student student = students.get(0);
+
         double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
 
         String questionDifficulty = getQuestionDifficulty(zloRating);
@@ -100,9 +115,10 @@ public class SessionService
         statistics.setAvgTimeSpentInSession(avgTimeSpentInSession);
         statistics.setSuccessRate(successRate);
         statistics.setAvgTimePerQuestion(avgTimePerQuestion);
-        student.setZloRating(zloRating);
 
+        student.setZloRating(zloRating);
         studentRepository.save(student);
+
         statisticsRepository.save(statistics);
 
         return statistics;
@@ -141,5 +157,15 @@ public class SessionService
         double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
         String questionDifficulty = getQuestionDifficulty(zloRating);
         return getNextQuestionBasedOnDifficulty(questionDifficulty);
+    }
+
+    public double updateZLO(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate, Student student)
+    {
+        double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
+
+        student.setZloRating(zloRating);
+        studentRepository.save(student);
+
+        return zloRating;
     }
 }

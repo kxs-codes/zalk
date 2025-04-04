@@ -1,11 +1,9 @@
-import {
-    useState,
-    useEffect
-} from "react";
-import {useAuth} from '../../components/AuthProvider';
+import { useState, useEffect } from "react";
+import { useAuth } from '../../components/AuthProvider';
+
 const useStudentSessionLogic = () =>
 {
-    const {token} = useAuth();
+    const { token } = useAuth();
     const [currentQuestion, setCurrentQuestion] = useState(null);
     const [questionId, setQuestionId] = useState(null);
     const [sessionQuestionNumber, setSessionQuestionNumber] = useState(1);
@@ -25,45 +23,45 @@ const useStudentSessionLogic = () =>
         return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
     };
 
-    const fetchZLO = async () => {
-        const username = localStorage.getItem("username");
-        const usernameId = token.jti;
-        if (!username) {
-            console.error("Username is not available");
+    const fetchZLO = async () =>
+    {
+        const usernameId = token?.jti;
+
+        if (!usernameId)
+        {
             return;
         }
 
-        try {
+        try
+        {
             const response = await fetch(`http://localhost:8080/api/students/${usernameId}/zlo`);
-            if (!response.ok) {
-                throw new Error("Failed to fetch ZLO");
+            const responseText = await response.text();
+
+            if (!response.ok || responseText.trim() === "")
+            {
+                return;
             }
-            const data = await response.json();
-            setZloRating(data);
-        } catch (err) {
+
+            const data = JSON.parse(responseText);
+            setStudentZLO(data);
+        }
+        catch (err)
+        {
             console.error("Error fetching ZLO:", err);
         }
     };
-
 
     const fetchNextQuestion = async () =>
     {
         try
         {
-            const response = await fetch(
-                "http://localhost:8080/api/sessions/questions",
-                {
-                    method: "GET",
-                    headers:
-                    {
-                        "Content-Type": "application/json"
-                    }
-                }
-            );
+            const response = await fetch("http://localhost:8080/api/sessions/questions", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" }
+            });
 
             if (!response.ok)
             {
-                console.error("Failed to fetch question:", response.status);
                 return;
             }
 
@@ -79,7 +77,6 @@ const useStudentSessionLogic = () =>
                 }
 
                 setAnsweredQuestions((prev) => new Set(prev).add(newQuestion.questionId));
-                console.log("Fetched question:", newQuestion);
 
                 if (typeof newQuestion.options === "string")
                 {
@@ -92,10 +89,7 @@ const useStudentSessionLogic = () =>
                         parsedOptions.push(match[0].trim(1));
                     }
 
-                    if (
-                        newQuestion.options.toLowerCase().includes('true') ||
-                        newQuestion.options.toLowerCase().includes('false')
-                    )
+                    if (newQuestion.options.toLowerCase().includes('true') || newQuestion.options.toLowerCase().includes('false'))
                     {
                         parsedOptions.push("True", "False");
                     }
@@ -108,10 +102,6 @@ const useStudentSessionLogic = () =>
                     setCurrentQuestion(newQuestion);
                     setQuestionId(newQuestion.questionId);
                 }
-                else
-                {
-                    console.error("Invalid options format:", newQuestion.options);
-                }
             }
         }
         catch (error)
@@ -120,8 +110,50 @@ const useStudentSessionLogic = () =>
         }
     };
 
+    const updateZLO = async (correctCount, wrongCount, avgTimeSpentInSession, avgTimePerQuestion, streak, successRate) =>
+    {
+        const usernameId = token?.jti;
+
+        if (!usernameId)
+        {
+            return;
+        }
+
+        const updatedZLO = {
+            correctCount: correctCount,
+            wrongCount: wrongCount,
+            avgTimeSpentInSession: avgTimeSpentInSession,
+            avgTimePerQuestion: avgTimePerQuestion,
+            streak: streak,
+            successRate: successRate
+        };
+
+        try
+        {
+            const response = await fetch(`http://localhost:8080/api/students/${usernameId}/updateZlo`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(updatedZLO)
+            });
+
+            if (response.ok)
+            {
+                const responseText = await response.json();
+                setStudentZLO(responseText.zloRating);
+            }
+        }
+        catch (err)
+        {
+            console.error("Error updating ZLO:", err);
+        }
+    };
+
     useEffect(() =>
     {
+        fetchZLO();
         fetchNextQuestion();
     }, []);
 
@@ -162,14 +194,11 @@ const useStudentSessionLogic = () =>
         setSelAnswer((prev) =>
         {
             const newAnswers = new Map(prev);
-            newAnswers.set(
-                questionId,
-                {
-                    q: currentQuestion.question,
-                    pick: choose,
-                    correct: currentQuestion.answer
-                }
-            );
+            newAnswers.set(questionId, {
+                q: currentQuestion.question,
+                pick: choose,
+                correct: currentQuestion.answer
+            });
             return newAnswers;
         });
     };
@@ -194,16 +223,19 @@ const useStudentSessionLogic = () =>
         }
 
         setSubmitted(true);
+
+        const avgTimeSpentInSession = (totalTimeRemaining / 60);
+        const avgTimePerQuestion = totalTimeRemaining / sessionQuestionNumber;
+        const successRate = correctCount / (correctCount + wrongCount);
+
+        updateZLO(correctCount, wrongCount, avgTimeSpentInSession, avgTimePerQuestion, streak, successRate);
     };
 
     const nextQ = async () =>
     {
-        if (!submitted)
+        if (!submitted && !selAnswer.get(questionId)?.pick)
         {
-            if (!selAnswer.get(questionId)?.pick)
-            {
-                setWrongCount((prev) => prev + 1);
-            }
+            setWrongCount((prev) => prev + 1);
         }
 
         setSubmitted(false);
