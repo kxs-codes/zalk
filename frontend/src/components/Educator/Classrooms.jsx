@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 
 
@@ -12,8 +12,12 @@ const Classrooms = ({classrooms, activeClassroom, setActiveClassroom}) => {
 
   // Filter the classrooms based on the search input
   const filteredClassrooms = classrooms.filter(classroom =>
-    classroom.toLowerCase().includes(search.toLowerCase())
+    classroom.subject.toLowerCase().includes(search.toLowerCase())
   )
+
+  useEffect(() => {
+    console.log(filteredClassrooms)
+  },[filteredClassrooms])
 
   return (
     <div className='  bg-dark-red-primary-1 h-80 w-200 rounded-2xl overflow-y-auto'>
@@ -28,7 +32,6 @@ const Classrooms = ({classrooms, activeClassroom, setActiveClassroom}) => {
         
       />
       </div>
-      {/* TODO? -> Look for a better way to contain the icon with the search bar */}
       <MagnifyingGlassIcon className="h-5 w-5 text-grey-secondary-darker-1 absolute right-4 top-10 mr-65 mt-0.5 " />
       </div>
 
@@ -37,15 +40,15 @@ const Classrooms = ({classrooms, activeClassroom, setActiveClassroom}) => {
         {
           filteredClassrooms.map((cls) => (
             <div
-              key={cls}
-              className={`p-3  cursor-pointer
-                ${activeClassroom === cls
-                    ? 'bg-grey-secondary-darker-1 text-amber-400 font-bold  hover:text-white'  // Active Classroom
-                    : 'bg-grey-secondary-lighter-1 hover:text-dark-red-primary-1 text-black font-normal'     // Inactice Classroom
+              key={cls.classroom_id} // Use a unique key
+              className={`p-3 cursor-pointer
+                ${activeClassroom === cls.classroom_id
+                    ? 'bg-grey-secondary-darker-1 text-amber-400 font-bold hover:text-white'  // Active Classroom
+                    : 'bg-grey-secondary-lighter-1 hover:text-dark-red-primary-1 text-black font-normal'     // Inactive Classroom
                   }`}
-                  onClick={() => setActiveClassroom(cls)} // Update active classroom
+                  onClick={() => setActiveClassroom(cls.classroom_id)} // Update active classroom
             >
-              {cls}
+              {cls.subject} {/* Render the subject property */}
       </div>
        ))
         }

@@ -1,22 +1,57 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const useEducationPortal = () => {
-    const [activeClassroom, setActiveClassroom] = useState('');
+ const useEducationPortal = ( props = {}) => {
+  const [classrooms, setClassrooms] = useState([]);
+  const [activeClassroom, setActiveClassroom] = useState('');
+  const [classroomStat, setClassroomStat] = useState({});
+  const [loading, setLoading] = useState(true);
+  
+  const educatorId = 'b18bd975-3f02-452a-b02c-b6fe5f79d39f'
 
-    const classrooms = ["Classroom A", "Classroom B", "Classroom C"];
+  const fetchClassroomStats = async () => {
+    // if (!educatorId) return;
 
-    const classroomStat = {
-        "Classroom A": { students: 25, avgScore: 85, engagement: 100 },
-        "Classroom B": { students: 30, avgScore: 75, engagement: 80 },
-        "Classroom C": { students: 35, avgScore: 65, engagement: 70 }
-    };
+    try {
+      const response = await fetch(`http://localhost:8080/api/educator/${educatorId}`);
+      const data = await response.json();
 
-    return {
-        activeClassroom,
-        setActiveClassroom,
-        classrooms,
-        classroomStat
-    };
+      console.log("Raw data from API:", data);
+
+      const statsByClass = {};
+      data.forEach(c => {
+        const total = c.totalQuestionRight + c.totalQuestionWrong;
+        statsByClass[c.classroom_id] = {
+          students: 1,
+          avgScore: total > 0 ? (c.totalQuestionRight / total) * 100 : 0,
+          engagement: c.totalTimeInSessions + c.daysLoggedIn + c.sessionsCompleted
+        };
+      });
+
+      console.log("Mapped classroomStat:", statsByClass);
+
+      setClassroomStat(statsByClass);
+      setClassrooms(data);
+      if (data.length > 0) setActiveClassroom(data[0].classroom_id);
+    } catch (error) {
+      console.error("Error fetching classroom data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchClassroomStats();
+    console.log("useEffect call")
+  }, []);
+
+  return {
+    activeClassroom,
+    setActiveClassroom,
+    classrooms,
+    classroomStat,
+    loading,
+    fetchClassroomStats
+  };
 };
 
-export default useEducationPortal;
+export default useEducationPortal

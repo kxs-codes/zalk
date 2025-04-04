@@ -28,7 +28,9 @@ public class Classrooms {
         joinColumns = @JoinColumn(name = "classroom_id"),
         inverseJoinColumns = @JoinColumn(name = "student_id")
     )
+    
     private List<Student> students;
+
 
     @ManyToOne
     @JoinColumn(name = "educator_id", referencedColumnName = "educator_id", nullable = false)
@@ -53,6 +55,10 @@ public class Classrooms {
     public Educator getEducator() {
         return educator;
     }
+    // public List<Educator> getEducators() {
+    //     return educators;
+    // }
+    
     public String getSubjectLevel() {
         return subjectLevel;
     }
@@ -73,4 +79,7 @@ public class Classrooms {
     public void setSubjectLevel(String subjectLevel) {
         this.subjectLevel = subjectLevel;
     }
+    // public void setEducators(List<Educator> educators) {
+    //     this.educators = educators;
+    // }
 }
