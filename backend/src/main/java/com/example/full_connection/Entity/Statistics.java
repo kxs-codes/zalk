@@ -4,7 +4,8 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "statistics")
-public class Statistics {
+public class Statistics
+{
     @Id
     @GeneratedValue
     @Column(name = "stat_id")
@@ -50,117 +51,143 @@ public class Statistics {
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student student;
 
-    // Getters
-    public UUID getStatId() {
+    public UUID getStatId()
+    {
         return statId;
     }
 
-    public Student getStudent() {
+    public Student getStudent()
+    {
         return student;
     }
 
-    public int getTotalTimeInSessions() {
+    public int getTotalTimeInSessions()
+    {
         return totalTimeInSessions;
     }
 
-    public int getStreak() {
+    public int getStreak()
+    {
         return streak;
     }
 
-    public int getTotalQuestions() {
+    public int getTotalQuestions()
+    {
         return totalQuestions;
     }
 
-    public int getTotalQuestionsRight() {
+    public int getTotalQuestionsRight()
+    {
         return totalQuestionsRight;
     }
 
-    public int getTotalQuestionsWrong() {
+    public int getTotalQuestionsWrong()
+    {
         return totalQuestionsWrong;
     }
 
-    public int getSessionsCompleted() {
+    public int getSessionsCompleted()
+    {
         return sessionsCompleted;
     }
 
-    public int getDaysLoggedIn() {
+    public int getDaysLoggedIn()
+    {
         return daysLoggedIn;
     }
 
-    public int getSubjectMasteryValue() {
+    public int getSubjectMasteryValue()
+    {
         return subjectMasteryValue;
     }
 
-    public float getGuessRate() {
+    public float getGuessRate()
+    {
         return guessRate;
     }
 
-    public float getAvgTimeSpentInSession() {
+    public float getAvgTimeSpentInSession()
+    {
         return avgTimeSpentInSession;
     }
 
-    public float getSuccessRate() {
+    public float getSuccessRate()
+    {
         return successRate;
     }
 
-    public float getAvgTimePerQuestion() {
+    public float getAvgTimePerQuestion()
+    {
         return avgTimePerQuestion;
     }
 
-    // Setters
-    public void setStatId(UUID statId) {
+    public void setStatId(UUID statId)
+    {
         this.statId = statId;
     }
 
-    public void setStudent(Student student) {
+    public void setStudent(Student student)
+    {
         this.student = student;
     }
 
-    public void setTotalTimeInSessions(int totalTimeInSessions) {
+    public void setTotalTimeInSessions(int totalTimeInSessions)
+    {
         this.totalTimeInSessions = totalTimeInSessions;
     }
 
-    public void setStreak(int streak) {
+    public void setStreak(int streak)
+    {
         this.streak = streak;
     }
 
-    public void setTotalQuestions(int totalQuestions) {
+    public void setTotalQuestions(int totalQuestions)
+    {
         this.totalQuestions = totalQuestions;
     }
 
-    public void setTotalQuestionsRight(int totalQuestionsRight) {
+    public void setTotalQuestionsRight(int totalQuestionsRight)
+    {
         this.totalQuestionsRight = totalQuestionsRight;
     }
 
-    public void setTotalQuestionsWrong(int totalQuestionsWrong) {
+    public void setTotalQuestionsWrong(int totalQuestionsWrong)
+    {
         this.totalQuestionsWrong = totalQuestionsWrong;
     }
 
-    public void setSessionsCompleted(int sessionsCompleted) {
+    public void setSessionsCompleted(int sessionsCompleted)
+    {
         this.sessionsCompleted = sessionsCompleted;
     }
 
-    public void setDaysLoggedIn(int daysLoggedIn) {
+    public void setDaysLoggedIn(int daysLoggedIn)
+    {
         this.daysLoggedIn = daysLoggedIn;
     }
 
-    public void setSubjectMasteryValue(int subjectMasteryValue) {
+    public void setSubjectMasteryValue(int subjectMasteryValue)
+    {
         this.subjectMasteryValue = subjectMasteryValue;
     }
 
-    public void setGuessRate(float guessRate) {
+    public void setGuessRate(float guessRate)
+    {
         this.guessRate = guessRate;
     }
 
-    public void setAvgTimeSpentInSession(float avgTimeSpentInSession) {
+    public void setAvgTimeSpentInSession(float avgTimeSpentInSession)
+    {
         this.avgTimeSpentInSession = avgTimeSpentInSession;
     }
 
-    public void setSuccessRate(float successRate) {
+    public void setSuccessRate(float successRate)
+    {
         this.successRate = successRate;
     }
 
-    public void setAvgTimePerQuestion(float avgTimePerQuestion) {
+    public void setAvgTimePerQuestion(float avgTimePerQuestion)
+    {
         this.avgTimePerQuestion = avgTimePerQuestion;
     }
 }
