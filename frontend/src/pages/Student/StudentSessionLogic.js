@@ -5,6 +5,7 @@ import {
 
 const useStudentSessionLogic = () =>
 {
+
     const [currentQuestion, setCurrentQuestion] = useState(null);
     const [questionId, setQuestionId] = useState(null);
     const [sessionQuestionNumber, setSessionQuestionNumber] = useState(1);
@@ -210,8 +211,7 @@ const useStudentSessionLogic = () =>
         setSessionQuestionNumber((prev) => prev + 1);
     };
 
-    return
-    {
+    return {
         questionId,
         sessionQuestionNumber,
         selAnswer,
