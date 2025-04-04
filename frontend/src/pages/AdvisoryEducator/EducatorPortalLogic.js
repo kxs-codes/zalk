@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
+import {useAuth} from '../../components/AuthProvider'
 
- const useEducationPortal = ( props = {}) => {
+ const useEducationPortal = () => {
   const [classrooms, setClassrooms] = useState([]);
   const [activeClassroom, setActiveClassroom] = useState('');
   const [classroomStat, setClassroomStat] = useState({});
   const [loading, setLoading] = useState(true);
-  
-  const educatorId = 'b18bd975-3f02-452a-b02c-b6fe5f79d39f'
+
+  // Authentication Token
+  const {token} =  useAuth();
+  const educatorId = token.jti;
 
   const fetchClassroomStats = async () => {
     // if (!educatorId) return;
+
+    
 
     try {
       const response = await fetch(`http://localhost:8080/api/educator/${educatorId}`);

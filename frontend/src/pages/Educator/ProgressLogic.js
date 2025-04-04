@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../components/AuthProvider';
 
 const useProgressLogic = () => {
   const [classrooms, setClassrooms] = useState([]);
@@ -9,13 +10,22 @@ const useProgressLogic = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const BASE_URL = 'http://localhost:8080';
-  const educatorId = 'b18bd975-3f02-452a-b02c-b6fe5f79d39f';
+
+   // Authentication Token
+   const {token} =  useAuth();
+   const educatorId = token.jti;
 
   useEffect(() => {
+
+   
+
+
     if (!educatorId) {
       console.error('educatorId is not defined');
       return;
     }
+
+    
 
     // Fetch classrooms and students on component mount
     fetch(`${BASE_URL}/api/educator/progress?educatorId=${educatorId}`)

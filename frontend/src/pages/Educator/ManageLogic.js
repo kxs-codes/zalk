@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '../../components/AuthProvider';
 
 const useManageLogic = () => {
   const [classrooms, setClassrooms] = useState([]);
@@ -6,10 +7,15 @@ const useManageLogic = () => {
   const [newStudent, setNewStudent] = useState('');
   const [showStudentList, setShowStudentList] = useState(false);
 
-  const educatorId = 'b18bd975-3f02-452a-b02c-b6fe5f79d39f'; // Example educatorId
+    // Authentication Token
+    const {token} =  useAuth();
+    const educatorId = token.jti;
+
 
   useEffect(() => {
     const fetchClassrooms = async () => {
+
+       
       try {
         const response = await fetch(`http://localhost:8080/api/educator/classrooms?educatorId=${educatorId}`);
         if (!response.ok) {
