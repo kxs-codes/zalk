@@ -1,19 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useManageLogic = () => {
-  const [classrooms, setClassrooms] = useState([
-    { id: 'class1', name: 'Math 101', students: ['Alice Johnson']},
-    {id: 'class2', name: 'Math 102', students: ['Luna Piere']}
-  ]);
+  const [classrooms, setClassrooms] = useState([]);
   const [selectedClass, setSelectedClass] = useState(null);
   const [newStudent, setNewStudent] = useState('');
+  const [showStudentList, setShowStudentList] = useState(false);
+
+  const educatorId = 'b18bd975-3f02-452a-b02c-b6fe5f79d39f'; // Example educatorId
+
+  useEffect(() => {
+    const fetchClassrooms = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/educator/classrooms?educatorId=${educatorId}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log('Raw data from backend:', data); // Debug log
+
+        // Map the received data to match the component's expected format
+        const mappedClassrooms = data.map(classroom => ({
+          id: classroom.classroomId,
+          name: `${classroom.subject} - Level ${classroom.subjectLevel}`,
+          students: classroom.studentUsernames || [],
+          totalStudents: classroom.students
+        }));
+
+        console.log('Mapped classrooms:', mappedClassrooms); // Debug log
+        setClassrooms(mappedClassrooms);
+      } catch (error) {
+        console.error('Error fetching classrooms:', error);
+      }
+    };
+
+    fetchClassrooms();
+  }, [educatorId]);
 
   const handleSelectClass = (id) => {
-    setSelectedClass(classrooms.find(c => c.id === id));
+    console.log('Selecting class with id:', id); // Debug log
+    const selected = classrooms.find(c => c.id === id);
+    console.log('Selected class:', selected); // Debug log
+    setSelectedClass(selected);
+    setShowStudentList(true);
   };
 
   const handleAddStudent = () => {
-    if (!newStudent.trim()) return;
+    if (!newStudent.trim() || !selectedClass) return;
     setClassrooms(prev =>
       prev.map(c =>
         c.id === selectedClass.id
@@ -24,32 +56,26 @@ const useManageLogic = () => {
     setNewStudent('');
   };
 
-  // FYI: Changing this to where this can be added if the 
+  const handleViewStudents = (classroom) => {
+    setSelectedClass(classroom);
+    setShowStudentList(true);
+  };
 
-  // const handleRemoveStudent = (student) => {
-  //   setClassrooms(prev =>
-  //     prev.map(c =>
-  //       c.id === selectedClass.id
-  //         ? { ...c, students: c.students.filter(s => s !== student) }
-  //         : c
-  //     )
-  //   );
-  // };
-
-  // const handleDeleteClassroom = (id) => {
-  //   setClassrooms(prev => prev.filter(c => c.id !== id));
-  //   if (selectedClass?.id === id) setSelectedClass(null);
-  // };
+  const handleCloseModal = () => {
+    setShowStudentList(false);
+    setSelectedClass(null);
+  };
 
   return {
     classrooms,
     selectedClass,
     newStudent,
     setNewStudent,
+    showStudentList,
     handleSelectClass,
     handleAddStudent,
-    // handleRemoveStudent,   Adding comment until usecase is added for this 
-    // handleDeleteClassroom,
+    handleViewStudents,
+    handleCloseModal,
   };
 };
 

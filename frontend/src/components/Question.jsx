@@ -2,10 +2,17 @@ import React from "react";
 import "../styles/Question.css";
 import { useQuestionLogic } from "./QuestionLogic";
 
-const Question = ({ q, items, pickAns, pickedAns, submitted, correctAnswer }) => {
-    const { getButtonClass } = useQuestionLogic({ items, pickedAns, submitted, correctAnswer });
+const Question = ({ q, options, pickAns, pickedAns, submitted, correctAnswer }) =>
+{
+    const { getButtonClass } = useQuestionLogic({ items: options, pickedAns, submitted, correctAnswer });
 
-    const clickItem = (item) => {
+    if (!Array.isArray(options))
+    {
+        return <div>Invalid</div>;
+    }
+
+    const clickItem = (item) =>
+    {
         pickAns(item);
     };
 
@@ -13,15 +20,8 @@ const Question = ({ q, items, pickAns, pickedAns, submitted, correctAnswer }) =>
         <div className="qCont">
             <h2 className="qHead">{q}</h2>
             <div className="aCont">
-                {items.map((item) => (
-                    <button
-                        key={item}
-                        className={getButtonClass(item)}
-                        onClick={() => clickItem(item)}
-                        disabled={submitted}
-                    >
-                        {item}
-                    </button>
+                {options.map((item, index) => (
+                    <button key={index} className={getButtonClass(item)} onClick={() => clickItem(item)} disabled={submitted}>{item}</button>
                 ))}
             </div>
         </div>
@@ -29,4 +29,3 @@ const Question = ({ q, items, pickAns, pickedAns, submitted, correctAnswer }) =>
 };
 
 export default Question;
-

@@ -7,8 +7,11 @@ const Manage = () => {
     classrooms,
     selectedClass,
     newStudent,
+    showStudentList,
     handleSelectClass,
     handleAddStudent,
+    handleViewStudents,
+    handleCloseModal,
     setNewStudent
   } = useManageLogic();
 
@@ -31,9 +34,14 @@ const Manage = () => {
               {classrooms.map((classroom) => (
                 <tr key={classroom.id}>
                   <td>{classroom.name}</td>
-                  <td>{classroom.students.length}</td>
+                  <td>{classroom.totalStudents}</td>
                   <td>
-                    <button className="btn btn-primary" onClick={() => handleSelectClass(classroom.id)}>Manage</button>
+                    <button 
+                      className="btn btn-primary" 
+                      onClick={() => handleViewStudents(classroom)}
+                    >
+                      View Students
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -41,17 +49,17 @@ const Manage = () => {
           </table>
         </div>
 
-        {selectedClass && (
+        {selectedClass && showStudentList && (
           <div className="manage-panel">
-            <h3 className="manage-panel-title">Managing: {selectedClass.name}</h3>
+            <h3 className="manage-panel-title">Students in: {selectedClass.name}</h3>
 
             <div className="student-list-section">
-              <h4 className="student-list-heading">Students</h4>
-              {selectedClass.students.length > 0 ? (
+              <h4 className="student-list-heading">Student List</h4>
+              {selectedClass.students && selectedClass.students.length > 0 ? (
                 <ul className="student-list">
                   {selectedClass.students.map((student, index) => (
                     <li key={index} className="student-list-item">
-                      <span>{student}</span>
+                      {student}
                     </li>
                   ))}
                 </ul>
@@ -60,16 +68,12 @@ const Manage = () => {
               )}
             </div>
 
-            <div className="add-student-form">
-              <input
-                type="text"
-                placeholder="New Student Name"
-                className="input-text"
-                value={newStudent}
-                onChange={(e) => setNewStudent(e.target.value)}
-              />
-              <button className="btn btn-success" onClick={handleAddStudent}>Add</button>
-            </div>
+            <button 
+              className="btn btn-secondary" 
+              onClick={handleCloseModal}
+            >
+              Close
+            </button>
           </div>
         )}
       </div>

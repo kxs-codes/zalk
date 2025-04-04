@@ -6,26 +6,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
-public class StudentService {
-    @Autowired // Wired the service to the correct repository
+public class StudentService
+{
+    @Autowired
     private StudentRepository studentRepository;
 
-    public List<Student> getAllStudents() {
-
+    public List<Student> getAllStudents()
+    {
         return studentRepository.findAll();
     }
 
-    public List<String> getAllStudentNames() {
+    public List<String> getAllStudentNames()
+    {
         return studentRepository.findAllStudents();
     }
 
-    public Student addStudent(Student student) {
+    public Student addStudent(Student student)
+    {
         return studentRepository.save(student);
     }
 
-    public boolean existsByUsernames(List<String> students) {
+    public boolean existsByUsernames(List<String> students)
+    {
         return studentRepository.existsAllByUsernames(students);
     }
+
+    public Double getZloRating(UUID usernameId) {
+        Optional<Student> student = studentRepository.findById(usernameId);
+        return student.map(Student::getZloRating).orElseThrow(() -> new RuntimeException("Student not found"));
+    }
+
+
 }

@@ -1,14 +1,12 @@
 package com.example.full_connection.Entity;
 
-
-// JPA annotations like @Id, @Column, @GeneratedValue, etc.
 import jakarta.persistence.*;
-
 import java.util.UUID;
 import java.util.List;
 
 @Entity
-public class Student {
+public class Student
+{
     @Id
     @GeneratedValue
     @Column(name = "student_id")
@@ -26,12 +24,11 @@ public class Student {
     private String email;
 
     @Column(name = "zlo_rating", nullable = false)
-    private int zloRating;
+    private double zloRating;
 
     @Column(name = "badges_earned", nullable = false)
     private int badgesEarned;
 
-    // Use cascade to make sure no orphan rows
     @ManyToMany(mappedBy = "students", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Classrooms> classrooms;
 
@@ -45,52 +42,76 @@ public class Student {
     @OneToMany(mappedBy = "student", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<BadgeProgress> badgeProgress;
 
-    // Getters
-    public UUID getId() {
+    public UUID getId()
+    {
         return studentId;
-    }    
-    public String getUsername() {
+    }
+
+    public String getUsername()
+    {
         return username;
     }
-    public String getHashedPassword() {
+
+    public String getHashedPassword()
+    {
         return hashedPassword;
     }
-    public int getZloRating() {
+
+    public double getZloRating()
+    {
         return zloRating;
     }
-    public int getBadgesEarned() {
+
+    public int getBadgesEarned()
+    {
         return badgesEarned;
     }
-    public List<Classrooms> getClassrooms() {
+
+    public List<Classrooms> getClassrooms()
+    {
         return classrooms;
     }
-    public Guardian getGuardian() {
+
+    public Guardian getGuardian()
+    {
         return guardian;
     }
     public Statistics getStatistics() {
         return statistics;
     }
 
-    // Setters
-    public void setId(UUID id) {
+    public void setId(UUID id)
+    {
         this.studentId = id;
-    }    
-    public void setUsername(String username) {
+    }
+
+    public void setUsername(String username)
+    {
         this.username = username;
     }
-    public void setHashedPassword(String hashedPassword) {
+
+    public void setHashedPassword(String hashedPassword)
+    {
         this.hashedPassword = hashedPassword;
     }
-    public void setZloRating(int zloRating) {
+
+    public void setZloRating(double zloRating)
+    {
         this.zloRating = zloRating;
     }
-    public void setBadgesEarned(int badgesEarned) {
+
+    public void setBadgesEarned(int badgesEarned)
+    {
         this.badgesEarned = badgesEarned;
     }
-    public void setClassrooms(List<Classrooms> classrooms) {
+
+    public void setClassrooms(List<Classrooms> classrooms)
+    {
         this.classrooms = classrooms;
     }
-    public void setGuardian(Guardian guardian) {
+
+    public void setGuardian(Guardian guardian)
+    {
         this.guardian = guardian;
     }
 

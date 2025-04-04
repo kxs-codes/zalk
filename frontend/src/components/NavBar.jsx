@@ -48,7 +48,7 @@ const NavBar = ({ userDetails }) => {
           <>
             <li><Link to='/classroom-progress' className='link-item'><ChartBarIcon className='icon-size' />Class Progress</Link></li>
             <li><Link to='/classrooms-management' className='link-item'><ClipboardDocumentListIcon className='icon-size' />Classroom Management</Link></li>
-            <li><Link to='/session-configuration' className='link-item'><AdjustmentsHorizontalIcon className='icon-size' />Session Configuration</Link></li>
+            {/* <li><Link to='/session-configuration' className='link-item'><AdjustmentsHorizontalIcon className='icon-size' />Session Configuration</Link></li> */}
           </>
         )}
 

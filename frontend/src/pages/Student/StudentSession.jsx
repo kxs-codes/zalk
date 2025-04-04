@@ -3,95 +3,105 @@ import Question from "../../components/Question.jsx";
 import PortalLogoBar from "../../components/PortalLogoBar";
 import "../../styles/Student/pages/StudentSession.css";
 
-const StudentSession = () => {
+const StudentSession = () =>
+{
     const {
-        qIndex,
+        questionId,
+        sessionQuestionNumber,
         selAnswer,
         submitted,
         correctCount,
         wrongCount,
         sessionConcluded,
-        sampleQuestions,
-        sessionPercent,
-        minutes,
-        seconds,
+        currentQuestion,
+        formatTimeRemaining,
+        totalTimeRemaining,
         nextQ,
         answerChoice,
+        studentZLO,
         submitAnswer
     } = useStudentSessionLogic();
+
+    const renderResults = () =>
+    {
+        return (
+            <div className="sessSumm">
+                <div className="summationStat">
+                    <div className="stat1">
+                        <p>Correct Answers</p>
+                        <p>{correctCount}</p>
+                    </div>
+                    <div className="stat2">
+                        <p>Wrong Answers</p>
+                        <p>{wrongCount}</p>
+                    </div>
+                    <div className="stat3">
+                        <p>Session Percent</p>
+                        <p>{((correctCount / (correctCount + wrongCount)) * 100).toFixed(2)}%</p>
+                    </div>
+                    <div className="stat4">
+                        <p>Current ZLO</p>
+                        <p>{studentZLO !== null ? studentZLO.toFixed(2) : "Loading..."}</p>
+                    </div>
+                </div>
+
+                <div className="secRev">
+                    <h2>Review</h2>
+                    <div className="tableContainer">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th>Question</th>
+                                    <th>Your Answer</th>
+                                    <th>Right Answer</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {Array.from(selAnswer.entries()).map(([id, answer]) =>
+                                {
+                                    const isCorrect = answer.pick === answer.correct;
+                                    return (
+                                        <tr key={id} className={isCorrect ? "correct" : "incorrect"}>
+                                            <td>{answer.q}</td>
+                                            <td>{answer.pick || "Answer Not Submitted in Time"}</td>
+                                            <td>{answer.correct}</td>
+                                        </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        );
+    };
 
     return (
         <div className="boxBorder">
             <div className="sessionLayout">
                 <PortalLogoBar />
-                {sessionConcluded && (
-                    <div className="sessSumm">
-                        <div className="summationStat">
-                            <div className="stat1">
-                                <p>Correct Answers</p>
-                                <p>{correctCount}</p>
-                            </div>
-                            <div className="stat2">
-                                <p>Wrong Answers</p>
-                                <p>{wrongCount}</p>
-                            </div>
-                            <div className="stat3">
-                                <p>Session Percent</p>
-                                <p>{sessionPercent}%</p>
-                            </div>
-                        </div>
-
-                        <div className="secRev">
-                            <h2>Review</h2>
-                            <div className="tableContainer">
-                                <table className="table">
-                                    <thead>
-                                    <tr>
-                                        <th>Question</th>
-                                        <th>Your Answer</th>
-                                        <th>Right Answer</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {sampleQuestions.map((question, index) => {
-                                        const val = selAnswer[index]?.pick;
-                                        const isCorrect = val === question.rightChoice;
-                                        return (
-                                            <tr key={index} className={isCorrect ? 'correct' : 'incorrect'}>
-                                                <td>{question.q}</td>
-                                                <td>{val || 'Answer Not Submitted in Time'}</td>
-                                                <td>{question.rightChoice}</td>
-                                            </tr>
-                                        );
-                                    })}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {!sessionConcluded && (
+                {sessionConcluded && renderResults()}
+                {!sessionConcluded && currentQuestion && (
                     <div className="qSec">
-                        <h1>Question {qIndex + 1}</h1>
+                        <h1>Question {sessionQuestionNumber}</h1>
                         <Question
-                            q={sampleQuestions[qIndex].q}
-                            items={sampleQuestions[qIndex].choose}
+                            q={currentQuestion?.question}
+                            options={currentQuestion?.options || []}
                             pickAns={answerChoice}
-                            pickedAns={selAnswer[qIndex]?.pick}
+                            pickedAns={selAnswer.get(questionId)?.pick}
                             submitted={submitted}
-                            correctAnswer={sampleQuestions[qIndex].rightChoice}/>
-                        <p>Session Time Remaining: {minutes}:{seconds}</p>
+                            correctAnswer={currentQuestion?.answer} />
+                        <p>Time Remaining: {formatTimeRemaining(totalTimeRemaining)}</p>
                         <button
                             onClick={submitAnswer}
-                            disabled={!selAnswer[qIndex] || submitted || !selAnswer[qIndex]?.pick}
+                            disabled={!selAnswer.get(questionId)?.pick || submitted}
                             className="Submitter">
                             Check Answer
                         </button>
                         <button
                             onClick={nextQ}
                             disabled={!submitted}
-                            className={`NEXT ${!submitted && 'disabled'}`}>
+                            className={`NEXT ${!submitted && "disabled"}`}>
                             Next Question
                         </button>
                     </div>

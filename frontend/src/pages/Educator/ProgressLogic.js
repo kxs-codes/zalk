@@ -1,68 +1,98 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useProgressLogic = () => {
-  const classrooms = [
-    { id: 'class1', name: 'Math 101' },
-    { id: 'class2', name: 'Science 102' },
-  ];
-
-  const students = {
-    class1: [
-      { id: 'student1', name: 'Alice Johnson', score: 85 },
-      { id: 'student2', name: 'Bob Smith', score: 78 },
-      { id: 'student3', name: 'Charlie Brown', score: 92 },
-    ],
-    class2: [
-      { id: 'student4', name: 'Diana Prince', score: 88 },
-      { id: 'student5', name: 'Eve Adams', score: 74 },
-      { id: 'student6', name: 'Frank Castle', score: 81 },
-    ],
-  };
-
+  const [classrooms, setClassrooms] = useState([]);
+  const [students, setStudents] = useState({});
   const [selectedClass, setSelectedClass] = useState('');
   const [selectedStudent, setSelectedStudent] = useState('');
-  const [showSpreadsheetDropdown, setShowSpreadsheetDropdown] = useState(false);
+  const [chartData, setChartData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const BASE_URL = 'http://localhost:8080';
+  const educatorId = 'b18bd975-3f02-452a-b02c-b6fe5f79d39f';
+
+  useEffect(() => {
+    if (!educatorId) {
+      console.error('educatorId is not defined');
+      return;
+    }
+
+    // Fetch classrooms and students on component mount
+    fetch(`${BASE_URL}/api/educator/progress?educatorId=${educatorId}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch classrooms');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Fetched progress data:', data); // Debug log
+
+        const classMap = {};
+        const studentMap = {};
+
+        data.forEach((item) => {
+          if (!classMap[item.classId]) {
+            classMap[item.classId] = { classId: item.classId, name: item.name };
+            studentMap[item.classId] = [];
+          }
+          studentMap[item.classId].push({
+            studentId: item.classId + '-' + item.username, // Unique ID
+            studentUsername: item.username,
+            score: item.score,
+          });
+        });
+
+        console.log('Mapped classrooms:', classMap); // Debug log
+        console.log('Mapped students:', studentMap); // Debug log
+
+        setClassrooms(Object.values(classMap));
+        setStudents(studentMap);
+      })
+      .catch((error) => console.error('Error fetching classrooms:', error));
+  }, [educatorId]);
+
+  useEffect(() => {
+    if (selectedClass && selectedStudent) {
+      // Prepare chart data for the selected student and class
+      const classStudents = students[selectedClass];
+      const selectedStudentData = classStudents.find((s) => s.studentId === selectedStudent);
+
+      const classAverage = {
+        name: 'Class Average',
+        score: classStudents.reduce((sum, s) => sum + s.score,   0) / classStudents.length,
+      };
+
+      const individualStudent = {
+        name: 'Selected Student',
+        score: selectedStudentData.score,
+      };
+
+      setChartData([classAverage, individualStudent]);
+    }
+  }, [selectedClass, selectedStudent, students]);
 
   const handleClassChange = (e) => {
     setSelectedClass(e.target.value);
-    setSelectedStudent('');
+    setSelectedStudent(''); // Reset selected student when class changes
+    setChartData([]); // Clear chart data
   };
 
   const handleStudentChange = (e) => {
     setSelectedStudent(e.target.value);
   };
 
-  const handleSpreadsheetClick = () => {
-    setShowSpreadsheetDropdown(prev => !prev);
-  };
-
-  const handleDownload = (type) => {
-    console.log(`Downloading spreadsheet for ${type === 'class' ? 'Entire Class' : 'Selected Student'}`);
-    setShowSpreadsheetDropdown(false);
-  };
-
-  const getChartData = () => {
-    if (!selectedClass || !selectedStudent) return [];
-    const classData = students[selectedClass];
-    const selected = classData.find(s => s.id === selectedStudent);
-    const classAvg = classData.reduce((sum, s) => sum + s.score, 0) / classData.length;
-    return [
-      { name: 'Selected Student', score: selected.score },
-      { name: 'Class Average', score: classAvg },
-    ];
-  };
+  const getChartData = () => chartData;
 
   return {
     classrooms,
     students,
     selectedClass,
     selectedStudent,
-    showSpreadsheetDropdown,
     handleClassChange,
     handleStudentChange,
-    handleSpreadsheetClick,
-    handleDownload,
     getChartData,
+    isLoading,
   };
 };
 

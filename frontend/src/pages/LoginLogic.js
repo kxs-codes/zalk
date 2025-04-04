@@ -36,6 +36,7 @@ const useLogin = () => {
             localStorage.removeItem("accessToken");
             localStorage.setItem("accessToken", JSON.stringify(decodedJwt));
             setToken(decodedJwt);
+            localStorage.setItem("username", username);
         } 
 
         return data;
