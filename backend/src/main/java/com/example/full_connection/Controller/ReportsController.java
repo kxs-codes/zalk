@@ -37,4 +37,10 @@ public class ReportsController {
         ReportsDTO updated = reportsService.updateReportStatus(id, updatedReport.getStatus(), updatedReport.getReportDescription());
         return ResponseEntity.ok(updated);
     }
+
+    @PostMapping("/create")
+    public ResponseEntity<ReportsDTO> createReport(@RequestBody ReportsDTO reportDTO) {
+        ReportsDTO createdReport = reportsService.createReport(reportDTO);
+        return ResponseEntity.ok(createdReport);
+    }
 }
