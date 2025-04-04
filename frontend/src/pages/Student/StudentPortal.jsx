@@ -1,16 +1,10 @@
 import React from "react";
 import "../../styles/Student/pages/StudentPortal.css";
 import StudentPortalLogic from "./StudentPortalLogic.js";
-import { useAuth } from "../../components/AuthProvider";
-
 
 const { usePortalNavigation } = StudentPortalLogic;
 
 const Portal = () => {
-    const { token } = useAuth();
-    console.log("token: ", token);
-    console.log("user id: ", token.jti);
-
     const { startSession } = usePortalNavigation();
 
     return (
