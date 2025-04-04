@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from '../../components/AuthProvider.jsx';
 
-const studentIdTemp = "c64663b5-b686-4f5f-b901-8a1575b13aae";
+const useStudentProgress = () => {
+    const { token } = useAuth(); // Access token from context
+    const studentId = token.jti; // Grab studentId from token
 
-const useStudentProgress = (studentId = studentIdTemp) => {
     const [studentData, setStudentData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
