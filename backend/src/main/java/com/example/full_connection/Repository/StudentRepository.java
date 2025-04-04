@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface StudentRepository extends JpaRepository<Student, UUID> {
@@ -20,4 +21,6 @@ public interface StudentRepository extends JpaRepository<Student, UUID> {
     default boolean existsAllByUsernames(List<String> usernames) {
         return countByNames(usernames) == usernames.size();
     }
+
+    Optional<Student> findByUsername(String username);
 }

@@ -27,7 +27,7 @@ public class Moderator {
 
 
     // Getters
-    public UUID getModeratorId() {
+    public UUID getId() {
         return moderatorId;
     }
 

@@ -1,12 +1,11 @@
 // NavBarLogic.js
 import { useNavigate } from 'react-router-dom';
 
-const useNavBarLogic = (role) => {
+const useNavBarLogic = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    console.log('role in navbar: ', role);
-    navigate('/portal', { state: { role } });
+    navigate('/portal');
   };
 
   return { handleClick };

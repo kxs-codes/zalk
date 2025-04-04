@@ -1,14 +1,22 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from "react-toastify"
-import LogoBar from '../components/LogoBar';
+import { toast } from 'react-toastify';
 import '../styles/Login.css';
+import LogoBar from '../components/LogoBar';
 import useLogin from './LoginLogic.js';
+import { useAuth } from '../components/AuthProvider.jsx';
+
 
 // eslint-disable-next-line react/prop-types
-function Login({ role, setRole, roleError}) {
-  const {username, setUsername, password, setPassword, onSubmit, handleChange} = useLogin(role, setRole);
+function Login({ roleError }) {
+  const {username, setUsername, password, setPassword, accountType, setAccountType, onSubmit} = useLogin();
   const showRef = useRef(false);
+  const { setToken } = useAuth();
+  
+  useEffect(() => {
+    localStorage.removeItem("accessToken");
+    setToken(null);
+  }, [])
 
   useEffect(() => {
     if (roleError && !showRef.current) {
@@ -46,15 +54,15 @@ function Login({ role, setRole, roleError}) {
             <label className="login-label">Account Type</label>
             <select
               className="login-select"
-              value={role}
-              onChange={handleChange}
+              value={accountType}
+              onChange={(e) => setAccountType(e.target.value)}
             >
               <option value="start">-</option>
               <option value="student">Student</option>
               <option value="educator">Educator</option>
               <option value="guardian">Guardian</option>
               <option value="moderator">Moderator</option>
-              <option value="advisor">Advisor</option>
+              <option value="advisory_board">Advisor</option>
             </select>
 
             <label className="login-label">Username</label>
