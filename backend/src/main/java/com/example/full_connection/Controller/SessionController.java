@@ -36,7 +36,8 @@ public class SessionController
             @RequestParam float guessRate,
             @RequestParam float avgTimeSpentInSession,
             @RequestParam float successRate,
-            @RequestParam float avgTimePerQuestion)
+            @RequestParam float avgTimePerQuestion
+    )
     {
         Statistics statistics = sessionService.createSession(
                 studentforSession,
@@ -71,7 +72,8 @@ public class SessionController
             @RequestParam int streak,
             @RequestParam float avgTimeSpentInSession,
             @RequestParam float avgTimePerQuestion,
-            @RequestParam float successRate)
+            @RequestParam float successRate
+    )
     {
         Questions nextQuestion = sessionService.getNextQuestion(
                 totalQuestionsRight,
@@ -84,7 +86,7 @@ public class SessionController
 
         if (nextQuestion == null)
         {
-            System.out.println("No question found for the session parameters");
+            System.out.println("No question");
             return ResponseEntity.noContent().build();
         }
 

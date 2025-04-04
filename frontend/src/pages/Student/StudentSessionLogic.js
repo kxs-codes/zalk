@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
+import { useAuth } from '../../components/AuthProvider';
 
-const useStudentSessionLogic = () => {
+const useStudentSessionLogic = () =>
+{
+    const { token } = useAuth();
     const [currentQuestion, setCurrentQuestion] = useState(null);
     const [questionId, setQuestionId] = useState(null);
     const [sessionQuestionNumber, setSessionQuestionNumber] = useState(1);
@@ -11,79 +14,163 @@ const useStudentSessionLogic = () => {
     const [totalTimeRemaining, setTotalTimeRemaining] = useState(10);
     const [sessionConcluded, setSessionConcluded] = useState(false);
     const [answeredQuestions, setAnsweredQuestions] = useState(new Set());
+    const [studentZLO, setStudentZLO] = useState(null);
+    const [streak, setStreak] = useState(0);
 
-    const formatTimeRemaining = (seconds) => {
+    const formatTimeRemaining = (seconds) =>
+    {
         const minutes = Math.floor(seconds / 60);
         const remainingSeconds = seconds % 60;
         return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
     };
 
-    const fetchNextQuestion = async () => {
-        try {
+    const fetchZLO = async () =>
+    {
+        const usernameId = token?.jti;
+
+        if (!usernameId)
+        {
+            return;
+        }
+
+        try
+        {
+            const response = await fetch(`http://localhost:8080/api/students/${usernameId}/zlo`);
+            const responseText = await response.text();
+
+            if (!response.ok || responseText.trim() === "")
+            {
+                return;
+            }
+
+            const data = JSON.parse(responseText);
+            setStudentZLO(data);
+        }
+        catch (err)
+        {
+            console.error("Error fetching ZLO:", err);
+        }
+    };
+
+    const fetchNextQuestion = async () =>
+    {
+        try
+        {
             const response = await fetch("http://localhost:8080/api/sessions/questions", {
                 method: "GET",
                 headers: { "Content-Type": "application/json" }
             });
 
-            if (!response.ok) {
-                console.error("Failed to fetch question:", response.status);
+            if (!response.ok)
+            {
                 return;
             }
 
             const questionSet = await response.json();
 
-            if (questionSet.length > 0) {
+            if (questionSet.length > 0)
+            {
                 let newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
 
-                while (answeredQuestions.has(newQuestion.questionId)) {
+                while (answeredQuestions.has(newQuestion.questionId))
+                {
                     newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
                 }
 
                 setAnsweredQuestions((prev) => new Set(prev).add(newQuestion.questionId));
-                console.log("Fetched question:", newQuestion);
 
-                // Parse the options for multiple choice and true/false questions
-                if (typeof newQuestion.options === "string") {
-                    // Regex for multiple choice (A., B., C., D.)
-                    const regex = /([○])\.\s*([^○]+)/g;
+                if (typeof newQuestion.options === "string")
+                {
+                    const regex = /([>])\.\s*([^>]+)/g;
                     const parsedOptions = [];
                     let match;
 
-                    // Capture options and retain the letter (A., B., C., D.)
-                    while ((match = regex.exec(newQuestion.options)) !== null) {
-                        parsedOptions.push(match[0].trim(1)); // match[0] retains the option with the letter (e.g., "A. x = 12")
+                    while ((match = regex.exec(newQuestion.options)) !== null)
+                    {
+                        parsedOptions.push(match[0].trim(1));
                     }
 
-                    // If it's a true/false question, we can assume it's either "A. True" or "B. False"
-                    if (newQuestion.options.toLowerCase().includes('true') || newQuestion.options.toLowerCase().includes('false')) {
+                    if (newQuestion.options.toLowerCase().includes('true') || newQuestion.options.toLowerCase().includes('false'))
+                    {
                         parsedOptions.push("True", "False");
                     }
 
                     newQuestion.options = parsedOptions;
                 }
 
-                if (Array.isArray(newQuestion.options)) {
+                if (Array.isArray(newQuestion.options))
+                {
                     setCurrentQuestion(newQuestion);
                     setQuestionId(newQuestion.questionId);
-                } else {
-                    console.error("Invalid options format:", newQuestion.options);
                 }
             }
-        } catch (error) {
+        }
+        catch (error)
+        {
             console.error("Question Fetch Error:", error);
         }
     };
 
-    useEffect(() => {
+    const updateZLO = async (correctCount, wrongCount, avgTimeSpentInSession, avgTimePerQuestion, streak, successRate) =>
+    {
+        const usernameId = token?.jti;
+
+        if (!usernameId)
+        {
+            return;
+        }
+
+        const updatedZLO = {
+            correctCount: correctCount,
+            wrongCount: wrongCount,
+            avgTimeSpentInSession: avgTimeSpentInSession,
+            avgTimePerQuestion: avgTimePerQuestion,
+            streak: streak,
+            successRate: successRate
+        };
+
+        try
+        {
+            const response = await fetch(`http://localhost:8080/api/students/${usernameId}/updateZlo`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify(updatedZLO)
+            });
+
+            if (response.ok)
+            {
+                const responseText = await response.json();
+                setStudentZLO(responseText.zloRating);
+            }
+        }
+        catch (err)
+        {
+            console.error("Error updating ZLO:", err);
+        }
+    };
+
+    useEffect(() =>
+    {
+        fetchZLO();
         fetchNextQuestion();
     }, []);
 
-    useEffect(() => {
-        if (sessionConcluded || !currentQuestion) return;
+    useEffect(() =>
+    {
+        if (sessionConcluded || !currentQuestion)
+        {
+            return;
+        }
 
-        const timer = setInterval(() => {
-            setTotalTimeRemaining((prev) => {
-                if (prev <= 0) {
+        const timer = setInterval(() =>
+        {
+            setTotalTimeRemaining((prev) =>
+            {
+                if (prev <= 0)
+                {
                     clearInterval(timer);
                     setSessionConcluded(true);
                     return 0;
@@ -95,40 +182,63 @@ const useStudentSessionLogic = () => {
         return () => clearInterval(timer);
     }, [currentQuestion, sessionConcluded]);
 
-    useEffect(() => {
-        if (totalTimeRemaining <= 0 && !submitted && currentQuestion) {
+    useEffect(() =>
+    {
+        if (totalTimeRemaining <= 0 && !submitted && currentQuestion)
+        {
             setSubmitted(true);
         }
     }, [totalTimeRemaining]);
 
-    const answerChoice = (choose) => {
-        setSelAnswer((prev) => {
+    const answerChoice = (choose) =>
+    {
+        setSelAnswer((prev) =>
+        {
             const newAnswers = new Map(prev);
-            newAnswers.set(questionId, { q: currentQuestion.question, pick: choose, correct: currentQuestion.answer });
+            newAnswers.set(questionId, {
+                q: currentQuestion.question,
+                pick: choose,
+                correct: currentQuestion.answer
+            });
             return newAnswers;
         });
     };
 
-    const submitAnswer = () => {
-        if (!currentQuestion) return;
+    const submitAnswer = () =>
+    {
+        if (!currentQuestion)
+        {
+            return;
+        }
 
         const chosenAnswer = selAnswer.get(questionId)?.pick;
         const isCorrect = chosenAnswer === currentQuestion.answer;
 
-        if (isCorrect) {
+        if (isCorrect)
+        {
             setCorrectCount((prev) => prev + 1);
-        } else {
+            setStreak((prev) => prev + 1);
+        }
+        else
+        {
             setWrongCount((prev) => prev + 1);
+            setStreak(0);
         }
 
         setSubmitted(true);
+
+        const avgTimeSpentInSession = (totalTimeRemaining / 60);
+        const avgTimePerQuestion = totalTimeRemaining / sessionQuestionNumber;
+        const successRate = correctCount / (correctCount + wrongCount);
+
+        updateZLO(correctCount, wrongCount, avgTimeSpentInSession, avgTimePerQuestion, streak, successRate);
     };
 
-    const nextQ = async () => {
-        if (!submitted) {
-            if (!selAnswer.get(questionId)?.pick) {
-                setWrongCount((prev) => prev + 1);
-            }
+    const nextQ = async () =>
+    {
+        if (!submitted && !selAnswer.get(questionId)?.pick)
+        {
+            setWrongCount((prev) => prev + 1);
         }
 
         setSubmitted(false);
@@ -149,7 +259,9 @@ const useStudentSessionLogic = () => {
         formatTimeRemaining,
         nextQ,
         submitAnswer,
-        answerChoice
+        answerChoice,
+        studentZLO,
+        streak
     };
 };
 

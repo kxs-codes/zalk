@@ -8,7 +8,7 @@ const Question = ({ q, options, pickAns, pickedAns, submitted, correctAnswer }) 
 
     if (!Array.isArray(options))
     {
-        return <div>Invalid data for options</div>;
+        return <div>Invalid</div>;
     }
 
     const clickItem = (item) =>
@@ -20,16 +20,8 @@ const Question = ({ q, options, pickAns, pickedAns, submitted, correctAnswer }) 
         <div className="qCont">
             <h2 className="qHead">{q}</h2>
             <div className="aCont">
-                {options.map((item, index) =>
-                (
-                    <button
-                        key={index}
-                        className={getButtonClass(item)}
-                        onClick={() => clickItem(item)}
-                        disabled={submitted}
-                    >
-                        {item}
-                    </button>
+                {options.map((item, index) => (
+                    <button key={index} className={getButtonClass(item)} onClick={() => clickItem(item)} disabled={submitted}>{item}</button>
                 ))}
             </div>
         </div>

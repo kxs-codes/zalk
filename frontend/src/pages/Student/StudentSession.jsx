@@ -18,6 +18,7 @@ const StudentSession = () =>
         totalTimeRemaining,
         nextQ,
         answerChoice,
+        studentZLO,
         submitAnswer
     } = useStudentSessionLogic();
 
@@ -37,6 +38,10 @@ const StudentSession = () =>
                     <div className="stat3">
                         <p>Session Percent</p>
                         <p>{((correctCount / (correctCount + wrongCount)) * 100).toFixed(2)}%</p>
+                    </div>
+                    <div className="stat4">
+                        <p>Current ZLO</p>
+                        <p>{studentZLO !== null ? studentZLO.toFixed(2) : "Loading..."}</p>
                     </div>
                 </div>
 
@@ -76,7 +81,6 @@ const StudentSession = () =>
             <div className="sessionLayout">
                 <PortalLogoBar />
                 {sessionConcluded && renderResults()}
-
                 {!sessionConcluded && currentQuestion && (
                     <div className="qSec">
                         <h1>Question {sessionQuestionNumber}</h1>
@@ -86,21 +90,18 @@ const StudentSession = () =>
                             pickAns={answerChoice}
                             pickedAns={selAnswer.get(questionId)?.pick}
                             submitted={submitted}
-                            correctAnswer={currentQuestion?.answer}
-                        />
+                            correctAnswer={currentQuestion?.answer} />
                         <p>Time Remaining: {formatTimeRemaining(totalTimeRemaining)}</p>
                         <button
                             onClick={submitAnswer}
                             disabled={!selAnswer.get(questionId)?.pick || submitted}
-                            className="Submitter"
-                        >
+                            className="Submitter">
                             Check Answer
                         </button>
                         <button
                             onClick={nextQ}
                             disabled={!submitted}
-                            className={`NEXT ${!submitted && "disabled"}`}
-                        >
+                            className={`NEXT ${!submitted && "disabled"}`}>
                             Next Question
                         </button>
                     </div>
