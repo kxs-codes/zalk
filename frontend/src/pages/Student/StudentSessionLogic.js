@@ -83,7 +83,7 @@ const useStudentSessionLogic = () =>
 
                 if (typeof newQuestion.options === "string")
                 {
-                    const regex = /([○])\.\s*([^○]+)/g;
+                    const regex = /([>])\.\s*([^>]+)/g;
                     const parsedOptions = [];
                     let match;
 
