@@ -76,18 +76,24 @@ const useAccessIssues = () => {
 
             if (response.ok) {
                 const updatedIssue = await response.json();
+
                 setIssues((prevIssues) =>
                     prevIssues.map((issue) =>
                         issue.reportId === id ? { ...issue, ...updatedIssue } : issue
                     )
                 );
-                setSelectedIssue(null);
+
+                setSelectedIssue((prev) =>
+                    prev && prev.reportId === id ? { ...prev, ...updatedIssue } : prev
+                );
+
                 setResolution("");
             }
         } catch (error) {
             console.error("Error updating issue:", error);
         }
     };
+
     return { setSortBy, setFilter, selectedIssue, setSelectedIssue, resolution, setResolution, filteredIssues, handleUpdateStatus, formatDateAndTime, handleStatusChange };
 };
 

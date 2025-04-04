@@ -155,17 +155,17 @@
     font-weight: 600;
 }
 
-.report-status.pending {
+.report-status.in.progress {
     background-color: oklch(0.945 0.129 101.54);
     color: oklch(0.476 0.114 61.907);
 }
 
-.report-status.resolved {
+.report-status.completed {
     background-color: oklch(0.925 0.084 155.995);
     color: oklch(0.448 0.119 151.328);
 }
 
-.report-status.under.review {
+.report-status.open {
     background-color: oklch(0.885 0.062 18.334);
     color: oklch(0.444 0.177 26.899);
 }
