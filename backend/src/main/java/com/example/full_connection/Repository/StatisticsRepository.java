@@ -3,10 +3,10 @@ package com.example.full_connection.Repository;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Entity.Student;
 
 public interface StatisticsRepository extends JpaRepository<Statistics, UUID> {
+    // Finds statistics by student
     Optional<Statistics> findByStudent(Student student);
 }

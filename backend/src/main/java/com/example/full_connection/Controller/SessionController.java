@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 //Controller handles API endpoints for the sessions
 //Creates questions; generates with ZLO
@@ -23,6 +24,7 @@ public class SessionController
     {
         this.sessionService = sessionService;
     }
+
     //Create updates to student statistics
     @PostMapping("/create")
     public ResponseEntity<Statistics> createSession(
@@ -41,7 +43,6 @@ public class SessionController
             @RequestParam float avgTimePerQuestion
     )
     {
-        //Cont, stats update
         Statistics statistics = sessionService.createSession(
                 studentforSession,
                 totalTimeInSessions,
@@ -60,14 +61,37 @@ public class SessionController
 
         return ResponseEntity.ok(statistics);
     }
-    //Gets from question pool
+
+    //Gets from question pool and filters based on ZLO-derived difficulty
     @GetMapping("/questions")
-    public ResponseEntity<List<Questions>> getAllQuestions()
+    public ResponseEntity<List<Questions>> getAllQuestions(
+            @RequestParam int totalQuestionsRight,
+            @RequestParam int totalQuestions,
+            @RequestParam int streak,
+            @RequestParam float avgTimeSpentInSession,
+            @RequestParam float avgTimePerQuestion,
+            @RequestParam float successRate
+    )
     {
-        List<Questions> questions = sessionService.getQuestions();
-        return ResponseEntity.ok(questions);
+        // Calculate the ZLO based on the session data
+        double zloRating = sessionService.calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
+
+        // Determine the question difficulty based on ZLO
+        String questionDifficulty = sessionService.getQuestionDifficulty(zloRating);
+
+        // Fetch all questions from the repository
+        List<Questions> allQuestions = sessionService.getQuestions();
+
+        // Filter questions based on calculated difficulty
+        List<Questions> filteredQuestions = allQuestions.stream()
+                .filter(question -> question.getDifficulty().equals(questionDifficulty))
+                .collect(Collectors.toList());
+
+        // Return filtered list of questions
+        return ResponseEntity.ok(filteredQuestions);
     }
-    //Generate new question logic
+
+    //Generate new question logic based on ZLO-derived difficulty
     @PostMapping("/generate-question")
     public ResponseEntity<Questions> generateNextQuestion(
             @RequestParam int totalQuestionsRight,
@@ -78,18 +102,18 @@ public class SessionController
             @RequestParam float successRate
     )
     {
-        Questions nextQuestion = sessionService.getNextQuestion(
-                totalQuestionsRight,
-                totalQuestions,
-                streak,
-                avgTimeSpentInSession,
-                avgTimePerQuestion,
-                successRate
-        );
+        // Calculate ZLO based on the session data
+        double zloRating = sessionService.calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
+
+        // Determine the question difficulty based on ZLO
+        String questionDifficulty = sessionService.getQuestionDifficulty(zloRating);
+
+        // Fetch the next question based on difficulty
+        Questions nextQuestion = sessionService.getNextQuestionBasedOnDifficulty(questionDifficulty);
 
         if (nextQuestion == null)
         {
-            System.out.println("No question");
+            System.out.println("No question available.");
             return ResponseEntity.noContent().build();
         }
 

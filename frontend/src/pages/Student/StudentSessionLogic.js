@@ -52,64 +52,68 @@ const useStudentSessionLogic = () =>
         }
     };
 
-    const fetchNextQuestion = async () =>
-    {
-        try
-        {
-            const response = await fetch("http://localhost:8080/api/sessions/questions", {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            });
+   const fetchNextQuestion = async () => {
+       try {
+           // Use the existing state values
+           const totalQuestions = correctCount + wrongCount;
+           const computedSuccessRate = totalQuestions > 0 ? correctCount / totalQuestions : 0;
 
-            if (!response.ok)
-            {
-                return;
-            }
+           // Example computations:
+           // Here we assume avgTimeSpentInSession and avgTimePerQuestion can be derived from your existing state.
+           // You may need to adjust these computations based on your actual logic.
+           const computedAvgTimeSpentInSession = totalTimeRemaining / 60;
+           const computedAvgTimePerQuestion = totalTimeRemaining / sessionQuestionNumber;
 
-            const questionSet = await response.json();
+           // Construct the URL using the state values directly.
+           const url = `http://localhost:8080/api/sessions/questions?totalQuestionsRight=${correctCount}&totalQuestions=${totalQuestions}&streak=${streak}&avgTimeSpentInSession=${computedAvgTimeSpentInSession}&avgTimePerQuestion=${computedAvgTimePerQuestion}&successRate=${computedSuccessRate}`;
 
-            if (questionSet.length > 0)
-            {
-                let newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
+           const response = await fetch(url, {
+               method: "GET",
+               headers: { "Content-Type": "application/json" }
+           });
 
-                while (answeredQuestions.has(newQuestion.questionId))
-                {
-                    newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
-                }
+           if (!response.ok) {
+               return;
+           }
 
-                setAnsweredQuestions((prev) => new Set(prev).add(newQuestion.questionId));
+           const questionSet = await response.json();
 
-                if (typeof newQuestion.options === "string")
-                {
-                    const regex = /([>])\.\s*([^>]+)/g;
-                    const parsedOptions = [];
-                    let match;
+           if (questionSet.length > 0) {
+               let newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
 
-                    while ((match = regex.exec(newQuestion.options)) !== null)
-                    {
-                        parsedOptions.push(match[0].trim(1));
-                    }
+               while (answeredQuestions.has(newQuestion.questionId)) {
+                   newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
+               }
 
-                    if (newQuestion.options.toLowerCase().includes('true') || newQuestion.options.toLowerCase().includes('false'))
-                    {
-                        parsedOptions.push("True", "False");
-                    }
+               setAnsweredQuestions((prev) => new Set(prev).add(newQuestion.questionId));
 
-                    newQuestion.options = parsedOptions;
-                }
+               // If options are a string, parse them into an array
+               if (typeof newQuestion.options === "string") {
+                   const regex = /([>])\.\s*([^>]+)/g;
+                   const parsedOptions = [];
+                   let match;
 
-                if (Array.isArray(newQuestion.options))
-                {
-                    setCurrentQuestion(newQuestion);
-                    setQuestionId(newQuestion.questionId);
-                }
-            }
-        }
-        catch (error)
-        {
-            console.error("Question Fetch Error:", error);
-        }
-    };
+                   while ((match = regex.exec(newQuestion.options)) !== null) {
+                       parsedOptions.push(match[0].trim(1));
+                   }
+
+                   if (newQuestion.options.toLowerCase().includes('true') || newQuestion.options.toLowerCase().includes('false')) {
+                       parsedOptions.push("True", "False");
+                   }
+
+                   newQuestion.options = parsedOptions;
+               }
+
+               if (Array.isArray(newQuestion.options)) {
+                   setCurrentQuestion(newQuestion);
+                   setQuestionId(newQuestion.questionId);
+               }
+           }
+       } catch (error) {
+           console.error("Question Fetch Error:", error);
+       }
+   };
+
 
     const updateZLO = async (correctCount, wrongCount, avgTimeSpentInSession, avgTimePerQuestion, streak, successRate) =>
     {
@@ -121,12 +125,12 @@ const useStudentSessionLogic = () =>
         }
 
         const updatedZLO = {
-            correctCount: correctCount,
-            wrongCount: wrongCount,
-            avgTimeSpentInSession: avgTimeSpentInSession,
-            avgTimePerQuestion: avgTimePerQuestion,
-            streak: streak,
-            successRate: successRate
+    totalQuestionsRight: correctCount,
+    totalQuestions: correctCount + wrongCount,
+    avgTimeSpentInSession: avgTimeSpentInSession,
+    avgTimePerQuestion: avgTimePerQuestion,
+    streak: streak,
+    successRate: successRate
         };
 
         try
@@ -143,7 +147,7 @@ const useStudentSessionLogic = () =>
             if (response.ok)
             {
                 const responseText = await response.json();
-                setStudentZLO(responseText.zloRating);
+                setStudentZLO(responseText);
             }
         }
         catch (err)
