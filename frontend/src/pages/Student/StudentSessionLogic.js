@@ -15,6 +15,7 @@ const useStudentSessionLogic = () =>
     const [sessionConcluded, setSessionConcluded] = useState(false);
     const [answeredQuestions, setAnsweredQuestions] = useState(new Set());
     const [studentZLO, setStudentZLO] = useState(null);
+    const [gradeLevel, setGradeLevel] = useState(null);
     const [streak, setStreak] = useState(0);
 
     const formatTimeRemaining = (seconds) =>
@@ -27,6 +28,7 @@ const useStudentSessionLogic = () =>
     const fetchZLO = async () =>
     {
         const usernameId = token?.jti;
+        console.log(token?.jti);
 
         if (!usernameId)
         {
@@ -50,66 +52,75 @@ const useStudentSessionLogic = () =>
         {
             console.error("Error fetching ZLO:", err);
         }
-    };
-
-    const fetchNextQuestion = async () =>
-    {
         try
         {
-            const response = await fetch("http://localhost:8080/api/sessions/questions", {
-                method: "GET",
-                headers: { "Content-Type": "application/json" }
-            });
-
-            if (!response.ok)
-            {
+            const responseGradeLevel = await fetch(`http://localhost:8080/api/students/${usernameId}/gradelevel`);
+            if (!responseGradeLevel.ok) {
+                console.error("Failed to fetch grade level");
                 return;
             }
 
-            const questionSet = await response.json();
-
-            if (questionSet.length > 0)
-            {
-                let newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
-
-                while (answeredQuestions.has(newQuestion.questionId))
-                {
-                    newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
-                }
-
-                setAnsweredQuestions((prev) => new Set(prev).add(newQuestion.questionId));
-
-                if (typeof newQuestion.options === "string")
-                {
-                    const regex = /([>])\.\s*([^>]+)/g;
-                    const parsedOptions = [];
-                    let match;
-
-                    while ((match = regex.exec(newQuestion.options)) !== null)
-                    {
-                        parsedOptions.push(match[0].trim(1));
-                    }
-
-                    if (newQuestion.options.toLowerCase().includes('true') || newQuestion.options.toLowerCase().includes('false'))
-                    {
-                        parsedOptions.push("True", "False");
-                    }
-
-                    newQuestion.options = parsedOptions;
-                }
-
-                if (Array.isArray(newQuestion.options))
-                {
-                    setCurrentQuestion(newQuestion);
-                    setQuestionId(newQuestion.questionId);
-                }
-            }
-        }
-        catch (error)
-        {
-            console.error("Question Fetch Error:", error);
+            const gradeLevel = await responseGradeLevel.json();
+            setGradeLevel(gradeLevel);
+        } catch (err) {
+            console.error("Error fetching data:", err);
         }
     };
+
+   const fetchNextQuestion = async () => {
+       try {
+           const totalQuestions = correctCount + wrongCount;
+           const computedSuccessRate = totalQuestions > 0 ? correctCount / totalQuestions : 0;
+           const computedAvgTimeSpentInSession = totalTimeRemaining / 60;
+           const computedAvgTimePerQuestion = totalTimeRemaining / sessionQuestionNumber;
+
+           const url = `http://localhost:8080/api/sessions/questions?totalQuestionsRight=${correctCount}&totalQuestions=${totalQuestions}&streak=${streak}&avgTimeSpentInSession=${computedAvgTimeSpentInSession}&avgTimePerQuestion=${computedAvgTimePerQuestion}&successRate=${computedSuccessRate}&gradeLevel=${gradeLevel}`;
+           const response = await fetch(url, {
+               method: "GET",
+               headers: { "Content-Type": "application/json" }
+           });
+
+           if (!response.ok) {
+               return;
+           }
+
+           const questionSet = await response.json();
+
+           if (questionSet.length > 0) {
+               let newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
+
+               while (answeredQuestions.has(newQuestion.questionId)) {
+                   newQuestion = questionSet[Math.floor(Math.random() * questionSet.length)];
+               }
+
+               setAnsweredQuestions((prev) => new Set(prev).add(newQuestion.questionId));
+
+               if (typeof newQuestion.options === "string") {
+                   const regex = /([>])\.\s*([^>]+)/g;
+                   const parsedOptions = [];
+                   let match;
+
+                   while ((match = regex.exec(newQuestion.options)) !== null) {
+                       parsedOptions.push(match[0].trim(1));
+                   }
+
+                   if (newQuestion.options.toLowerCase().includes('true') || newQuestion.options.toLowerCase().includes('false')) {
+                       parsedOptions.push("True", "False");
+                   }
+
+                   newQuestion.options = parsedOptions;
+               }
+
+               if (Array.isArray(newQuestion.options)) {
+                   setCurrentQuestion(newQuestion);
+                   setQuestionId(newQuestion.questionId);
+               }
+           }
+       } catch (error) {
+           console.error("Question Fetch Error:", error);
+       }
+   };
+
 
     const updateZLO = async (correctCount, wrongCount, avgTimeSpentInSession, avgTimePerQuestion, streak, successRate) =>
     {
@@ -121,8 +132,8 @@ const useStudentSessionLogic = () =>
         }
 
         const updatedZLO = {
-            correctCount: correctCount,
-            wrongCount: wrongCount,
+            totalQuestionsRight: correctCount,
+            totalQuestions: correctCount + wrongCount,
             avgTimeSpentInSession: avgTimeSpentInSession,
             avgTimePerQuestion: avgTimePerQuestion,
             streak: streak,
@@ -143,7 +154,7 @@ const useStudentSessionLogic = () =>
             if (response.ok)
             {
                 const responseText = await response.json();
-                setStudentZLO(responseText.zloRating);
+                setStudentZLO(responseText);
             }
         }
         catch (err)
@@ -152,11 +163,15 @@ const useStudentSessionLogic = () =>
         }
     };
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         fetchZLO();
-        fetchNextQuestion();
     }, []);
+
+    useEffect(() => {
+        if (gradeLevel !== null) {
+            fetchNextQuestion();
+        }
+    }, [gradeLevel]);
 
     useEffect(() =>
     {
@@ -261,6 +276,7 @@ const useStudentSessionLogic = () =>
         submitAnswer,
         answerChoice,
         studentZLO,
+        gradeLevel,
         streak
     };
 };

@@ -35,9 +35,9 @@ public class SessionService
     private static final double weightPCorr1 = 0.1;
     private static final double weightPCorrAvg = 0.1;
     //Difficulty values
-    private static final double zloHard = 0.8;
-    private static final double zloMed = 0.5;
-    private static final double zloEasy = 0.3;
+    private static final double zloHard = 100;
+    private static final double zloMed = 100;
+    private static final double zloEasy = 0.9;
     //Get questions
     public List<Questions> getQuestions()
     {
@@ -124,9 +124,9 @@ public class SessionService
         return statistics;
     }
     //Difficulty logic
-    private String getQuestionDifficulty(double zloRating)
+    public String getQuestionDifficulty(double zloRating)
     {
-        if (zloRating >= zloHard)
+        /*if (zloRating >= zloHard)
         {
             return "hard";
         }
@@ -137,10 +137,11 @@ public class SessionService
         else
         {
             return "easy";
-        }
+        }*/
+        return "easy";
     }
 
-    private Questions getNextQuestionBasedOnDifficulty(String difficulty)
+    public Questions getNextQuestionBasedOnDifficulty(String difficulty)
     {
         List<Questions> questions = questionsRepository.findByDifficulty(difficulty);
 
@@ -152,7 +153,7 @@ public class SessionService
         return questionsRepository.findByDifficulty("medium").get(0);
     }
     //Picks next question based on values
-    public Questions getNextQuestion(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate)
+    public Questions getNextQuestion(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate, int gradeLevel)
     {
         double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
         String questionDifficulty = getQuestionDifficulty(zloRating);

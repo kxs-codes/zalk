@@ -6,18 +6,19 @@ import com.example.full_connection.Service.SessionService;
 import com.example.full_connection.Repository.StudentRepository;
 import com.example.full_connection.Repository.StatisticsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/students")
-public class StudentsController
-{
-    //Gets ZLO score for student ratins
+public class StudentsController {
+
     private final SessionService sessionService;
     private final StudentRepository studentRepository;
     private final StatisticsRepository statisticsRepository;
@@ -25,20 +26,24 @@ public class StudentsController
     @Autowired
     public StudentsController(SessionService sessionService,
                               StudentRepository studentRepository,
-                              StatisticsRepository statisticsRepository)
-    {
+                              StatisticsRepository statisticsRepository) {
         this.sessionService = sessionService;
         this.studentRepository = studentRepository;
         this.statisticsRepository = statisticsRepository;
     }
-    //Post for ZLO rating; saves to student data
+
+    // Update or create ZLO statistics
     @PostMapping("/{usernameId}/updateZlo")
     public ResponseEntity<Double> updateZLO(
             @PathVariable UUID usernameId,
             @RequestBody Statistics statistics
-    )
-    {
+    ) {
+        System.out.println("Received ZLO data: " + statistics);
+
         Student student = studentRepository.findById(usernameId).orElse(null);
+        if (student == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
 
         double updatedZLO = sessionService.updateZLO(
                 statistics.getTotalQuestionsRight(),
@@ -50,35 +55,56 @@ public class StudentsController
                 student
         );
 
-        statistics.setStudent(student);
-        statisticsRepository.save(statistics);
+        Optional<Statistics> optionalStats = statisticsRepository.findByStudent(student);
 
-        //Return updated elo
-        return ResponseEntity.ok(updatedZLO);
-    }
-    //Get students
-    @GetMapping
-    public List<Student> getAllStudents()
-    {
-        return studentRepository.findAll();
-    }
-    //Get ZLO for user
-    @GetMapping("{usernameId}/zlo")
-    public Double getZloRating(@PathVariable UUID usernameId)
-    {
-        Student student = studentRepository.findById(usernameId).orElse(null);
+        if (optionalStats.isPresent()) {
+            Statistics existingStats = optionalStats.get();
+            existingStats.setAvgTimePerQuestion(statistics.getAvgTimePerQuestion());
+            existingStats.setGuessRate(statistics.getGuessRate());
+            existingStats.setStreak(statistics.getStreak());
+            existingStats.setSubjectMasteryValue(statistics.getSubjectMasteryValue());
+            existingStats.setSuccessRate(statistics.getSuccessRate());
+            existingStats.setAvgTimeSpentInSession(statistics.getAvgTimeSpentInSession());
+            existingStats.setTotalQuestions(statistics.getTotalQuestions());
+            existingStats.setTotalQuestionsRight(statistics.getTotalQuestionsRight());
 
-        if (student == null)
-        {
-            return null;
+            statisticsRepository.save(existingStats);
+        } else {
+            statistics.setStudent(student);
+            statisticsRepository.save(statistics);
         }
 
+        return ResponseEntity.ok(updatedZLO);
+    }
+
+
+    // Get all students
+    @GetMapping
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
+    }
+
+    // Get ZLO for a specific user
+    @GetMapping("{usernameId}/zlo")
+    public Double getZloRating(@PathVariable UUID usernameId) {
+        Student student = studentRepository.findById(usernameId).orElse(null);
+        if (student == null) {
+            return null;
+        }
         return student.getZloRating();
     }
-    //Student handling
+    @GetMapping("{usernameId}/gradelevel")
+    public Integer getGradeLevel(@PathVariable UUID usernameId) {
+        Student student = studentRepository.findById(usernameId).orElse(null);
+        if (student == null) {
+            return null;
+        }
+        return student.getGradeLevel();
+    }
+
+    // Create a new student
     @PostMapping
-    public Student createStudent(@RequestBody Student student)
-    {
+    public Student createStudent(@RequestBody Student student) {
         return studentRepository.save(student);
     }
 }
