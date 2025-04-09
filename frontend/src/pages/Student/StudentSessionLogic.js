@@ -15,6 +15,7 @@ const useStudentSessionLogic = () =>
     const [sessionConcluded, setSessionConcluded] = useState(false);
     const [answeredQuestions, setAnsweredQuestions] = useState(new Set());
     const [studentZLO, setStudentZLO] = useState(null);
+    const [gradeLevel, setGradeLevel] = useState(null);
     const [streak, setStreak] = useState(0);
 
     const formatTimeRemaining = (seconds) =>
@@ -27,6 +28,7 @@ const useStudentSessionLogic = () =>
     const fetchZLO = async () =>
     {
         const usernameId = token?.jti;
+        console.log(token?.jti);
 
         if (!usernameId)
         {
@@ -50,23 +52,29 @@ const useStudentSessionLogic = () =>
         {
             console.error("Error fetching ZLO:", err);
         }
+        try
+        {
+            const responseGradeLevel = await fetch(`http://localhost:8080/api/students/${usernameId}/gradelevel`);
+            if (!responseGradeLevel.ok) {
+                console.error("Failed to fetch grade level");
+                return;
+            }
+
+            const gradeLevel = await responseGradeLevel.json();
+            setGradeLevel(gradeLevel);
+        } catch (err) {
+            console.error("Error fetching data:", err);
+        }
     };
 
    const fetchNextQuestion = async () => {
        try {
-           // Use the existing state values
            const totalQuestions = correctCount + wrongCount;
            const computedSuccessRate = totalQuestions > 0 ? correctCount / totalQuestions : 0;
-
-           // Example computations:
-           // Here we assume avgTimeSpentInSession and avgTimePerQuestion can be derived from your existing state.
-           // You may need to adjust these computations based on your actual logic.
            const computedAvgTimeSpentInSession = totalTimeRemaining / 60;
            const computedAvgTimePerQuestion = totalTimeRemaining / sessionQuestionNumber;
 
-           // Construct the URL using the state values directly.
-           const url = `http://localhost:8080/api/sessions/questions?totalQuestionsRight=${correctCount}&totalQuestions=${totalQuestions}&streak=${streak}&avgTimeSpentInSession=${computedAvgTimeSpentInSession}&avgTimePerQuestion=${computedAvgTimePerQuestion}&successRate=${computedSuccessRate}`;
-
+           const url = `http://localhost:8080/api/sessions/questions?totalQuestionsRight=${correctCount}&totalQuestions=${totalQuestions}&streak=${streak}&avgTimeSpentInSession=${computedAvgTimeSpentInSession}&avgTimePerQuestion=${computedAvgTimePerQuestion}&successRate=${computedSuccessRate}&gradeLevel=${gradeLevel}`;
            const response = await fetch(url, {
                method: "GET",
                headers: { "Content-Type": "application/json" }
@@ -87,7 +95,6 @@ const useStudentSessionLogic = () =>
 
                setAnsweredQuestions((prev) => new Set(prev).add(newQuestion.questionId));
 
-               // If options are a string, parse them into an array
                if (typeof newQuestion.options === "string") {
                    const regex = /([>])\.\s*([^>]+)/g;
                    const parsedOptions = [];
@@ -125,12 +132,12 @@ const useStudentSessionLogic = () =>
         }
 
         const updatedZLO = {
-    totalQuestionsRight: correctCount,
-    totalQuestions: correctCount + wrongCount,
-    avgTimeSpentInSession: avgTimeSpentInSession,
-    avgTimePerQuestion: avgTimePerQuestion,
-    streak: streak,
-    successRate: successRate
+            totalQuestionsRight: correctCount,
+            totalQuestions: correctCount + wrongCount,
+            avgTimeSpentInSession: avgTimeSpentInSession,
+            avgTimePerQuestion: avgTimePerQuestion,
+            streak: streak,
+            successRate: successRate
         };
 
         try
@@ -156,11 +163,15 @@ const useStudentSessionLogic = () =>
         }
     };
 
-    useEffect(() =>
-    {
+    useEffect(() => {
         fetchZLO();
-        fetchNextQuestion();
     }, []);
+
+    useEffect(() => {
+        if (gradeLevel !== null) {
+            fetchNextQuestion();
+        }
+    }, [gradeLevel]);
 
     useEffect(() =>
     {
@@ -265,6 +276,7 @@ const useStudentSessionLogic = () =>
         submitAnswer,
         answerChoice,
         studentZLO,
+        gradeLevel,
         streak
     };
 };

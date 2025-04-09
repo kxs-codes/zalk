@@ -93,6 +93,14 @@ public class StudentsController {
         }
         return student.getZloRating();
     }
+    @GetMapping("{usernameId}/gradelevel")
+    public Integer getGradeLevel(@PathVariable UUID usernameId) {
+        Student student = studentRepository.findById(usernameId).orElse(null);
+        if (student == null) {
+            return null;
+        }
+        return student.getGradeLevel();
+    }
 
     // Create a new student
     @PostMapping

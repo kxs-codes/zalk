@@ -153,7 +153,7 @@ public class SessionService
         return questionsRepository.findByDifficulty("medium").get(0);
     }
     //Picks next question based on values
-    public Questions getNextQuestion(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate)
+    public Questions getNextQuestion(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate, int gradeLevel)
     {
         double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
         String questionDifficulty = getQuestionDifficulty(zloRating);

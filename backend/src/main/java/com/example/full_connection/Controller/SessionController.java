@@ -70,24 +70,19 @@ public class SessionController
             @RequestParam int streak,
             @RequestParam float avgTimeSpentInSession,
             @RequestParam float avgTimePerQuestion,
-            @RequestParam float successRate
+            @RequestParam float successRate,
+            @RequestParam int gradeLevel
     )
     {
-        // Calculate the ZLO based on the session data
+
         double zloRating = sessionService.calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
-
-        // Determine the question difficulty based on ZLO
         String questionDifficulty = sessionService.getQuestionDifficulty(zloRating);
-
-        // Fetch all questions from the repository
         List<Questions> allQuestions = sessionService.getQuestions();
 
-        // Filter questions based on calculated difficulty
         List<Questions> filteredQuestions = allQuestions.stream()
-                .filter(question -> question.getDifficulty().equals(questionDifficulty))
+                .filter(question -> question.getDifficulty().equals(questionDifficulty) && question.getGradeLevel() == gradeLevel)
                 .collect(Collectors.toList());
 
-        // Return filtered list of questions
         return ResponseEntity.ok(filteredQuestions);
     }
 

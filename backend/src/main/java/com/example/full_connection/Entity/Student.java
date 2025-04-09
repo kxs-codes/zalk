@@ -26,6 +26,9 @@ public class Student
     @Column(name = "zlo_rating", nullable = false)
     private double zloRating;
 
+    @Column(name = "grade_level", nullable = false)
+    private int gradeLevel;
+
     @Column(name = "badges_earned", nullable = false)
     private int badgesEarned;
 
@@ -66,6 +69,8 @@ public class Student
     {
         return badgesEarned;
     }
+
+    public int getGradeLevel() {return gradeLevel;}
 
     public List<Classrooms> getClassrooms()
     {
@@ -114,6 +119,8 @@ public class Student
     {
         this.guardian = guardian;
     }
+
+    public int setGradeLevel() {return gradeLevel;}
 
     public void setStatistics(Statistics statistics){
         this.statistics = statistics;

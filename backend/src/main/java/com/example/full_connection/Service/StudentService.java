@@ -39,6 +39,10 @@ public class StudentService
         Optional<Student> student = studentRepository.findById(usernameId);
         return student.map(Student::getZloRating).orElseThrow(() -> new RuntimeException("Student not found"));
     }
+    public Integer getGradeLevel(UUID usernameId) {
+        Optional<Student> student = studentRepository.findById(usernameId);
+        return student.map(Student::getGradeLevel).orElseThrow(() -> new RuntimeException("Student not found"));
+    }
 
 
 }
