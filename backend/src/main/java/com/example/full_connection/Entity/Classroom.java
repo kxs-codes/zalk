@@ -16,7 +16,7 @@ import jakarta.persistence.ManyToMany;
 
 @Entity
 @Table(name = "classrooms")
-public class Classrooms {
+public class Classroom {
     @Id
     @GeneratedValue
     @Column(name = "class_id")

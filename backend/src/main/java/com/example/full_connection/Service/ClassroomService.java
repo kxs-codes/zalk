@@ -1,10 +1,10 @@
 package com.example.full_connection.Service;
 
 import com.example.full_connection.DTO.FormDataModerator;
-import com.example.full_connection.Entity.Classrooms;
+import com.example.full_connection.Entity.Classroom;
 import com.example.full_connection.Entity.Educator;
 import com.example.full_connection.Entity.Student;
-import com.example.full_connection.Repository.ClassroomsRepository;
+import com.example.full_connection.Repository.ClassroomRepository;
 import com.example.full_connection.Repository.EducatorRepository;
 import com.example.full_connection.Repository.StudentRepository;
 
@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClassroomsService {
+public class ClassroomService {
     @Autowired // Wired the service to the correct repository
-    private ClassroomsRepository classroomsRepository;
+    private ClassroomRepository classroomsRepository;
 
     @Autowired
     private EducatorRepository educatorRepository;
@@ -25,13 +25,13 @@ public class ClassroomsService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public List<Classrooms> getAllClassrooms() {
+    public List<Classroom> getAllClassrooms() {
         return classroomsRepository.findAll();
     }
 
-    public Classrooms createClassroom(FormDataModerator formDataModerator) {
+    public Classroom createClassroom(FormDataModerator formDataModerator) {
         // 1. Create classroom object
-        Classrooms classroom = new Classrooms();
+        Classroom classroom = new Classroom();
 
         // 2. Create educator and student objects
         Optional<Educator> educator = educatorRepository.findByUsername(formDataModerator.getEducatorName());

@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.full_connection.DTO.AccountDTO;
 import com.example.full_connection.DTO.FormDataModerator;
-import com.example.full_connection.Entity.Classrooms;
+import com.example.full_connection.Entity.Classroom;
 import com.example.full_connection.Entity.Logs;
 import com.example.full_connection.Entity.Reports;
-import com.example.full_connection.Service.ClassroomsService;
+import com.example.full_connection.Service.ClassroomService;
 import com.example.full_connection.Service.EducatorService;
 import com.example.full_connection.Service.ModeratorService;
 import com.example.full_connection.Service.StudentService;
@@ -39,7 +39,7 @@ public class ModeratorController {
     private EducatorService educatorService;
 
     @Autowired
-    private ClassroomsService classroomsService;
+    private ClassroomService classroomService;
 
     @Autowired
     private ModeratorService moderatorService;
@@ -79,7 +79,7 @@ public class ModeratorController {
         }
 
         // 2. Call the service layer
-        Classrooms savedClassroom = classroomsService.createClassroom(formDataModerator);
+        Classroom savedClassroom = classroomService.createClassroom(formDataModerator);
 
         // 3. Return response
         return ResponseEntity.ok("Classroom created successfully: " + savedClassroom.getClassId().toString());

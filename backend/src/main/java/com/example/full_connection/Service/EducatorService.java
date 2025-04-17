@@ -3,7 +3,7 @@ package com.example.full_connection.Service;
 import com.example.full_connection.DTO.Educator.ClassroomSummaryDTO;
 import com.example.full_connection.DTO.Educator.ManageClassroomDTO;
 import com.example.full_connection.DTO.Educator.ClassProgressDTO;
-import com.example.full_connection.Entity.Classrooms;
+import com.example.full_connection.Entity.Classroom;
 import com.example.full_connection.Entity.Educator;
 import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Repository.EducatorRepository;
@@ -24,7 +24,7 @@ public class EducatorService {
     private EducatorRepository educatorRepository;
     
     @Autowired 
-    private ClassroomsService classroomsService;
+    private ClassroomService classroomService;
 
 
     public List<Educator> getAllEducators() {

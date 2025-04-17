@@ -28,7 +28,7 @@ public class SessionConfig {
 
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "class_id", referencedColumnName = "class_id")
-    private Classrooms classroom;
+    private Classroom classroom;
 
     // Getters
     public UUID getSessionConfigId() {
@@ -55,7 +55,7 @@ public class SessionConfig {
         return questionFormat;
     }
 
-    public Classrooms getClassroom() {
+    public Classroom getClassroom() {
         return classroom;
     }
 
@@ -84,7 +84,7 @@ public class SessionConfig {
         this.questionFormat = questionFormat;
     }
 
-    public void setClassroom(Classrooms classroom) {
+    public void setClassroom(Classroom classroom) {
         this.classroom = classroom;
     }
 }

@@ -29,7 +29,7 @@ public class Educator {
 
     // Use cascade to make sure no orphan rows
     @OneToMany(mappedBy = "educator", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Classrooms> classrooms = new ArrayList<>();
+    private List<Classroom> classrooms = new ArrayList<>();
 
     // Getters
     public UUID getId() {
@@ -47,7 +47,7 @@ public class Educator {
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    public List<Classrooms> getClassrooms() {
+    public List<Classroom> getClassrooms() {
         return classrooms;
     }
 
@@ -67,7 +67,7 @@ public class Educator {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public void setClassrooms(List<Classrooms> classrooms) {
+    public void setClassrooms(List<Classroom> classrooms) {
         this.classrooms = classrooms;
     }
 }

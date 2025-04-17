@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.full_connection.DTO.AccountDTO;
 import com.example.full_connection.Entity.AdvisoryBoard;
-import com.example.full_connection.Entity.Classrooms;
+import com.example.full_connection.Entity.Classroom;
 import com.example.full_connection.Entity.Educator;
 import com.example.full_connection.Entity.Guardian;
 import com.example.full_connection.Entity.Logs;
@@ -23,7 +23,7 @@ import com.example.full_connection.Entity.SessionConfig;
 import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Entity.Student;
 import com.example.full_connection.Repository.AdvisoryBoardRepository;
-import com.example.full_connection.Repository.ClassroomsRepository;
+import com.example.full_connection.Repository.ClassroomRepository;
 import com.example.full_connection.Repository.EducatorRepository;
 import com.example.full_connection.Repository.GuardianRepository;
 import com.example.full_connection.Repository.LogsRepository;
@@ -47,7 +47,7 @@ public class ModeratorService {
     private AdvisoryBoardRepository advisoryBoardRepository;
 
     @Autowired
-    private ClassroomsRepository classroomsRepository;
+    private ClassroomRepository classroomRepository;
 
     @Autowired
     private StatisticsRepository statisticsRepository; 
@@ -106,11 +106,11 @@ public class ModeratorService {
                     Student student = studentOpt.get();
 
                     // Remove student from all classrooms first
-                    for(Classrooms classroom : student.getClassrooms()) {
+                    for(Classroom classroom : student.getClassrooms()) {
                         // Grab list of students in current classroom, remove student from it
                         classroom.getStudents().remove(student);
                     }
-                    classroomsRepository.saveAll(student.getClassrooms());
+                    classroomRepository.saveAll(student.getClassrooms());
 
                     // Remove student from statistics table
                     Optional<Statistics> statisticsOpt = statisticsRepository.findByStudent(student);
@@ -128,13 +128,13 @@ public class ModeratorService {
                 if (educatorOpt.isPresent()) {
                     Educator educator = educatorOpt.get();
 
-                    for (Classrooms classroom : educator.getClassrooms()) {
+                    for (Classroom classroom : educator.getClassrooms()) {
                         // Delete session_config of every class educator teaches
                         Optional<SessionConfig> sessionConfigOpt = sessionConfigRepository.findByClassroom(classroom);
                         sessionConfigOpt.ifPresent(sessionConfigRepository::delete);
 
                         // Then, delete the classroom
-                        classroomsRepository.delete(classroom);
+                        classroomRepository.delete(classroom);
                     }
                     
                     // Delete the educator
@@ -174,7 +174,7 @@ public class ModeratorService {
         
         // 2. Query classrooms, all users, and reports to grab counts of each. Add to map
         Map<String, Integer> statsMap = Map.of(
-            "classrooms", (int)classroomsRepository.count(), 
+            "classrooms", (int)classroomRepository.count(), 
             "users", (int)users,
             "reports", (int)reportsRepository.count());
 

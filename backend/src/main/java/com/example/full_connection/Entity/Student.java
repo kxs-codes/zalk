@@ -30,7 +30,7 @@ public class Student
     private int badgesEarned;
 
     @ManyToMany(mappedBy = "students", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Classrooms> classrooms;
+    private List<Classroom> classrooms;
 
     @ManyToOne
     @JoinColumn(name = "guardian_id", foreignKey = @ForeignKey(name = "fk_guardian" ))
@@ -67,7 +67,7 @@ public class Student
         return badgesEarned;
     }
 
-    public List<Classrooms> getClassrooms()
+    public List<Classroom> getClassrooms()
     {
         return classrooms;
     }
@@ -105,7 +105,7 @@ public class Student
         this.badgesEarned = badgesEarned;
     }
 
-    public void setClassrooms(List<Classrooms> classrooms)
+    public void setClassrooms(List<Classroom> classrooms)
     {
         this.classrooms = classrooms;
     }
