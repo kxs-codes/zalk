@@ -18,9 +18,10 @@ public class ReportsService {
     @Autowired
     private ReportsRepository reportsRepository;
 
-    // fetch all the reports
+    //Fetching all the reports and mapping them to the DTO
     public List<ReportsDTO> getAllReports() {
         List<Reports> reports = reportsRepository.findAll();
+        //Converting the list of entity objects to DTO
         return reports.stream()
                 .map(report -> new ReportsDTO(
                         report.getReportId(),
@@ -29,10 +30,12 @@ public class ReportsService {
                         report.getTimeOccurred(),
                         report.getCategory(),
                         report.getStatus(),
-                        report.getSubmitterEmail()
+                        report.getSubmitterEmail(),
+                        report.getResponse()
                 ))
                 .collect(Collectors.toList());
     }
+    //Creating a fresh report from the DTO sent to backend
     public ReportsDTO createReport(ReportsDTO reportDTO) {
         Reports newReport = new Reports();
         newReport.setReportName(reportDTO.getReportName());
@@ -44,6 +47,7 @@ public class ReportsService {
 
         Reports savedReport = reportsRepository.save(newReport);
 
+        //Returning saved report as a DTO
         return new ReportsDTO(
                 savedReport.getReportId(),
                 savedReport.getReportName(),
@@ -51,11 +55,12 @@ public class ReportsService {
                 savedReport.getTimeOccurred(),
                 savedReport.getCategory(),
                 savedReport.getStatus(),
-                savedReport.getSubmitterEmail()
+                savedReport.getSubmitterEmail(),
+                savedReport.getResponse()
         );
     }
 
-    // fetch a specific report by an Id
+    //Fetching a specific report by an Id
     public ReportsDTO getReportById(UUID reportId) {
         Reports report = reportsRepository.findById(reportId)
                 .orElseThrow(() -> new RuntimeException("Report not found with ID: " + reportId));
@@ -67,18 +72,19 @@ public class ReportsService {
                 report.getTimeOccurred(),
                 report.getCategory(),
                 report.getStatus(),
-                report.getSubmitterEmail()
+                report.getSubmitterEmail(),
+                report.getResponse()
         );
     }
 
-    // update the report status in the database
+    //Updating the reports status in the database, while also adding a response
     public ReportsDTO updateReportStatus(UUID reportId, String status, String resolution) {
         Reports report = reportsRepository.findById(reportId)
                 .orElseThrow(() -> new RuntimeException("Report not found with ID: " + reportId));
 
         report.setStatus(status);
         if (resolution != null && !resolution.isEmpty()) {
-            report.setReportDescription(resolution);
+            report.setResponse(resolution);
         }
 
         reportsRepository.save(report);
@@ -90,7 +96,8 @@ public class ReportsService {
                 report.getTimeOccurred(),
                 report.getCategory(),
                 report.getStatus(),
-                report.getSubmitterEmail()
+                report.getSubmitterEmail(),
+                report.getResponse()
         );
     }
 }

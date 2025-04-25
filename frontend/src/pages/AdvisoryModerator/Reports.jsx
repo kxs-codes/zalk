@@ -1,7 +1,7 @@
 import "react";
 import "../../styles/AdvisoryModerator/pages/Reports.css";
 import PortalLogoBar from "../../components/PortalLogoBar.jsx";
-import useAccessIssues from "./Report.js";
+import useAccessIssues from "./Reports.js";
 
 const AccessIssues = () => {
     const {
@@ -67,6 +67,11 @@ const AccessIssues = () => {
                         <p className="category">Category: {selectedIssue.category}</p>
                         <p className={`status ${selectedIssue.status === "Completed" ? "completed" : "open"}`} >
                             Status: {selectedIssue.status}
+                        </p>
+
+                        {/* Add response here */}
+                        <p className="response">
+                            <strong>Response:</strong> {selectedIssue.response || "No response provided."}
                         </p>
 
                         {/*Dropdown for changing the status*/}

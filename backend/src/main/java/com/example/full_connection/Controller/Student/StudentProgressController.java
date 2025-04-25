@@ -16,9 +16,12 @@ public class StudentProgressController {
     @Autowired
     private StudentProgressService studentProgressService;
 
+    // Mapping get request
     @GetMapping("/progress/{id}")
     public ResponseEntity<StudentProgressDTO> getStudentProgress(@PathVariable UUID id) {
+        // Calling the service file to get the student's progress
         StudentProgressDTO progress = studentProgressService.getStudentProgress(id);
+        // Return the data in an OK response
         return ResponseEntity.ok(progress);
     }
 }
