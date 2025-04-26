@@ -1,39 +1,12 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Area, AreaChart, Pie, PieChart, Cell, XAxis, YAxis, Tooltip,
   ResponsiveContainer, CartesianGrid
 } from 'recharts';
+import useChartLogic from './ChartLogic';
 
 const Chart = ({ activeClassroom }) => {
-  const [areaChartData, setAreaChartData] = useState(null); // Data for the Area Chart
-  const [pieData, setPieData] = useState(null); // Data for the Pie Chart
-
-  const COLORS = ['#4f46e5', '#818cf8', '#f59e0b', '#ef4444', '#10b981', '#3b82f6']; // Matching color scheme
-
-  useEffect(() => {
-    if (!activeClassroom) {
-      setAreaChartData(null);
-      setPieData(null);
-      return;
-    }
-
-    // Data for the Area Chart (Right vs Wrong)
-    const newAreaChartData = [
-      { name: 'Right', value: activeClassroom.totalRight || 0 },
-      { name: 'Wrong', value: activeClassroom.totalWrong || 0 },
-    ];
-
-    // Data for the Pie Chart
-    const newPieData = [
-      { name: 'Total Time (mins)', value: Math.round((activeClassroom.totalTimeInSession || 0) / 60) },
-      { name: 'Sessions Completed', value: activeClassroom.sessionsCompleted || 0 },
-      { name: 'Days Logged In', value: activeClassroom.daysLoggedIn || 0 },
-      { name: 'Avg Time (mins)', value: activeClassroom.avgTime || 0 },
-    ];
-
-    setAreaChartData(newAreaChartData);
-    setPieData(newPieData);
-  }, [activeClassroom]);
+  const { areaChartData, pieData } = useChartLogic(activeClassroom);
 
   if (!activeClassroom) {
     return (
@@ -61,19 +34,18 @@ const Chart = ({ activeClassroom }) => {
           <YAxis />
           <Tooltip />
           <Area
-      type="monotone"
-      dataKey="value"
-      stroke="#4f46e5" // Deep indigo
-      fill="#a5b4fc"   // Light indigo
-      name="Right Answers"
-    />
-    
-    <Area
-      type="monotone"
-      dataKey="value"
-      stroke="#f59e0b" // Amber
-      fill="#fde68a"   // Light amber
-      name="Wrong Answers"
+            type="monotone"
+            dataKey="value"
+            stroke="#4f46e5"
+            fill="#a5b4fc"
+            name="Right Answers"
+          />
+          <Area
+            type="monotone"
+            dataKey="value"
+            stroke="#f59e0b"
+            fill="#fde68a"
+            name="Wrong Answers"
           />
         </AreaChart>
       </ResponsiveContainer>
