@@ -2,9 +2,9 @@ import '../../styles/Educator/pages/Portal.css';
 import PortalLogoBar from '../../components/PortalLogoBar.jsx';
 import Chart from '../../components/Educator/Chart.jsx';
 import Classrooms from '../../components/Educator/Classrooms.jsx';
-import useEducationPortal from "./EducatorPortalLogic.js";
-const EducationPortal = () => {
+import useEducationPortal from "../../components/Educator/EducatorPortalLogic.js";
 
+const EducationPortal = () => {
   const {
     activeClassroom,
     setActiveClassroom,
