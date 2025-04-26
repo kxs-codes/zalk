@@ -1,25 +1,20 @@
-import React, { useState } from 'react';
-import '../styles/ForgotPassword.css'
+import React from 'react';
+import '../styles/ForgotPassword.css';
 import LogoBar from '../components/LogoBar';
-function ForgetPassword() {
-  const [email, setEmail] = useState('');
+import useForgetPassword from './ForgetPasswordLogic.js';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Reset link requested for:", email);
-    // Here you'd typically send the email to your backend for processing
-    setEmail('');
-  };
+function ForgotPassword() {
+  const { email, setEmail, onSubmit } = useForgetPassword();
 
   return (
     <div className="outer-container">
-        <LogoBar /> 
+      <LogoBar />
       <div className="white-container">
         <h2 className="page-title">Forgot Password</h2>
         <p className="instruction-text">
           Enter your email address below, and we will send you a link to reset your password.
         </p>
-        <form className="forget-password-form" onSubmit={handleSubmit}>
+        <form className="forget-password-form" onSubmit={onSubmit}>
           <label htmlFor="email" className="label">Email Address</label>
           <input
             id="email"
@@ -39,4 +34,4 @@ function ForgetPassword() {
   );
 }
 
-export default ForgetPassword;
+export default ForgotPassword;
