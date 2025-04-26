@@ -16,28 +16,30 @@ public class ReportsController {
     @Autowired
     private ReportsService reportsService;
 
-    // Get all reports
+    //Getting all reports from the database
     @GetMapping
     public ResponseEntity<List<ReportsDTO>> getAllReports() {
         List<ReportsDTO> reports = reportsService.getAllReports();
         return ResponseEntity.ok(reports);
     }
 
-    // get a report by id
+    //Getting a report by a specific id
     @GetMapping("/{id}")
     public ResponseEntity<ReportsDTO> getReportById(@PathVariable UUID id) {
         ReportsDTO report = reportsService.getReportById(id);
         return ResponseEntity.ok(report);
     }
 
+    //Updating a reports status and its response
     @PutMapping("/{id}/update-status")
     public ResponseEntity<ReportsDTO> updateReportStatus(
             @PathVariable UUID id,
             @RequestBody ReportsDTO updatedReport) {
-        ReportsDTO updated = reportsService.updateReportStatus(id, updatedReport.getStatus(), updatedReport.getReportDescription());
+        ReportsDTO updated = reportsService.updateReportStatus(id, updatedReport.getStatus(), updatedReport.getResponse());
         return ResponseEntity.ok(updated);
     }
 
+    //Creating a new report
     @PostMapping("/create")
     public ResponseEntity<ReportsDTO> createReport(@RequestBody ReportsDTO reportDTO) {
         ReportsDTO createdReport = reportsService.createReport(reportDTO);

@@ -11,8 +11,9 @@ public class ReportsDTO {
     private String category;
     private String status;
     private String submitterEmail;
+    private String response;
 
-    public ReportsDTO(UUID reportId, String reportName, String reportDescription, LocalDateTime timeOccurred, String category, String status, String submitterEmail) {
+    public ReportsDTO(UUID reportId, String reportName, String reportDescription, LocalDateTime timeOccurred, String category, String status, String submitterEmail, String response) {
         this.reportId = reportId;
         this.reportName = reportName;
         this.reportDescription = reportDescription;
@@ -20,6 +21,7 @@ public class ReportsDTO {
         this.category = category;
         this.status = status;
         this.submitterEmail = submitterEmail;
+        this.response = response;
     }
 
     //Getters and Setters
@@ -30,6 +32,7 @@ public class ReportsDTO {
     public String getCategory() { return category; }
     public String getStatus() { return status; }
     public String getSubmitterEmail() { return submitterEmail; }
+    public String getResponse() { return response; }
 
     public void setReportId(UUID reportId) { this.reportId = reportId; }
     public void setReportName(String reportName) { this.reportName = reportName; }
@@ -38,4 +41,5 @@ public class ReportsDTO {
     public void setCategory(String category) { this.category = category; }
     public void setStatus(String status) { this.status = status; }
     public void setSubmitterEmail(String submitterEmail) { this.submitterEmail = submitterEmail; }
+    public void setResponse(String response) {this.response = response; }
 }

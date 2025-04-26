@@ -19,20 +19,12 @@ public class BadgesController {
     @Autowired
     private BadgesService badgesService;
 
-    // POST request to update badge progress FOR THE FUTURE
-    /*@PostMapping("/updateProgress")
-    public void updateBadgeProgress(
-            @RequestParam UUID studentId,
-            @RequestParam UUID badgeId,
-            @RequestParam double newProgress
-    )
-    {
-        badgesService.updateBadgeProgress(studentId, badgeId, newProgress);
-    } */
-
+    // Map Get request
     @GetMapping("/student/{id}/all-badges")
     public ResponseEntity<Map<String, Object>> getAllBadgesWithEarned(@PathVariable UUID id) {
+        // Calls service to fetch badges with the progress data and earned badges
         Map<String, Object> badgesData = badgesService.getAllBadgesWithEarned(id);
+        // Return badges data wrapped in OK response
         return ResponseEntity.ok(badgesData);
     }
 }

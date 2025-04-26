@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const useReportIssues = () => {
     const [issueTitle, setIssueTitle] = useState('');
@@ -31,6 +32,7 @@ const useReportIssues = () => {
         }
     };
 
+    //handleSubmit function to handle form submission, validating input and shows toast
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -39,9 +41,11 @@ const useReportIssues = () => {
             return;
         }
 
+        // Clear any errors and shows its being submitted
         setFormError('');
         setIsSubmitting(true);
 
+        // Formatting data into a report object
         const newReport = {
             reportName: issueTitle,
             reportDescription: issueDescription,
@@ -51,10 +55,12 @@ const useReportIssues = () => {
             timeOccurred: `${dateOccurred}T${timeOccurred}:00`, // Format as ISO string
         };
 
+        // Submit the created report to the backend
         const createdReport = await createReport(newReport);
 
+        //If a report is created successfully, sends a toast message and reset the form
         if (createdReport) {
-            alert('Issue reported successfully!');
+            toast.success('Issue reported successfully!');
             setIssueTitle('');
             setIssueDescription('');
             setIssueCategory('');
@@ -62,10 +68,10 @@ const useReportIssues = () => {
             setTimeOccurred('');
             setSubmitterEmail('');
         }
-
         setIsSubmitting(false);
     };
 
+    // return all state and handlers for next form use
     return {
         issueTitle,
         setIssueTitle,
