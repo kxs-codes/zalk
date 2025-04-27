@@ -1,6 +1,5 @@
-import { useNavigate, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import LogoBar from "../components/LogoBar";
-import { useState } from "react";
 import "../styles/SignUp.css";
 import useSignUp from "./SignUpLogic";
 
