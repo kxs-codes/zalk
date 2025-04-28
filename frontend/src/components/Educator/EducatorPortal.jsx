@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Classrooms from './Classrooms';
+import Classroom from './Classroom.jsx';
 import Chart from './Chart';
 
 const EducatorPortal = () => {
@@ -9,7 +9,7 @@ const EducatorPortal = () => {
 
   return (
     <div>
-      <Classrooms
+      <Classroom
         classrooms={classrooms}
         activeClassroom={activeClassroom}
         setActiveClassroom={setActiveClassroom}

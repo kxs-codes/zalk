@@ -101,6 +101,7 @@ public class EducatorController {
                     dto.setClassId(currentClassId.toString());
                     dto.setName(className);
                     dto.setUsername(student.getUsername());
+                    dto.setStudentId(student.getId());
                     int total = stats.getTotalQuestionsRight() + stats.getTotalQuestionsWrong();
                     int score = total > 0 ? (stats.getTotalQuestionsRight() * 100 / total) : 0;
                     dto.setScore(score);

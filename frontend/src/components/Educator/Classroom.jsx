@@ -2,7 +2,7 @@ import React from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
 import useClassroomLogic from './ClassroomLogic';
 
-const Classrooms = ({ classrooms, activeClassroom, setActiveClassroom }) => {
+const Classroom = ({ classrooms, activeClassroom, setActiveClassroom }) => {
   const { search, setSearch, filteredClassrooms, handleSelect } = useClassroomLogic(
     classrooms,
     activeClassroom,
@@ -44,4 +44,4 @@ const Classrooms = ({ classrooms, activeClassroom, setActiveClassroom }) => {
   );
 };
 
-export default Classrooms;
+export default Classroom;
