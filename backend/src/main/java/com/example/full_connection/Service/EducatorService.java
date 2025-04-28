@@ -138,7 +138,8 @@ public class EducatorService {
                 progressDTO.setClassId(classroom.getClassId().toString());
                 progressDTO.setUsername(student.getUsername());
                 progressDTO.setScore(student.getStatistics() != null ? 
-                    (student.getStatistics().getTotalQuestionsRight() - student.getStatistics().getTotalQuestionsWrong()) : 0); 
+                    (student.getStatistics().getTotalQuestionsRight() - student.getStatistics().getTotalQuestionsWrong()) : 0);
+                
                 progressList.add(progressDTO);
             });
         });

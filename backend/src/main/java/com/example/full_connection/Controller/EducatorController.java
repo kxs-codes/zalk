@@ -21,18 +21,15 @@ import com.example.full_connection.DTO.Educator.ClassProgressDTO;
 import com.example.full_connection.Repository.EducatorRepository;
 import com.example.full_connection.Service.EducatorService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/educator")
 public class EducatorController {
 
-    private static final Logger logger = LoggerFactory.getLogger(EducatorController.class);
 
-    private EducatorRepository educatorRepository;
-    private EducatorService educatorService;
+    private final EducatorRepository educatorRepository;
+    private final EducatorService educatorService;
 
     public EducatorController(EducatorService educatorService, EducatorRepository educatorRepository) {
         this.educatorService = educatorService;
@@ -101,6 +98,7 @@ public class EducatorController {
                     dto.setClassId(currentClassId.toString());
                     dto.setName(className);
                     dto.setUsername(student.getUsername());
+                    dto.setStudentId(student.getId());
                     int total = stats.getTotalQuestionsRight() + stats.getTotalQuestionsWrong();
                     int score = total > 0 ? (stats.getTotalQuestionsRight() * 100 / total) : 0;
                     dto.setScore(score);
