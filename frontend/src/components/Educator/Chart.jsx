@@ -1,12 +1,14 @@
-import React from 'react';
 import {
   Area, AreaChart, Pie, PieChart, Cell, XAxis, YAxis, Tooltip,
   ResponsiveContainer, CartesianGrid
 } from 'recharts';
 import useChartLogic from './ChartLogic';
 
+// eslint-disable-next-line react/prop-types
 const Chart = ({ activeClassroom }) => {
   const { areaChartData, pieData } = useChartLogic(activeClassroom);
+  const COLORS = ['#4f46e5', '#22c55e', '#f59e0b', '#ef4444'];
+
 
   if (!activeClassroom) {
     return (

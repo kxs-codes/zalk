@@ -2,15 +2,14 @@ import '../../styles/Educator/pages/Portal.css';
 import PortalLogoBar from '../../components/PortalLogoBar.jsx';
 import Chart from '../../components/Educator/Chart.jsx';
 import Classroom from '../../components/Educator/Classroom.jsx';
-import useEducationPortal from "../../components/Educator/EducatorPortalLogic.js";
+import useEducationPortal from "./EducatorPortalLogic.js";
 
 const EducationPortal = () => {
   const {
     activeClassroom,
     setActiveClassroom,
     classrooms,
-    classroomStat,
-    loading
+    classroomStat
   } = useEducationPortal();
 
   return (
