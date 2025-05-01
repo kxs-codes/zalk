@@ -60,6 +60,8 @@ public class Student
         return hashedPassword;
     }
 
+    public String getEmail() { return email; }
+
     public double getZloRating()
     {
         return zloRating;
@@ -99,6 +101,8 @@ public class Student
     {
         this.hashedPassword = hashedPassword;
     }
+
+    public void setEmail(String email) {this.email = email;}
 
     public void setZloRating(double zloRating)
     {

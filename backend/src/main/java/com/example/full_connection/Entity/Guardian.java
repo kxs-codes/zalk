@@ -53,4 +53,5 @@ public class Guardian {
     public void setStudents(List<Student> students) {
         this.students = students;
     }
+    public void setEmail(String email) { this.email = email; }
 }
