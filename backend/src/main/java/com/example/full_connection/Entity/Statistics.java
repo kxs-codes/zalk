@@ -47,6 +47,14 @@ public class Statistics
     @Column(name = "avg_time_per_question", nullable = false)
     private float avgTimePerQuestion;
 
+    @Column(name = "zlo_rating")
+    private float zloRating;
+    
+    private float confidence;
+
+    @Column(name = "session_score")
+    private float sessionScore;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student student;
