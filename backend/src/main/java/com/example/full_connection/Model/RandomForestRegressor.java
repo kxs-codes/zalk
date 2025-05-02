@@ -30,8 +30,8 @@ public class RandomForestRegressor implements Serializable {
 
     // Methods
     public void fit(DataFrame df) {
-        // 1. Filter DataFrame to only grab the columns ["correctLast3","avgTime","confidence","quizScore","sessions","readinessScore"]
-        DataFrame filteredDf = df.apply("correctLast3","avgTime","confidence","quizScore","sessions","readinessScore");       
+        // 1. Filter DataFrame to only grab the columns needed for training the model
+        DataFrame filteredDf = df.apply("streak","avg_time_per_question","confidence","session_score","sessions_completed","zlo_rating");       
 
         // 2. Create nEstimator trees where each tree is trained on a bootstrapped dataset with replacement
         for (int i = 0; i < nEstimator; i++) {
@@ -337,4 +337,4 @@ public class RandomForestRegressor implements Serializable {
     public List<TreeNode> getForest() {
         return forest;
     }
-}
+
