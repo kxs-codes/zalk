@@ -154,7 +154,23 @@ public class SessionController
     }
     
     // If time is concluded, grab all stats from frontend and update the stats repository for that student
-        // Convert userid to uuid
         // Call the update stats function in the session service, passing in all stats to be updated (including metadata table)
         // Return a response if successful
+    public void updateSession(
+        @RequestParam List<String> studentforSession,
+        @RequestParam int totalTimeInSessions,
+        @RequestParam int streak,
+        @RequestParam int totalQuestions,
+        @RequestParam int totalQuestionsRight,
+        @RequestParam int totalQuestionsWrong,
+        @RequestParam int sessionsCompleted,
+        @RequestParam int daysLoggedIn,
+        @RequestParam int subjectMasteryValue,
+        @RequestParam float guessRate,
+        @RequestParam float avgTimeSpentInSession,
+        @RequestParam float successRate,
+        @RequestParam float avgTimePerQuestion
+    ) {
+
+    }
 }
