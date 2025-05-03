@@ -129,6 +129,30 @@ public class Statistics
         return avgTimePerQuestion;
     }
 
+    public float getSessionScore() {
+        return sessionScore;
+    }
+
+    public float getZloRating() {
+        return zloRating;
+    }
+
+    public float getConfidence() {
+        return confidence;
+    }
+
+    public void setSessionScore(float sessionScore) {
+        this.sessionScore = sessionScore;
+    }
+
+    public void setZloRating(float zloRating) {
+        this.zloRating = zloRating;
+    }
+
+    public void setConfidence(float confidence) {
+        this.confidence = confidence;
+    }
+
     public void setStatId(UUID statId)
     {
         this.statId = statId;
