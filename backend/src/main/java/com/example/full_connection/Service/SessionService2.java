@@ -86,6 +86,16 @@ public class SessionService2 {
             throw new IllegalAccessError("Model could not be loaded.");
         } 
 
+        // Check the metadata table for retrain of model
+        StatisticsMetadata statisticsMetadata = statisticsMetadataRepository.findAll().get(0);
+        int lastRowCount = statisticsMetadata.getLastRowCount();
+        int currentRowCount = (int) statisticsRepository.count();
+        int numberOfUpdates =statisticsMetadata.getNumberOfUpdates();
+
+        if (currentRowCount > 500 && (currentRowCount/lastRowCount >= 1.25 || numberOfUpdates >= 1000)) {
+            // TODO: Retrain model
+        }
+
         float predictedScore = model.predict(userRow);
         String difficulty;
 

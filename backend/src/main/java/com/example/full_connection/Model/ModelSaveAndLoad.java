@@ -42,4 +42,6 @@ public class ModelSaveAndLoad {
             return null;
         }
     }
+
+    // TODO: Retrain function (make it thread-safe)
 }
