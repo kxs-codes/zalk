@@ -337,4 +337,4 @@ public class RandomForestRegressor implements Serializable {
     public List<TreeNode> getForest() {
         return forest;
     }
-
+}
