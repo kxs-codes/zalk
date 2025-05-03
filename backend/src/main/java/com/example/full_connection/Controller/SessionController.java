@@ -151,14 +151,14 @@ public class SessionController
         // Call the get next question from the service
             // 1. Grab old stats (confidence, sessions completed, and previous session score)
             // 2. Recalculate zlo rating from old stats + new stats from the submitted question as parameter (avgtimeperq, streak)
-            // 3. Update stats from function inputs and new zlo rating
+            // 3. Update stats from function inputs and new zlo rating (including metadata table)
             // 4. Grab updated stats
             // 5. Call the model to predict the next question based on the updated stats
-            // 6. Generate a question based on the predicted score and return
+            // 6. Generate a question based on the predicted score and return (every call to prediction includes a check if values in metadata table meet the threshold to retrain the model)
         // Return the question
     
     // If time is concluded, grab all stats from frontend and update the stats repository for that student
         // Convert userid to uuid
-        // Call the update stats function in the session service, passing in all stats to be updated
+        // Call the update stats function in the session service, passing in all stats to be updated (including metadata table)
         // Return a response if successful
 }
