@@ -1,13 +1,18 @@
 package com.example.full_connection.Controller;
 
+import com.example.full_connection.DTO.QuestionAndStreakResponse;
 import com.example.full_connection.Entity.Questions;
 import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Service.SessionService;
+import com.example.full_connection.Service.SessionService2;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 //Controller handles API endpoints for the sessions
@@ -18,6 +23,9 @@ import java.util.stream.Collectors;
 public class SessionController
 {
     private final SessionService sessionService;
+
+    @Autowired
+    private SessionService2 sessionService2;
 
     @Autowired
     public SessionController(SessionService sessionService)
@@ -78,11 +86,14 @@ public class SessionController
         double zloRating = sessionService.calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
         String questionDifficulty = sessionService.getQuestionDifficulty(zloRating);
         List<Questions> allQuestions = sessionService.getQuestions();
+        System.out.println("All question grabbed: " + allQuestions.size());
 
         List<Questions> filteredQuestions = allQuestions.stream()
-                .filter(question -> question.getDifficulty().equals(questionDifficulty) && question.getGradeLevel() == gradeLevel)
+                .filter(question -> question.getDifficulty().equals(questionDifficulty))
                 .collect(Collectors.toList());
 
+        System.out.println("Filtered questions grabbed: " + filteredQuestions.size());
+        System.out.println("Question object: " + filteredQuestions.get(1));
         return ResponseEntity.ok(filteredQuestions);
     }
 
@@ -113,5 +124,25 @@ public class SessionController
         }
 
         return ResponseEntity.ok(nextQuestion);
+    }
+
+    @GetMapping("/get-question-and-streak")
+    public ResponseEntity<QuestionAndStreakResponse> getFirstQuestion(@RequestParam String stringUserId) {
+        System.out.println("string user id: " + stringUserId);
+        UUID userId = UUID.fromString(stringUserId);
+
+        // Grab the question from service
+        Questions firstQuestion = sessionService2.getQuestion(userId);
+
+        System.out.println("first question grabbed: " + firstQuestion.getQuestion());
+
+        // Grab the streak from service
+        int streak = sessionService2.getStreak(userId);
+
+        // Set the DTO
+        QuestionAndStreakResponse questionAndStreakResponse = new QuestionAndStreakResponse(firstQuestion, streak);
+
+        // Return the DTO
+        return ResponseEntity.ok(questionAndStreakResponse);
     }
 }
