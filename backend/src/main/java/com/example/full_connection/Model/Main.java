@@ -1,4 +1,4 @@
-package com.example;
+package com.example.full_connection.Model;
 
 import java.io.File;
 

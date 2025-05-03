@@ -2,8 +2,8 @@ package com.example.full_connection.Service;
 
 import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Entity.Student;
-import com.example.ModelSaveAndLoad;
-import com.example.RandomForestRegressor;
+import com.example.full_connection.Model.ModelSaveAndLoad;
+import com.example.full_connection.Model.RandomForestRegressor;
 import com.example.full_connection.Entity.Questions;
 import com.example.full_connection.Repository.StatisticsRepository;
 import com.example.full_connection.Repository.QuestionsRepository;
