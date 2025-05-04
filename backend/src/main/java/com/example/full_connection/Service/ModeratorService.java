@@ -32,6 +32,8 @@ import com.example.full_connection.Repository.SessionConfigRepository;
 import com.example.full_connection.Repository.StatisticsRepository;
 import com.example.full_connection.Repository.StudentRepository;
 
+import java.time.LocalDateTime;
+
 @Service
 public class ModeratorService {
     @Autowired
@@ -183,11 +185,11 @@ public class ModeratorService {
     }
 
     public List<Logs> fetchRecentLogs() {
-        // 1. Define limit of recent logs to fetch being 3
-        Pageable limit = PageRequest.of(0, 3);
+        // 1. Define limit of recent logs to fetch being 7
+        //Pageable limit = PageRequest.of(0, 7);
         
         // 2. Query logs and return results
-        return logsRepository.findAll(limit).getContent();
+        return logsRepository.findAll();
     }
 
     public List<Reports> fetchRecentReports() {
@@ -197,4 +199,18 @@ public class ModeratorService {
         // 2. Query logs and return results
         return reportsRepository.findAll(limit).getContent();
     }
+
+    // Log function to make a log when a user logs in
+    public void logLogin(String username, String accountType) {
+        Logs log = new Logs();
+        log.setLogDate(LocalDateTime.now());
+        log.setActionType("Logged in");
+        log.setUsername(username);
+        log.setUserType(accountType);
+        log.setDetails("User logged into the ZALK system");
+        log.setSeverity("INFO");
+
+        logsRepository.save(log);
+    }
+
 }
