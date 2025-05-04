@@ -139,18 +139,65 @@ public class AuthenticationService {
     }
 
     public String createAccount(SignupDTO signupDTO) {
-        // 1. Create empty jwt
+        // Validate that password and confirmation match
+        if (!signupDTO.getPassword().equals(signupDTO.getConfirmPassword())) {
+            return "Passwords do not match.";
+        }
 
-        // 2. Verify valid account type
+        // Check which account type is being created
+        switch (signupDTO.getAccountType()) {
+            case "student":
+                // Prevent duplicate student usernames
+                if (studentRepository.findByUsername(signupDTO.getUsername()).isPresent()) {
+                    return "Student username already exists.";
+                }
 
-        // 3. Verify account doesn't exist
+                // Create and save a new Student
+                Student student = new Student();
+                student.setUsername(signupDTO.getUsername());
+                student.setHashedPassword(signupDTO.getPassword()); // Hash later!
+                student.setEmail(signupDTO.getEmail());
+                studentRepository.save(student);
+                return "Student account created successfully.";
 
-        // 4. Verify password and confirmPassword match
+            case "guardian":
+                if (guardianRepository.findByUsername(signupDTO.getUsername()).isPresent()) {
+                    return "Guardian username already exists.";
+                }
 
-        // 5. Create account
+                Guardian guardian = new Guardian();
+                guardian.setUsername(signupDTO.getUsername());
+                guardian.setHashedPassword(signupDTO.getPassword());
+                guardian.setEmail(signupDTO.getEmail());
+                guardianRepository.save(guardian);
+                return "Guardian account created successfully.";
 
+            case "educator":
+                if (educatorRepository.findByUsername(signupDTO.getUsername()).isPresent()) {
+                    return "Educator username already exists.";
+                }
 
-        return "TODO";
+                Educator educator = new Educator();
+                educator.setUsername(signupDTO.getUsername());
+                educator.setHashedPassword(signupDTO.getPassword());
+                educator.setEmail(signupDTO.getEmail());
+                educatorRepository.save(educator);
+                return "Educator account created successfully.";
 
+            case "advisory_board":
+                if (advisoryBoardRepository.findByUsername(signupDTO.getUsername()).isPresent()) {
+                    return "Advisory Board username already exists.";
+                }
+
+                AdvisoryBoard advisory = new AdvisoryBoard();
+                advisory.setUsername(signupDTO.getUsername());
+                advisory.setHashedPassword(signupDTO.getPassword());
+                advisory.setEmail(signupDTO.getEmail());
+                advisoryBoardRepository.save(advisory);
+                return "Advisory Board account created successfully.";
+
+            default:
+                return "Invalid account type."; // Fallback in case of typos or unsupported roles
+        }
     }
 }

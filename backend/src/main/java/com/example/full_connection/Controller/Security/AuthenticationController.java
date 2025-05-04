@@ -64,12 +64,19 @@ public class AuthenticationController {
     }
 
     @PostMapping("/signup")
-    void signup(@RequestBody SignupDTO signupDTO) {
-        // 1. Make an account by calling the auth service
-        String response = authenticationService.createAccount(signupDTO);
+    public ResponseEntity<Map<String, String>> signup(@RequestBody SignupDTO signupDTO) {
+        String message = authenticationService.createAccount(signupDTO);
 
-        // 2. Return ResponseEntity, contains message about the success of the account creation, and user account details if successful
+        // Prepare response payload
+        Map<String, String> response = new HashMap<>();
+        response.put("message", message);
 
+        // Return 200 OK if success, else 400 Bad Request
+        if (message.contains("successfully")) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
 
 }
