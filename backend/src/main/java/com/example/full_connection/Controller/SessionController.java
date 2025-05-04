@@ -127,10 +127,7 @@ public class SessionController
     }
 
     @GetMapping("/get-question-and-streak")
-    public ResponseEntity<QuestionAndStreakResponse> getFirstQuestion(@RequestParam String stringUserId) {
-        System.out.println("string user id: " + stringUserId);
-        UUID userId = UUID.fromString(stringUserId);
-
+    public ResponseEntity<QuestionAndStreakResponse> getFirstQuestion(@RequestParam UUID userId) {
         // Grab the question from service
         Questions firstQuestion = sessionService2.getQuestion(userId);
 
