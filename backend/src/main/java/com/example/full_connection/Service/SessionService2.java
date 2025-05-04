@@ -172,4 +172,47 @@ public class SessionService2 {
         // 6. Return the question
         return nextQuestion;
     }
+
+    public Statistics updateStatistics(
+        UUID userId, 
+        int streak, 
+        int totalQuestions, 
+        int totalQuestionsRight, 
+        int totalQuestionsWrong, 
+        int avgTimeSpentInSession, 
+        int successRate, 
+        int avgTimePerQuestion
+    ) {
+        // Calculate sessionScore
+        float sessionScore = totalQuestionsRight / (float) totalQuestions;
+
+        
+        // Grab user stats based on userId
+        Optional<Statistics> optionalUserStats = statisticsRepository.findByStudentId(userId);
+        Statistisc userStats = null;
+        if (optionalUserStats.isPresent()) {
+            userStats = optionalUserStats.get();
+        } else {
+            throw new RuntimeException("User statistics don't exist for user: " + userId);
+        }
+
+        // Update the users stats based on the parameters (assumes confidence page is before this and is updated alread)
+        userStats.setTotalQuestions(totalQuestions);
+        userStats.setTotalQuestionsRight(totalQuestionsRight);
+        userStats.setTotalQuestionsWrong(totalQuestionsWrong);
+        userStats.setAvgTimeSpentInSession(avgTimeSpentInSession);
+        userStats.setSuccessRate(successRate);
+        userStats.setAvgTimePerQuestion(avgTimePerQuestion);
+        userStats.setSessionScore(sessionScore);
+        userStats.setStreak(streak);
+        userStats.setSessionsCompleted(userStats.getSessionsCompleted() + 1);
+        statisticsRepository.save(userStats);
+
+        // Update metadata table
+        StatisticsMetadata statisticsMetadata = statisticsMetadataRepository.findAll().get(0);
+        statisticsMetadata.setNumberOfUpdates(statisticsMetadata.getNumberOfUpdates() + 1);
+
+        // Return the updated user statistics
+        return userStats;
+    }
 }
