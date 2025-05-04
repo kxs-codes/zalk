@@ -213,6 +213,7 @@ public class SessionService2 {
         // Update metadata table
         StatisticsMetadata statisticsMetadata = statisticsMetadataRepository.findAll().get(0);
         statisticsMetadata.setNumberOfUpdates(statisticsMetadata.getNumberOfUpdates() + 1);
+        statisticsMetadataRepository.save(statisticsMetadata);
 
         // Make a new student object just specifying the userId, no need to persist
         Student student = new Student();
