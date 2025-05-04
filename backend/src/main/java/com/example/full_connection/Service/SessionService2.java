@@ -166,6 +166,7 @@ public class SessionService2 {
         // 4. Update metadata of the statistics table
         StatisticsMetadata statisticsMetadata = statisticsMetadataRepository.findAll().get(0);
         statisticsMetadata.setNumberOfUpdates(statisticsMetadata.getNumberOfUpdates() + 1);
+        statisticsMetadataRepository.save(statisticsMetadata);
 
         // 5. Grab a question from the updated statistics of the user
         Questions nextQuestion = getQuestion(userId);
@@ -212,6 +213,11 @@ public class SessionService2 {
         // Update metadata table
         StatisticsMetadata statisticsMetadata = statisticsMetadataRepository.findAll().get(0);
         statisticsMetadata.setNumberOfUpdates(statisticsMetadata.getNumberOfUpdates() + 1);
+
+        // Make a new student object just specifying the userId, no need to persist
+        Student student = new Student();
+        student.setId(userId);
+        userStats.setStudent(student);
 
         // Return the updated user statistics
         return userStats;
