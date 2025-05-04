@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import com.example.full_connection.Model.RandomForestRegressor;
+
 public class ModelSaveAndLoad {
     public void saveModel(RandomForestRegressor model, String filePath) {
         try {

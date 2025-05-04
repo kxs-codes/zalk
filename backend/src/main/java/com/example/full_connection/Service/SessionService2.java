@@ -94,6 +94,7 @@ public class SessionService2 {
 
         if (currentRowCount > 500 && (currentRowCount/lastRowCount >= 1.25 || numberOfUpdates >= 1000)) {
             // TODO: Retrain model
+            System.out.println("Do something.");
         }
 
         float predictedScore = model.predict(userRow);
