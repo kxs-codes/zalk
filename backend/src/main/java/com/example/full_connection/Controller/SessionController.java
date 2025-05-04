@@ -163,14 +163,14 @@ public class SessionController
         @RequestParam float avgTimePerQuestion
     ) {
         Statistics updatedStatistics = sessionService2.updateStatistics(
-            UUID userId, 
-            int streak, 
-            int totalQuestions, 
-            int totalQuestionsRight, 
-            int totalQuestionsWrong, 
-            int avgTimeSpentInSession, 
-            int successRate, 
-            int avgTimePerQuestion
+            userId, 
+            streak, 
+            totalQuestions, 
+            totalQuestionsRight, 
+            totalQuestionsWrong, 
+            avgTimeSpentInSession, 
+            successRate, 
+            avgTimePerQuestion
         );
         
         return updatedStatistics;

@@ -179,9 +179,9 @@ public class SessionService2 {
         int totalQuestions, 
         int totalQuestionsRight, 
         int totalQuestionsWrong, 
-        int avgTimeSpentInSession, 
-        int successRate, 
-        int avgTimePerQuestion
+        float avgTimeSpentInSession, 
+        float successRate, 
+        float avgTimePerQuestion
     ) {
         // Calculate sessionScore
         float sessionScore = totalQuestionsRight / (float) totalQuestions;
@@ -189,7 +189,7 @@ public class SessionService2 {
         
         // Grab user stats based on userId
         Optional<Statistics> optionalUserStats = statisticsRepository.findByStudentId(userId);
-        Statistisc userStats = null;
+        Statistics userStats = null;
         if (optionalUserStats.isPresent()) {
             userStats = optionalUserStats.get();
         } else {
