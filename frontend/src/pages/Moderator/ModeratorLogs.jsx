@@ -6,8 +6,6 @@ const ModeratorLogs = () => {
     const { search, filteredLogs, handleChange } = useModeratorLogs();
 
     return (
-
-        // TODO: Add a filter and a more dynamic user friendly search bar
         <div className="logs-container">
             <div className="log-viewer">
                 <section className="search-section">
@@ -26,9 +24,9 @@ const ModeratorLogs = () => {
                     <ul className="log-list">
                         {filteredLogs.map((log) => (
                             <li key={log.id} className="log-item">
-                                <p className="log-action">{log.action}</p>
-                                <p className="log-timestamp">Timestamp: {log.timestamp}</p>
-                                <p className="log-user">User: {log.user}</p>
+                                <p className="log-action">{log.actionType}</p>
+                                <p className="log-timestamp">Timestamp: {log.logDate}</p>
+                                <p className="log-user">User: {log.username}</p>
                                 <p className="log-details">Details: {log.details}</p>
                             </li>
                         ))}

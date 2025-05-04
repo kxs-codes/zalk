@@ -17,6 +17,7 @@ import com.example.full_connection.DTO.LoginDTO;
 import com.example.full_connection.DTO.SignupDTO;
 import com.example.full_connection.Security.JWTClass;
 import com.example.full_connection.Service.AuthenticationService;
+import com.example.full_connection.Service.ModeratorService;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -24,6 +25,9 @@ import com.example.full_connection.Service.AuthenticationService;
 public class AuthenticationController {
     @Autowired
     AuthenticationService authenticationService;
+
+    @Autowired
+    ModeratorService moderatorService;
 
     @PostMapping("/login")
     ResponseEntity<Map<String,String>> login(@RequestBody LoginDTO loginDTO) {
@@ -40,6 +44,11 @@ public class AuthenticationController {
         } else if (authResponse.get("message").contains("No account found of type")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(authResponse);
         } else {
+            // Log the Login Info
+            String username = loginDTO.getUsername();
+            String accountType = loginDTO.getAccountType();
+            moderatorService.logLogin(username, accountType);
+
             // Generate JSON Web Token
             String jwtToken = jwtClass.createJWT(UUID.fromString(authResponse.get("id")), authResponse.get("role"), authResponse.get("message"));
 
@@ -62,4 +71,5 @@ public class AuthenticationController {
         // 2. Return ResponseEntity, contains message about the success of the account creation, and user account details if successful
 
     }
+
 }
