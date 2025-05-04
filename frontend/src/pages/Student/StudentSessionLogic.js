@@ -11,7 +11,7 @@ const useStudentSessionLogic = () =>
     const [submitted, setSubmitted] = useState(false);
     const [correctCount, setCorrectCount] = useState(0);
     const [wrongCount, setWrongCount] = useState(0);
-    const [totalTimeRemaining, setTotalTimeRemaining] = useState(10);
+    const [totalTimeRemaining, setTotalTimeRemaining] = useState(300);
     const [sessionConcluded, setSessionConcluded] = useState(false);
     const [answeredQuestions, setAnsweredQuestions] = useState(new Set());
     const [studentZLO, setStudentZLO] = useState(null);
