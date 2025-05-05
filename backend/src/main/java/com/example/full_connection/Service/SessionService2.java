@@ -25,6 +25,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import javax.management.RuntimeErrorException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -35,6 +38,9 @@ public class SessionService2 {
 
     @Autowired
     private StatisticsMetadataRepository statisticsMetadataRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Autowired
     private QuestionsRepository questionsRepository;
@@ -48,6 +54,15 @@ public class SessionService2 {
             userStats = optioinalUserStats.get();
         } else {
             throw new IllegalArgumentException("Statistics not found for userId: " + userId);
+        }
+
+        // Get current student grade level
+        Optional<Student> currentStudent = studentRepository.findById(userId);
+        int gradeLevel = -1;
+        if (currentStudent.isPresent()) {
+            gradeLevel = currentStudent.get().getGradeLevel();
+        } else {
+            throw new RuntimeException("Could not get the students grade level with id: " + userId);
         }
 
         // Define the schema for the row
@@ -111,7 +126,7 @@ public class SessionService2 {
         }
 
         // Grab a question based on the students current rating and gradelevel
-        List<Questions> questions = questionsRepository.findByDifficulty(difficulty);
+        List<Questions> questions = questionsRepository.findByDifficultyAndGradeLevel(difficulty, gradeLevel);
 
         // Select a random question from the list
         Questions question = null;
