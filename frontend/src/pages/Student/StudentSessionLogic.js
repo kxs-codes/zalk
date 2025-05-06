@@ -17,6 +17,7 @@ const useStudentSessionLogic = () =>
     const [studentZLO, setStudentZLO] = useState(null);
     const [gradeLevel, setGradeLevel] = useState(null);
     const [streak, setStreak] = useState(0);
+    const [userId, setUserId] = useState("");
 
     const formatTimeRemaining = (seconds) =>
     {
@@ -29,6 +30,7 @@ const useStudentSessionLogic = () =>
     {
         const usernameId = token?.jti;
         console.log(token?.jti);
+        setUserId(token.jti);
 
         if (!usernameId)
         {
@@ -276,8 +278,10 @@ const useStudentSessionLogic = () =>
         submitAnswer,
         answerChoice,
         studentZLO,
+        setStudentZLO,
         gradeLevel,
-        streak
+        streak,
+        userId
     };
 };
 

@@ -5,6 +5,7 @@ import com.example.full_connection.Entity.StatisticsMetadata;
 import com.example.full_connection.Entity.Student;
 import com.example.full_connection.Model.ModelSaveAndLoad;
 import com.example.full_connection.Model.RandomForestRegressor;
+import com.example.full_connection.DTO.ConfidenceDTO;
 import com.example.full_connection.Entity.Questions;
 import com.example.full_connection.Repository.StatisticsRepository;
 import com.example.full_connection.Repository.QuestionsRepository;
@@ -19,11 +20,15 @@ import smile.data.type.StructField;
 import smile.data.type.StructType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import javax.management.RuntimeErrorException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.logging.Level;
@@ -39,6 +44,9 @@ public class SessionService2 {
 
     @Autowired
     private StatisticsMetadataRepository statisticsMetadataRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Autowired
     private QuestionsRepository questionsRepository;
@@ -110,8 +118,8 @@ public class SessionService2 {
                 difficulty = "easy";
             }
 
-            // Grab a question based on the student's current rating and grade level
-            List<Questions> questions = questionsRepository.findByDifficulty(difficulty);
+            // Grab a question based on the students current rating and gradelevel
+            List<Questions> questions = questionsRepository.findByDifficultyAndGradeLevel(difficulty, gradeLevel);
 
             // Select a random question from the list
             if (questions != null && !questions.isEmpty()) {
@@ -232,5 +240,31 @@ public class SessionService2 {
             logger.log(Level.SEVERE, "Error in updateStatistics: " + e.getMessage(), e);
             return null;
         }
+    }
+
+    public ResponseEntity<ConfidenceDTO> submitConfidence(UUID userId, float confidence) {
+        Optional<Statistics> optionalUserStats = statisticsRepository.findByStudentId(userId);
+        if (optionalUserStats.isPresent()) {
+            // 1. Fetch the users stats
+            Statistics userStats = optionalUserStats.get();
+            
+            // 2. Use settter to update confidence
+            userStats.setConfidence(confidence);
+
+            // 3. Update zloRating
+            float zloRating = zloCalculation(userStats.getStreak(), userStats.getAvgTimePerQuestion(), confidence, userStats.getSessionScore(), userStats.getSessionsCompleted());
+            userStats.setZloRating(zloRating);
+
+            // 4. Persist changes to the repository
+            statisticsRepository.save(userStats);
+
+            // 5. Return success response
+            ConfidenceDTO confidenceDTO = new ConfidenceDTO("Confidence successfully updated.", zloRating);
+            return ResponseEntity.ok(confidenceDTO);
+        } else {
+            // 5. Return error response
+            ConfidenceDTO errorDTO = new ConfidenceDTO("Statistics not found on user id: " + userId, 0.0f);
+            return ResponseEntity.badRequest().body(errorDTO);
+        }        
     }
 }
