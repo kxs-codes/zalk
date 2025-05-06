@@ -1,5 +1,6 @@
 import useStudentSessionLogic from "./StudentSessionLogic";
 import Question from "../../components/Question.jsx";
+import StudentSessionConfidence from "../../components/StudentSessionConfidence.jsx";
 import "../../styles/Student/pages/StudentSession.css";
 //Handles question session for students handling question and timing for the frontend
 const StudentSession = () =>
@@ -18,7 +19,10 @@ const StudentSession = () =>
         nextQ,
         answerChoice,
         studentZLO,
-        submitAnswer
+        setStudentZLO,
+        submitAnswer,
+        userId,
+        setUserId
     } = useStudentSessionLogic();
 
     //Results Screen
@@ -26,6 +30,7 @@ const StudentSession = () =>
     {
         return (
             <div className="sessSumm">
+                <StudentSessionConfidence userId={userId} setStudentZLO={setStudentZLO}/>
                 <div className="summationStat">
                     <div className="stat1">
                         <p>Correct Answers</p>

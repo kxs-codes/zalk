@@ -1,5 +1,6 @@
 package com.example.full_connection.Controller;
 
+import com.example.full_connection.DTO.ConfidenceDTO;
 import com.example.full_connection.DTO.QuestionAndStreakResponse;
 import com.example.full_connection.Entity.Questions;
 import com.example.full_connection.Entity.Statistics;
@@ -174,5 +175,19 @@ public class SessionController
         );
         
         return updatedStatistics;
+    }
+
+    @PostMapping("submit-confidence")
+    public ResponseEntity<ConfidenceDTO> submitConfidence(@RequestParam UUID userId, @RequestParam float confidence) {
+        // 1. Check confidence value between 0.00-1.00
+        if (confidence > 1.00f && confidence < 0.00f) {
+            return ResponseEntity.badRequest().body(new ConfidenceDTO("Confidence out of range. Please try again.", 0.0f));
+        }
+
+        // 2. Send to service layer to update confidence
+        ResponseEntity<ConfidenceDTO> response = sessionService2.submitConfidence(userId, confidence);
+
+        // 3. Return response from the service layer
+        return response;
     }
 }
