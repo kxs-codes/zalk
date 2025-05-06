@@ -45,6 +45,26 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+<!--		Junit Dependancy -->
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-api</artifactId>
+				<version>5.9.2</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-engine</artifactId>
+				<version>5.9.2</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.platform</groupId>
+				<artifactId>junit-platform-suite</artifactId>
+				<version>1.9.2</version>
+				<scope>test</scope>
+			</dependency>
+
         <!-- Smile core dependency -->
         <dependency>
             <groupId>com.github.haifengl</groupId>
@@ -74,6 +94,11 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
 			<version>5.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
