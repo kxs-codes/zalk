@@ -8,10 +8,12 @@ public class SignupDTO {
     private String confirmPassword;
 
     // Constructor
-    public SignupDTO(String username, String password, String accountType) {
+    public SignupDTO(String username, String password, String accountType, String email, String confirmPassword) {
         this.username = username;
         this.password = password;
         this.accountType = accountType;
+        this.email = email;
+        this.confirmPassword = confirmPassword;
     }
 
     // Getters

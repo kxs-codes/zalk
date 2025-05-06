@@ -40,7 +40,7 @@ const NavBar = ({ userDetails }) => {
           <>
             <li><Link to='/session' className='link-item'><PlayIcon className='icon-size' />Begin Session</Link></li>
             <li><Link to='/progress' className='link-item'><ChartBarIcon className='icon-size' />Progress Report</Link></li>
-            <li><Link to='/classrooms' className='link-item'><AcademicCapIcon className='icon-size' />Classrooms</Link></li>
+            {/*<li><Link to='/classrooms' className='link-item'><AcademicCapIcon className='icon-size' />Classrooms</Link></li>*/}
           </>
         )}
 
