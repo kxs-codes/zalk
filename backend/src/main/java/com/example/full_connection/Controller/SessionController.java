@@ -5,6 +5,7 @@ import com.example.full_connection.DTO.QuestionAndStreakResponse;
 import com.example.full_connection.DTO.UpdateStatisticsDTO;
 import com.example.full_connection.Entity.Questions;
 import com.example.full_connection.Entity.Statistics;
+import com.example.full_connection.Repository.StatisticsRepository;
 import com.example.full_connection.Service.SessionService;
 import com.example.full_connection.Service.SessionService2;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -28,6 +30,9 @@ public class SessionController
 
     @Autowired
     private SessionService2 sessionService2;
+
+    @Autowired
+    private StatisticsRepository statisticsRepository;
 
     @Autowired
     public SessionController(SessionService sessionService)
@@ -164,18 +169,36 @@ public class SessionController
         @RequestParam float successRate,
         @RequestParam float avgTimePerQuestion
     ) {
-        UpdateStatisticsDTO updatedStatistics = sessionService2.updateStatistics(
-            userId, 
-            streak, 
-            totalQuestions, 
-            totalQuestionsRight, 
-            totalQuestionsWrong, 
-            avgTimeSpentInSession, 
-            successRate, 
-            avgTimePerQuestion
-        );
+        // Check first if user is a new student
+        Optional<Statistics> stats = statisticsRepository.findByStudentId(userId);
+
+        UpdateStatisticsDTO updateStatisticsDTO = null;
+
+        if (stats.isPresent()) {
+            updateStatisticsDTO = sessionService2.addNewStatistics(
+                userId, 
+                streak, 
+                totalQuestions, 
+                totalQuestionsRight, 
+                totalQuestionsWrong, 
+                avgTimeSpentInSession, 
+                successRate, 
+                avgTimePerQuestion
+            );
+        } else {
+            updateStatisticsDTO = sessionService2.updateStatistics(
+                userId, 
+                streak, 
+                totalQuestions, 
+                totalQuestionsRight, 
+                totalQuestionsWrong, 
+                avgTimeSpentInSession, 
+                successRate, 
+                avgTimePerQuestion
+            );
+        }
         
-        return updatedStatistics;
+        return updateStatisticsDTO;
     }
 
     @PostMapping("submit-confidence")

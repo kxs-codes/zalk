@@ -271,7 +271,7 @@ public class SessionService2 {
         return mapToDTO(savedStats);
     }
 
-    public UpdateStatisticsDTO updateOldStatistics(
+    public UpdateStatisticsDTO updateStatistics(
         UUID userId,
         int streak,
         int totalQuestions,
@@ -286,22 +286,7 @@ public class SessionService2 {
         float sessionScore = totalQuestions > 0 ? totalQuestionsRight / (float) totalQuestions : 0.0f;
 
         // Check if user has existing statistics
-        Optional<Statistics> optionalUserStats = statisticsRepository.findByStudentId(userId);
-
-        // If new student, create a new stats row for them
-        if (optionalUserStats.isEmpty()) {
-            logger.info("No existing statistics found. Creating new statistics record for user: " + userId);
-            return addNewStatistics(
-                userId,
-                streak,
-                totalQuestions,
-                totalQuestionsRight,
-                totalQuestionsWrong,
-                avgTimeSpentInSession,
-                successRate,
-                avgTimePerQuestion
-            );
-        }
+        Statistics userStats = statisticsRepository.findByStudentId(userId).get();
         
         // Grab the metadata table first
         List<StatisticsMetadata> metadataList = statisticsMetadataRepository.findAll();
@@ -311,31 +296,27 @@ public class SessionService2 {
         }
         StatisticsMetadata statisticsMetadata = metadataList.get(0);
 
-        // Update existing statistics
-        Statistics latestStats = optionalUserStats.get();
-        logger.info("Found existing statistics with ID: " + latestStats.getStatId());
-
         // Update the user's stats based on the parameters
-        latestStats.setTotalQuestions(totalQuestions);
-        latestStats.setTotalQuestionsRight(totalQuestionsRight);
-        latestStats.setTotalQuestionsWrong(totalQuestionsWrong);
-        latestStats.setAvgTimeSpentInSession(avgTimeSpentInSession);
-        latestStats.setSuccessRate(successRate);
-        latestStats.setAvgTimePerQuestion(avgTimePerQuestion);
-        latestStats.setSessionScore(sessionScore);
-        latestStats.setStreak(streak);
-        latestStats.setSessionsCompleted(latestStats.getSessionsCompleted() + 1);
+        userStats.setTotalQuestions(totalQuestions);
+        userStats.setTotalQuestionsRight(totalQuestionsRight);
+        userStats.setTotalQuestionsWrong(totalQuestionsWrong);
+        userStats.setAvgTimeSpentInSession(avgTimeSpentInSession);
+        userStats.setSuccessRate(successRate);
+        userStats.setAvgTimePerQuestion(avgTimePerQuestion);
+        userStats.setSessionScore(sessionScore);
+        userStats.setStreak(streak);
+        userStats.setSessionsCompleted(userStats.getSessionsCompleted() + 1);
 
         // Recalculate ZLO rating if needed
-        latestStats.setZloRating(zloCalculation(
+        userStats.setZloRating(zloCalculation(
             streak, 
             avgTimePerQuestion, 
-            latestStats.getConfidence(), 
+            userStats.getConfidence(), 
             sessionScore, 
-            latestStats.getSessionsCompleted()
+            userStats.getSessionsCompleted()
         ));
 
-        Statistics updatedStats = statisticsRepository.save(latestStats);
+        Statistics updatedStats = statisticsRepository.save(userStats);
 
         // Update metadata table
         statisticsMetadata.setNumberOfUpdates(statisticsMetadata.getNumberOfUpdates() + 1);
@@ -345,43 +326,6 @@ public class SessionService2 {
 
         // Return the updated user statistics
         return mapToDTO(updatedStats);
-    }
-
-    public UpdateStatisticsDTO updateStatistics(
-        UUID userId,
-        int streak,
-        int totalQuestions,
-        int totalQuestionsRight,
-        int totalQuestionsWrong,
-        float avgTimeSpentInSession,
-        float successRate,
-        float avgTimePerQuestion
-    ) {
-        logger.info("Updating statistics for user: " + userId);
-
-        if (!statisticsRepository.findByStudentId(userId).isPresent()) {
-            return addNewStatistics(
-                userId,
-                streak,
-                totalQuestions,
-                totalQuestionsRight,
-                totalQuestionsWrong,
-                avgTimeSpentInSession,
-                successRate,
-                avgTimePerQuestion
-            );
-        } else {
-            return updateOldStatistics(
-                userId,
-                streak,
-                totalQuestions,
-                totalQuestionsRight,
-                totalQuestionsWrong,
-                avgTimeSpentInSession,
-                successRate,
-                avgTimePerQuestion
-            );
-        }
     }
 
     // Helper method to map Statistics entity to DTO
