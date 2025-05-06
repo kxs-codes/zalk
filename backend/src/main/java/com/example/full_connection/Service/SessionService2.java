@@ -118,6 +118,10 @@ public class SessionService2 {
                 difficulty = "easy";
             }
 
+            // Grab grade level of student
+            Optional<Student> student = studentRepository.findById(userId);
+            int gradeLevel = student.get().getGradeLevel();
+
             // Grab a question based on the students current rating and gradelevel
             List<Questions> questions = questionsRepository.findByDifficultyAndGradeLevel(difficulty, gradeLevel);
 

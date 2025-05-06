@@ -71,12 +71,18 @@ public class ModelSaveAndLoad {
             // Loop over all stats, making a tuple and adding to tuple list
             // Create DataFrame passing in the schema and List<Tuple>
         List<StructField> fields = new ArrayList<>();
-        fields.add(new StructField("streak", DataType.of("int")));
-        fields.add(new StructField("avgTime", DataType.of("float")));
-        fields.add(new StructField("confidence", DataType.of("float")));
-        fields.add(new StructField("sessions", DataType.of("int")));
-        fields.add(new StructField("quizScore", DataType.of("float")));
-        fields.add(new StructField("readinessScore", DataType.of("float")));
+
+        try {
+            fields.add(new StructField("streak", DataType.of("int")));
+            fields.add(new StructField("avgTime", DataType.of("float")));
+            fields.add(new StructField("confidence", DataType.of("float")));
+            fields.add(new StructField("sessions", DataType.of("int")));
+            fields.add(new StructField("quizScore", DataType.of("float")));
+            fields.add(new StructField("readinessScore", DataType.of("float")));
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+        }
+
         StructType schema = new StructType(fields);
 
         List<Tuple> data = new ArrayList<>();

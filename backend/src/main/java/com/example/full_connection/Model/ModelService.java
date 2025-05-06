@@ -35,6 +35,6 @@ public class ModelService {
 
             // Swap the old model with the new one
             modelReference.set(newModel);
-        })
+        });
     }
 }
