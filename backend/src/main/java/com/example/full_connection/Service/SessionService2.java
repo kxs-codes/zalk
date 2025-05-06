@@ -3,7 +3,7 @@ package com.example.full_connection.Service;
 import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Entity.StatisticsMetadata;
 import com.example.full_connection.Entity.Student;
-import com.example.full_connection.Model.ModelSaveAndLoad;
+import com.example.full_connection.Model.ModelService;
 import com.example.full_connection.Model.RandomForestRegressor;
 import com.example.full_connection.DTO.ConfidenceDTO;
 import com.example.full_connection.Entity.Questions;
@@ -38,6 +38,9 @@ import java.util.logging.Logger;
 public class SessionService2 {
 
     private static final Logger logger = Logger.getLogger(SessionService2.class.getName());
+
+    @Autowired
+    private ModelService modelService;
 
     @Autowired
     private StatisticsRepository statisticsRepository;
@@ -87,9 +90,7 @@ public class SessionService2 {
             Row userRow = new Row(df, 0);
 
             // Predict a score from the model based on current stats
-            ModelSaveAndLoad modelSaveAndLoad = new ModelSaveAndLoad();
-            RandomForestRegressor model = modelSaveAndLoad.loadModel("./src/main/java/com/example/full_connection/Model/RandomForestRegressor.model");
-
+            RandomForestRegressor model = modelService.getModelReference();
             if (model == null) {
                 throw new IllegalStateException("Model could not be loaded.");
             }
@@ -100,12 +101,13 @@ public class SessionService2 {
             int currentRowCount = (int) statisticsRepository.count();
             int numberOfUpdates = statisticsMetadata.getNumberOfUpdates();
 
+            // Retrain when conditions met
             if (currentRowCount > 500 && (currentRowCount / lastRowCount >= 1.25 || numberOfUpdates >= 1000)) {
-                // TODO: Retrain model
                 logger.info("Model retraining condition met.");
+                modelService.retrainAndSwapModel();
             }
 
-            float predictedScore = model.predict(userRow);
+            float predictedScore = modelService.predict(userRow);
             String difficulty;
 
             logger.info("Predicted score: " + predictedScore);
