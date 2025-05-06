@@ -46,4 +46,17 @@ public class ModelSaveAndLoad {
     }
 
     // TODO: Retrain function (make it thread-safe)
+    public RandomForestRegressor retrainModel() {
+        // 1. Grab all student statistics (all rows in the table)
+
+        // 2. Convert into a csv file
+
+        // 3. Convert to a DataFrame (might be able to skip step 2 and convert directly)
+
+        // 4. Instantiate a new model of class RandomForestRegressor
+
+        // 5. Train the model using the fit() function, passing in the DataFrame of stats
+
+        // 6. Return the model
+    }
 }
