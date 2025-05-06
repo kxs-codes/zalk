@@ -2,6 +2,7 @@ package com.example.full_connection.Controller;
 
 import com.example.full_connection.DTO.ConfidenceDTO;
 import com.example.full_connection.DTO.QuestionAndStreakResponse;
+import com.example.full_connection.DTO.UpdateStatisticsDTO;
 import com.example.full_connection.Entity.Questions;
 import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Service.SessionService;
@@ -153,7 +154,7 @@ public class SessionController
     
     // If session is over, update the statistics of the user
     @PostMapping("update-statistics")
-    public Statistics updateStatistics(
+    public UpdateStatisticsDTO updateStatistics(
         @RequestParam UUID userId,
         @RequestParam int streak,
         @RequestParam int totalQuestions,
@@ -163,7 +164,7 @@ public class SessionController
         @RequestParam float successRate,
         @RequestParam float avgTimePerQuestion
     ) {
-        Statistics updatedStatistics = sessionService2.updateStatistics(
+        UpdateStatisticsDTO updatedStatistics = sessionService2.updateStatistics(
             userId, 
             streak, 
             totalQuestions, 
