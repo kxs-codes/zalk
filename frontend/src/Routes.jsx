@@ -79,10 +79,6 @@ const AppRoutes = ({ roleError, setRoleError }) => {
             path: "/classrooms",
             element: <StudentClassrooms/>
         },
-        // {
-        //     path: "/classrooms/:classroom-id/",
-        //     element: <EducatorClassroom/>
-        // },
         {
             path: "/classroom-progress",
             element: <Progress/>
@@ -123,10 +119,6 @@ const AppRoutes = ({ roleError, setRoleError }) => {
             path: "/view-progress",
             element: <AdvisoryProgress/>
         },
-        // {
-        //     path: "/access-spreadsheet",
-        //     element: <AdvisorySpreadsheet/>
-        // }
     ]);
 }
 
