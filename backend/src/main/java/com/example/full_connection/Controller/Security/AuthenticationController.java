@@ -60,7 +60,6 @@ public class AuthenticationController {
             return ResponseEntity.ok(returnResponse);
         }
 
-        // TODO: Deal with if accountType is different but user and password is same. currently saying found account
     }
 
     @PostMapping("/signup")
