@@ -1,5 +1,6 @@
 package com.example.full_connection.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,4 +17,7 @@ public interface StatisticsRepository extends JpaRepository<Statistics, UUID> {
 
     @Query("SELECT s FROM Statistics s WHERE s.student.id = :studentId")
     Optional<Statistics> findByStudentId(@Param("studentId") UUID studentId);
+
+    @Query("SELECT s FROM Statistics s JOIN Student st ON s.student.id = st.studentId WHERE st.gradeLevel = :gradeLevel")
+    List<Optional<Statistics>> findByStudentGradeLevel(@Param("gradeLevel") int gradeLevel);
 }

@@ -3,15 +3,18 @@ package com.example.full_connection.Service;
 import com.example.full_connection.Entity.Statistics;
 import com.example.full_connection.Entity.StatisticsMetadata;
 import com.example.full_connection.Entity.Student;
-import com.example.full_connection.Model.ModelSaveAndLoad;
+import com.example.full_connection.Model.ModelService;
 import com.example.full_connection.Model.RandomForestRegressor;
 import com.example.full_connection.DTO.ConfidenceDTO;
+import com.example.full_connection.DTO.UpdateStatisticsDTO;
 import com.example.full_connection.Entity.Questions;
 import com.example.full_connection.Repository.StatisticsRepository;
 import com.example.full_connection.Repository.QuestionsRepository;
 import com.example.full_connection.Repository.StatisticsMetadataRepository;
 import com.example.full_connection.Repository.StudentRepository;
 
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 import smile.data.DataFrame;
 import smile.data.Row;
 import smile.data.Tuple;
@@ -22,6 +25,7 @@ import smile.data.type.StructType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +44,9 @@ public class SessionService2 {
     private static final Logger logger = Logger.getLogger(SessionService2.class.getName());
 
     @Autowired
+    private ModelService modelService;
+
+    @Autowired
     private StatisticsRepository statisticsRepository;
 
     @Autowired
@@ -56,42 +63,65 @@ public class SessionService2 {
             // Get current stats of a user
             Optional<Statistics> optionalUserStats = statisticsRepository.findByStudentId(userId);
 
-            if (!optionalUserStats.isPresent()) {
-                throw new IllegalArgumentException("Statistics not found for userId: " + userId);
-            }
+            // Start with an uninitialized predicted score
+            float predictedScore;        
+            
+            // Send to model prediction
+            if (optionalUserStats.isPresent()) {
+                Statistics userStats = optionalUserStats.get();
+                
+                // Define the schema for the row
+                List<StructField> fields = new ArrayList<>();
+                fields.add(new StructField("streak", DataType.of("int")));
+                fields.add(new StructField("avgTime", DataType.of("float")));
+                fields.add(new StructField("confidence", DataType.of("float")));
+                fields.add(new StructField("sessions", DataType.of("int")));
+                fields.add(new StructField("quizScore", DataType.of("float")));
+                StructType userSchema = new StructType(fields);
 
-            Statistics userStats = optionalUserStats.get();
+                // Convert userStats to a Tuple
+                Tuple userTuple = Tuple.of(
+                    userSchema,
+                    new Object[]{
+                        userStats.getStreak(),
+                        userStats.getAvgTimePerQuestion(),
+                        userStats.getConfidence(),
+                        userStats.getSessionsCompleted(),
+                        userStats.getSessionScore()
+                    }
+                );
 
-            // Define the schema for the row
-            List<StructField> fields = new ArrayList<>();
-            fields.add(new StructField("streak", DataType.of("int")));
-            fields.add(new StructField("avgTime", DataType.of("float")));
-            fields.add(new StructField("confidence", DataType.of("float")));
-            fields.add(new StructField("sessions", DataType.of("int")));
-            fields.add(new StructField("quizScore", DataType.of("float")));
-            StructType userSchema = new StructType(fields);
+                DataFrame df = DataFrame.of(userSchema, Collections.singletonList(userTuple));
+                Row userRow = new Row(df, 0);
 
-            // Convert userStats to a Tuple
-            Tuple userTuple = Tuple.of(
-                userSchema,
-                new Object[]{
-                    userStats.getStreak(),
-                    userStats.getAvgTimePerQuestion(),
-                    userStats.getConfidence(),
-                    userStats.getSessionsCompleted(),
-                    userStats.getSessionScore()
+                // Predict a score from the model based on current stats
+                RandomForestRegressor model = modelService.getModelReference();
+                if (model == null) {
+                    throw new IllegalStateException("Model could not be loaded.");
                 }
-            );
 
-            DataFrame df = DataFrame.of(userSchema, Collections.singletonList(userTuple));
-            Row userRow = new Row(df, 0);
+                predictedScore = modelService.predict(userRow);
+            } 
+            // Calculate a global average zloRating
+            else {
+                logger.info("Student does not have any stats. Using global averages.");
 
-            // Predict a score from the model based on current stats
-            ModelSaveAndLoad modelSaveAndLoad = new ModelSaveAndLoad();
-            RandomForestRegressor model = modelSaveAndLoad.loadModel("./src/main/java/com/example/full_connection/Model/RandomForestRegressor.model");
+                // Grab grade level of student
+                Optional<Student> student = studentRepository.findById(userId);
+                int gradeLevel = student.get().getGradeLevel();
 
-            if (model == null) {
-                throw new IllegalStateException("Model could not be loaded.");
+                // Find all rows in statistics that match the gradeLevel of the current student
+                List<Optional<Statistics>> statsWithSameGradeLevel = statisticsRepository.findByStudentGradeLevel(gradeLevel);
+                
+                // Find the avaerage
+                predictedScore = (float) statsWithSameGradeLevel.stream()
+                    .filter(Optional::isPresent)
+                    .map(Optional::get)
+                    .mapToDouble(Statistics::getZloRating)
+                    .average()
+                    .orElse(0.0);
+
+                logger.info("Global average predicted score: " + predictedScore);
             }
 
             // Check the metadata table for retrain of model
@@ -100,16 +130,15 @@ public class SessionService2 {
             int currentRowCount = (int) statisticsRepository.count();
             int numberOfUpdates = statisticsMetadata.getNumberOfUpdates();
 
+            // Retrain when conditions met
             if (currentRowCount > 500 && (currentRowCount / lastRowCount >= 1.25 || numberOfUpdates >= 1000)) {
-                // TODO: Retrain model
                 logger.info("Model retraining condition met.");
+                modelService.retrainAndSwapModel();
             }
-
-            float predictedScore = model.predict(userRow);
-            String difficulty;
-
+            
             logger.info("Predicted score: " + predictedScore);
 
+            String difficulty;
             if (predictedScore > 0.60f) {
                 difficulty = "hard";
             } else if (predictedScore > 0.40f) {
@@ -118,6 +147,10 @@ public class SessionService2 {
                 difficulty = "easy";
             }
 
+            // Grab grade level of student
+            Optional<Student> student = studentRepository.findById(userId);
+            int gradeLevel = student.get().getGradeLevel();
+
             // Grab a question based on the students current rating and gradelevel
             Optional<Student> studentOptional = studentRepository.findById(userId);
             if (!studentOptional.isPresent()) {
@@ -125,6 +158,7 @@ public class SessionService2 {
             }
             Student student = studentOptional.get();
             int gradeLevel = student.getGradeLevel();
+
             List<Questions> questions = questionsRepository.findByDifficultyAndGradeLevel(difficulty, gradeLevel);
 
             // Select a random question from the list
@@ -147,10 +181,10 @@ public class SessionService2 {
             Optional<Statistics> userStats = statisticsRepository.findByStudentId(userId);
 
             // Return
-            return userStats.map(Statistics::getStreak).orElse(-1);
+            return userStats.map(Statistics::getStreak).orElse(0);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Error in getStreak: " + e.getMessage(), e);
-            return -1;
+            return 0;
         }
     }
 
@@ -195,7 +229,7 @@ public class SessionService2 {
         }
     }
 
-    public Statistics updateStatistics(
+    public UpdateStatisticsDTO addNewStatistics(
         UUID userId,
         int streak,
         int totalQuestions,
@@ -203,49 +237,124 @@ public class SessionService2 {
         int totalQuestionsWrong,
         float avgTimeSpentInSession,
         float successRate,
-        float avgTimePerQuestion
+        float avgTimePerQuestion,
+        Statistics newStats
     ) {
-        try {
-            // Calculate sessionScore
-            float sessionScore = totalQuestions > 0 ? totalQuestionsRight / (float) totalQuestions : 0.0f;
+        float sessionScore = totalQuestions > 0 ? totalQuestionsRight / (float) totalQuestions : 0.0f;
+        
+        // Find the student first and handle the case where student doesn't exist
+        Student student = studentRepository.findById(userId)
+            .orElseThrow(() -> new EntityNotFoundException("Student not found with ID: " + userId));
 
-            // Grab user stats based on userId
-            Optional<Statistics> optionalUserStats = statisticsRepository.findByStudentId(userId);
+        // Set initial values for the new row
+        newStats.setStudent(student);
+        newStats.setStreak(streak);
+        newStats.setTotalQuestions(totalQuestions);
+        newStats.setTotalQuestionsRight(totalQuestionsRight);
+        newStats.setTotalQuestionsWrong(totalQuestionsWrong);
+        newStats.setAvgTimeSpentInSession(avgTimeSpentInSession);
+        newStats.setSuccessRate(successRate);
+        newStats.setAvgTimePerQuestion(avgTimePerQuestion);
+        newStats.setSessionScore(sessionScore);
+        newStats.setSuccessRate(0f);
+        newStats.setGuessRate(0f);
+        newStats.setSubjectMasteryValue(0);
+        newStats.setSessionsCompleted(1);
+        newStats.setDaysLoggedIn(0);
+        newStats.setConfidence(0.5f); // default confidence
+        newStats.setZloRating(zloCalculation(streak, avgTimePerQuestion, 0.5f, sessionScore, 1));
 
-            if (!optionalUserStats.isPresent()) {
-                throw new IllegalArgumentException("User statistics don't exist for user: " + userId);
-            }
+        statisticsRepository.save(newStats);
 
-            Statistics userStats = optionalUserStats.get();
+        // For a new student, add a row to the last count
+        StatisticsMetadata statisticsMetadata = statisticsMetadataRepository.findAll().get(0);
+        statisticsMetadata.setLastRowCount(statisticsMetadata.getLastRowCount() + 1);
+        statisticsMetadataRepository.save(statisticsMetadata);
 
-            // Update the user's stats based on the parameters
-            userStats.setTotalQuestions(totalQuestions);
-            userStats.setTotalQuestionsRight(totalQuestionsRight);
-            userStats.setTotalQuestionsWrong(totalQuestionsWrong);
-            userStats.setAvgTimeSpentInSession(avgTimeSpentInSession);
-            userStats.setSuccessRate(successRate);
-            userStats.setAvgTimePerQuestion(avgTimePerQuestion);
-            userStats.setSessionScore(sessionScore);
-            userStats.setStreak(streak);
-            userStats.setSessionsCompleted(userStats.getSessionsCompleted() + 1);
-            statisticsRepository.save(userStats);
+        System.out.println("\n\nAFTER METADATA SAVING\n\n");
+        
+        logger.info("Created new statistics record with ID: " + newStats.getStatId());
 
-            // Update metadata table
-            StatisticsMetadata statisticsMetadata = statisticsMetadataRepository.findAll().get(0);
-            statisticsMetadata.setNumberOfUpdates(statisticsMetadata.getNumberOfUpdates() + 1);
-            statisticsMetadataRepository.save(statisticsMetadata);
+        // Initialize and return the DTO object
+        return mapToDTO(newStats);
+    }
 
-            // Make a new student object just specifying the userId
-            Student student = new Student();
-            student.setId(userId);
-            userStats.setStudent(student);
+    public UpdateStatisticsDTO updateStatistics(
+        UUID userId,
+        int streak,
+        int totalQuestions,
+        int totalQuestionsRight,
+        int totalQuestionsWrong,
+        float avgTimeSpentInSession,
+        float successRate,
+        float avgTimePerQuestion,
+        Statistics userStats
+    ) {
 
-            // Return the updated user statistics
-            return userStats;
-        } catch (Exception e) {
-            logger.log(Level.SEVERE, "Error in updateStatistics: " + e.getMessage(), e);
-            return null;
+        // Calculate sessionScore
+        float sessionScore = totalQuestions > 0 ? totalQuestionsRight / (float) totalQuestions : 0.0f;
+
+        // Grab the metadata table first
+        List<StatisticsMetadata> metadataList = statisticsMetadataRepository.findAll();
+        if (metadataList.isEmpty()) {
+            logger.severe("Statistics metadata not found");
+            throw new EntityNotFoundException("Statistics metadata not found");
         }
+        StatisticsMetadata statisticsMetadata = metadataList.get(0);
+
+        // Update the user's stats based on the parameters
+        userStats.setTotalQuestions(totalQuestions);
+        userStats.setTotalQuestionsRight(totalQuestionsRight);
+        userStats.setTotalQuestionsWrong(totalQuestionsWrong);
+        userStats.setAvgTimeSpentInSession(avgTimeSpentInSession);
+        userStats.setSuccessRate(successRate);
+        userStats.setAvgTimePerQuestion(avgTimePerQuestion);
+        userStats.setSessionScore(sessionScore);
+        userStats.setStreak(streak);
+        userStats.setSessionsCompleted(userStats.getSessionsCompleted() + 1);
+
+        // Recalculate ZLO rating if needed
+        userStats.setZloRating(zloCalculation(
+            streak, 
+            avgTimePerQuestion, 
+            userStats.getConfidence(), 
+            sessionScore, 
+            userStats.getSessionsCompleted()
+        ));
+
+        Statistics updatedStats = statisticsRepository.save(userStats);
+
+        // Update metadata table
+        statisticsMetadata.setNumberOfUpdates(statisticsMetadata.getNumberOfUpdates() + 1);
+        statisticsMetadataRepository.save(statisticsMetadata);
+        
+        logger.info("Successfully updated statistics for user: " + userId);
+
+        // Return the updated user statistics
+        return mapToDTO(updatedStats);
+    }
+
+    // Helper method to map Statistics entity to DTO
+    private UpdateStatisticsDTO mapToDTO(Statistics stats) {
+        return new UpdateStatisticsDTO(
+            stats.getStatId(),
+            stats.getTotalTimeInSessions(),
+            stats.getStreak(),
+            stats.getTotalQuestions(),
+            stats.getTotalQuestionsRight(),
+            stats.getTotalQuestionsWrong(),
+            stats.getSessionsCompleted(),
+            stats.getDaysLoggedIn(),
+            stats.getSubjectMasteryValue(),
+            stats.getGuessRate(),
+            stats.getAvgTimeSpentInSession(),
+            stats.getSuccessRate(),
+            stats.getAvgTimePerQuestion(),
+            stats.getZloRating(),
+            stats.getConfidence(),
+            stats.getSessionScore(),
+            stats.getStudent().getId()
+        );
     }
 
     public ResponseEntity<ConfidenceDTO> submitConfidence(UUID userId, float confidence) {

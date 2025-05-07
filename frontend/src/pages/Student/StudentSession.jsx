@@ -1,6 +1,5 @@
 import useStudentSessionLogic from "./StudentSessionLogic";
 import Question from "../../components/Question.jsx";
-import PortalLogoBar from "../../components/PortalLogoBar";
 import StudentSessionConfidence from "../../components/StudentSessionConfidence.jsx";
 import "../../styles/Student/pages/StudentSession.css";
 //Handles question session for students handling question and timing for the frontend
@@ -25,6 +24,7 @@ const StudentSession = () =>
         userId,
         setUserId
     } = useStudentSessionLogic();
+
     //Results Screen
     const renderResults = () =>
     {
@@ -80,11 +80,11 @@ const StudentSession = () =>
             </div>
         );
     };
+
     //Handles session space for active questions
     return (
         <div className="boxBorder">
             <div className="sessionLayout">
-                <PortalLogoBar />
                 {sessionConcluded && renderResults()}
                 {!sessionConcluded && currentQuestion && (
                     <div className="qSec">
@@ -109,6 +109,11 @@ const StudentSession = () =>
                             className={`NEXT ${!submitted && "disabled"}`}>
                             Next Question
                         </button>
+                    </div>
+                )}
+                {!sessionConcluded && !currentQuestion && (
+                    <div className="loading">
+                        <p>Loading question...</p>
                     </div>
                 )}
             </div>
