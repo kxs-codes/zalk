@@ -174,7 +174,7 @@ public class SessionController
 
         UpdateStatisticsDTO updateStatisticsDTO = null;
 
-        if (stats.isPresent()) {
+        if (!stats.isPresent()) {
             updateStatisticsDTO = sessionService2.addNewStatistics(
                 userId, 
                 streak, 
@@ -183,7 +183,8 @@ public class SessionController
                 totalQuestionsWrong, 
                 avgTimeSpentInSession, 
                 successRate, 
-                avgTimePerQuestion
+                avgTimePerQuestion,
+                new Statistics()
             );
         } else {
             updateStatisticsDTO = sessionService2.updateStatistics(
@@ -194,7 +195,8 @@ public class SessionController
                 totalQuestionsWrong, 
                 avgTimeSpentInSession, 
                 successRate, 
-                avgTimePerQuestion
+                avgTimePerQuestion,
+                stats.get()
             );
         }
         

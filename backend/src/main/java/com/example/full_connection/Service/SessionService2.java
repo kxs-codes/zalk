@@ -230,20 +230,16 @@ public class SessionService2 {
         int totalQuestionsWrong,
         float avgTimeSpentInSession,
         float successRate,
-        float avgTimePerQuestion
+        float avgTimePerQuestion,
+        Statistics newStats
     ) {
         float sessionScore = totalQuestions > 0 ? totalQuestionsRight / (float) totalQuestions : 0.0f;
         
         // Find the student first and handle the case where student doesn't exist
         Student student = studentRepository.findById(userId)
             .orElseThrow(() -> new EntityNotFoundException("Student not found with ID: " + userId));
-        
-        // Make a new stats now
-        Statistics newStats = new Statistics();
 
         // Set initial values for the new row
-        UUID statId = UUID.randomUUID();
-        newStats.setStatId(statId);
         newStats.setStudent(student);
         newStats.setStreak(streak);
         newStats.setTotalQuestions(totalQuestions);
@@ -253,22 +249,27 @@ public class SessionService2 {
         newStats.setSuccessRate(successRate);
         newStats.setAvgTimePerQuestion(avgTimePerQuestion);
         newStats.setSessionScore(sessionScore);
+        newStats.setSuccessRate(0f);
+        newStats.setGuessRate(0f);
+        newStats.setSubjectMasteryValue(0);
         newStats.setSessionsCompleted(1);
+        newStats.setDaysLoggedIn(0);
         newStats.setConfidence(0.5f); // default confidence
         newStats.setZloRating(zloCalculation(streak, avgTimePerQuestion, 0.5f, sessionScore, 1));
+
+        statisticsRepository.save(newStats);
 
         // For a new student, add a row to the last count
         StatisticsMetadata statisticsMetadata = statisticsMetadataRepository.findAll().get(0);
         statisticsMetadata.setLastRowCount(statisticsMetadata.getLastRowCount() + 1);
         statisticsMetadataRepository.save(statisticsMetadata);
 
-        // Persist the change to the repository
-        Statistics savedStats = statisticsRepository.save(newStats);
+        System.out.println("\n\nAFTER METADATA SAVING\n\n");
         
-        logger.info("Created new statistics record with ID: " + savedStats.getStatId());
+        logger.info("Created new statistics record with ID: " + newStats.getStatId());
 
         // Initialize and return the DTO object
-        return mapToDTO(savedStats);
+        return mapToDTO(newStats);
     }
 
     public UpdateStatisticsDTO updateStatistics(
@@ -279,15 +280,13 @@ public class SessionService2 {
         int totalQuestionsWrong,
         float avgTimeSpentInSession,
         float successRate,
-        float avgTimePerQuestion
+        float avgTimePerQuestion,
+        Statistics userStats
     ) {
 
         // Calculate sessionScore
         float sessionScore = totalQuestions > 0 ? totalQuestionsRight / (float) totalQuestions : 0.0f;
 
-        // Check if user has existing statistics
-        Statistics userStats = statisticsRepository.findByStudentId(userId).get();
-        
         // Grab the metadata table first
         List<StatisticsMetadata> metadataList = statisticsMetadataRepository.findAll();
         if (metadataList.isEmpty()) {
@@ -347,7 +346,7 @@ public class SessionService2 {
             stats.getZloRating(),
             stats.getConfidence(),
             stats.getSessionScore(),
-            stats.getStudent() != null ? stats.getStudent().getId() : null
+            stats.getStudent().getId()
         );
     }
 
