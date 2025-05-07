@@ -19,7 +19,7 @@ const StudentProgress = () => {
                 <div className="stats-container">
                     <div className="stat-card stat-card-1">
                         <h3 className="stat-title">Current Hours Completed</h3>
-                        <p className="stat-value">{(studentData.currentHoursCompleted / 60)} Hours</p>
+                        <p className="stat-value">{Math.round(studentData.currentHoursCompleted / 60)} Hour(s)</p>
                     </div>
                     <div className="stat-card stat-card-2">
                         <h3 className="stat-title">Number of Questions Answered</h3>
