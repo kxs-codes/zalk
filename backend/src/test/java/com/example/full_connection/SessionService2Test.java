@@ -21,6 +21,8 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+// Individual Test for Model 
+
 @ExtendWith(MockitoExtension.class)
 public class SessionService2Test {
 
