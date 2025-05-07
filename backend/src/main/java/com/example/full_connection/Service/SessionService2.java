@@ -151,9 +151,6 @@ public class SessionService2 {
             Optional<Student> student = studentRepository.findById(userId);
             int gradeLevel = student.get().getGradeLevel();
 
-            // Grab a question based on the students current rating and gradelevel
-            Optional<Student> student = studentRepository.findById(userId);
-            int gradeLevel = student.get().getGradeLevel();
             List<Questions> questions = questionsRepository.findByDifficultyAndGradeLevel(difficulty, gradeLevel);
 
             // Select a random question from the list
