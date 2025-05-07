@@ -1,4 +1,4 @@
-import useStudentSessionLogic from "./StudentSessionLogic";
+import useStudentSessionLogic from "./StudentSessionLogic2";
 import Question from "../../components/Question.jsx";
 import StudentSessionConfidence from "../../components/StudentSessionConfidence.jsx";
 import "../../styles/Student/pages/StudentSession.css";

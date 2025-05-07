@@ -78,6 +78,17 @@ public class StudentsController {
     }
 
 
+
+
+    @GetMapping("{usernameId}/streak")
+    public ResponseEntity<Integer> getStreak(@PathVariable UUID usernameId) {
+        // look up the stats row
+        Optional<Statistics> stats = statisticsRepository.findByStudent(
+                studentRepository.findById(usernameId).orElse(null)
+        );
+        int streak = stats.map(Statistics::getStreak).orElse(0);
+        return ResponseEntity.ok(streak);
+    }
     // Get all students
     @GetMapping
     public List<Student> getAllStudents() {
