@@ -8,6 +8,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Entity class representing a Moderator.
+ * Contains details about the moderator such as username, email, and hashed password.
+ */
 @Entity
 @Table(name = "moderator")
 public class Moderator {

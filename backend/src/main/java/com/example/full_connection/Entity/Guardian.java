@@ -5,6 +5,10 @@ import jakarta.persistence.*;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Entity class representing a Guardian.
+ * Contains details such as ID, username, password, email, and associated students.
+ */
 @Entity
 @Table(name = "guardian")
 public class Guardian {

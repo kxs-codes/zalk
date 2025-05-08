@@ -3,6 +3,10 @@ package com.example.full_connection.Entity;
 import jakarta.persistence.*;
 import java.util.UUID;
 
+/**
+ * Entity class representing a question.
+ * Contains details about the question such as its text, answer, and difficulty level.
+ */
 @Entity
 @Table(name = "questions")
 public class Questions

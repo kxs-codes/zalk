@@ -2,6 +2,10 @@ package com.example.full_connection.DTO;
 
 import java.util.List;
 
+/**
+ * Data Transfer Object for Form Data related to Moderators.
+ * Includes subject, educator, and student details.
+ */
 public class FormDataModerator {
     private String subjectName;
     private String subjectLevel;

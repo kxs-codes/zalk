@@ -2,6 +2,10 @@ package com.example.full_connection.Entity;
 import java.util.UUID;
 import jakarta.persistence.*;
 
+/**
+ * Entity class representing statistics related to a student.
+ * Contains various metrics such as total time in sessions, streaks, and success rates.
+ */
 @Entity
 @Table(name = "statistics")
 public class Statistics

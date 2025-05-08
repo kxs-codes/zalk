@@ -66,6 +66,24 @@ public class SessionService {
         return (double) totalCorrect / totalQuestions;
     }
 
+    /**
+     * Creates a new session for a student.
+     *
+     * @param studentUsernames The list of student usernames.
+     * @param totalTimeInSessions The total time spent in sessions.
+     * @param streak The user's current streak.
+     * @param totalQuestions The total number of questions answered.
+     * @param totalQuestionsRight The total number of questions answered correctly.
+     * @param totalQuestionsWrong The total number of questions answered incorrectly.
+     * @param sessionsCompleted The total number of sessions completed.
+     * @param daysLoggedIn The total number of days the user has logged in.
+     * @param subjectMasteryValue The user's subject mastery value.
+     * @param guessRate The user's guess rate.
+     * @param avgTimeSpentInSession The average time spent in a session.
+     * @param successRate The user's success rate.
+     * @param avgTimePerQuestion The average time spent per question.
+     * @return The created session statistics.
+     */
     public Statistics createSession(
             List<String> studentUsernames,
             int totalTimeInSessions,

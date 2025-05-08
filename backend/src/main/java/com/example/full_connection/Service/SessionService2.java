@@ -34,6 +34,10 @@ import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Service class for managing sessions and related operations.
+ * Provides methods for retrieving questions, calculating ZLO ratings, and updating statistics.
+ */
 @Service
 public class SessionService2 {
 
@@ -54,6 +58,12 @@ public class SessionService2 {
     @Autowired
     private QuestionsRepository questionsRepository;
 
+    /**
+     * Retrieves a question for a specific user based on their statistics.
+     *
+     * @param userId The ID of the user.
+     * @return A question tailored to the user's difficulty level.
+     */
     public Questions getQuestion(UUID userId) {
         try {
             // Get current stats of a user
@@ -163,6 +173,12 @@ public class SessionService2 {
         }
     }
 
+    /**
+     * Retrieves the current streak for a specific user.
+     *
+     * @param userId The ID of the user.
+     * @return The current streak of the user.
+     */
     public int getStreak(UUID userId) {
         try {
             // Query the stats repo for streak
@@ -176,6 +192,16 @@ public class SessionService2 {
         }
     }
 
+    /**
+     * Calculates the ZLO rating based on various parameters.
+     *
+     * @param streak The user's current streak.
+     * @param avgTime The average time spent per question.
+     * @param confidence The user's confidence level.
+     * @param sessionScore The score of the current session.
+     * @param sessionsCompleted The total number of sessions completed by the user.
+     * @return The calculated ZLO rating.
+     */
     public float zloCalculation(int streak, float avgTime, float confidence, float sessionScore, int sessionsCompleted) {
         return (0.3f * sessionScore) +
                (0.2f * Math.min(1.0f, streak / 8.0f)) +
@@ -184,6 +210,14 @@ public class SessionService2 {
                (0.2f * Math.min(1.0f, sessionsCompleted / 20.0f));
     }
 
+    /**
+     * Retrieves the next question for a user based on updated statistics.
+     *
+     * @param userId The ID of the user.
+     * @param avgTime The average time spent per question.
+     * @param streak The user's current streak.
+     * @return The next question tailored to the user's difficulty level.
+     */
     public Questions getNextQuestion(UUID userId, float avgTime, int streak) {
         try {
             // 1. Grab the user's statistics
@@ -217,6 +251,20 @@ public class SessionService2 {
         }
     }
 
+    /**
+     * Adds new statistics for a user.
+     *
+     * @param userId The ID of the user.
+     * @param streak The user's current streak.
+     * @param totalQuestions The total number of questions answered.
+     * @param totalQuestionsRight The total number of questions answered correctly.
+     * @param totalQuestionsWrong The total number of questions answered incorrectly.
+     * @param avgTimeSpentInSession The average time spent in a session.
+     * @param successRate The user's success rate.
+     * @param avgTimePerQuestion The average time spent per question.
+     * @param newStats The new statistics to be added.
+     * @return A DTO containing the added statistics.
+     */
     public UpdateStatisticsDTO addNewStatistics(
         UUID userId,
         int streak,
@@ -267,6 +315,20 @@ public class SessionService2 {
         return mapToDTO(newStats);
     }
 
+    /**
+     * Updates existing statistics for a user.
+     *
+     * @param userId The ID of the user.
+     * @param streak The user's current streak.
+     * @param totalQuestions The total number of questions answered.
+     * @param totalQuestionsRight The total number of questions answered correctly.
+     * @param totalQuestionsWrong The total number of questions answered incorrectly.
+     * @param avgTimeSpentInSession The average time spent in a session.
+     * @param successRate The user's success rate.
+     * @param avgTimePerQuestion The average time spent per question.
+     * @param userStats The existing statistics to be updated.
+     * @return A DTO containing the updated statistics.
+     */
     public UpdateStatisticsDTO updateStatistics(
         UUID userId,
         int streak,
@@ -345,6 +407,13 @@ public class SessionService2 {
         );
     }
 
+    /**
+     * Submits the confidence level for a user and updates their statistics.
+     *
+     * @param userId The ID of the user.
+     * @param confidence The confidence level to be submitted.
+     * @return A response entity containing the updated confidence and ZLO rating.
+     */
     public ResponseEntity<ConfidenceDTO> submitConfidence(UUID userId, float confidence) {
         Optional<Statistics> optionalUserStats = statisticsRepository.findByStudentId(userId);
         if (optionalUserStats.isPresent()) {

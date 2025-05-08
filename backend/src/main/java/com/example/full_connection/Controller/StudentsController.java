@@ -14,6 +14,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Controller for managing student-related operations.
+ * This class provides endpoints for students to interact with the system.
+ *
+ * Endpoints:
+ * - Retrieve and update student-specific data.
+ * - Manage student progress and statistics.
+ *
+ * Dependencies:
+ * - StudentService for business logic.
+ * - ModelMapper for DTO to entity conversions.
+ */
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/students")

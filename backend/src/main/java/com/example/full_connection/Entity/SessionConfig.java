@@ -3,6 +3,10 @@ package com.example.full_connection.Entity;
 import java.util.UUID;
 import jakarta.persistence.*;
 
+/**
+ * Entity class representing the configuration of a session.
+ * Includes details such as difficulty, duration, and subject configuration.
+ */
 @Entity
 @Table(name = "session_config")
 public class SessionConfig {

@@ -22,6 +22,18 @@ import com.example.full_connection.Repository.EducatorRepository;
 import com.example.full_connection.Service.EducatorService;
 
 
+/**
+ * Controller for managing educator-related operations.
+ * This class provides endpoints for educators to interact with the system.
+ *
+ * Endpoints:
+ * - Manage classrooms and students.
+ * - Retrieve and update educator-specific data.
+ *
+ * Dependencies:
+ * - EducatorService for business logic.
+ * - ModelMapper for DTO to entity conversions.
+ */
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/educator")

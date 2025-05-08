@@ -1,5 +1,9 @@
 package com.example.full_connection.DTO;
 
+/**
+ * Data Transfer Object for Login information.
+ * Contains username, password, and account type details.
+ */
 public class LoginDTO {
     private String username;
     private String password;

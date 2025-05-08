@@ -17,6 +17,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Service class for managing spreadsheet-related operations.
+ * Service class for generating Excel reports for students and classrooms.
+ * This class uses Apache POI to create and manipulate Excel files.
+ *
+ * Methods:
+ * - generateStudentReport: Generates a report for a specific student.
+ * - generateClassroomReport: Generates a report for a specific classroom.
+ *
+ * Dependencies:
+ * - Apache POI for Excel file creation.
+ * - LocalDateTime for timestamping reports.
+ */
 @Service
 public class SpreadsheetService {
 

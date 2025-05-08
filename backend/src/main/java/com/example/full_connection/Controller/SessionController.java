@@ -18,8 +18,17 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-//Controller handles API endpoints for the sessions
-//Creates questions; generates with ZLO
+/**
+ * Controller for managing session-related operations.
+ * This class provides endpoints for handling user sessions and related data.
+ *
+ * Endpoints:
+ * - Start, update, and end user sessions.
+ * - Retrieve session statistics and details.
+ *
+ * Dependencies:
+ * - SessionService for session management logic.
+ */
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/sessions")

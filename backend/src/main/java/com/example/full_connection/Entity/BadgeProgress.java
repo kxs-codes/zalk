@@ -9,6 +9,10 @@ import jakarta.persistence.IdClass;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 
+/**
+ * Entity class representing the progress of a student on a badge.
+ * Maps the relationship between students and badges with progress details.
+ */
 @Entity
 @Table(name = "badge_progress")
 @IdClass(BadgeProgressId.class)

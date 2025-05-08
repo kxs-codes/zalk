@@ -17,6 +17,18 @@ import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Controller for managing spreadsheet generation.
+ * This class provides endpoints for creating Excel reports for students and classrooms.
+ *
+ * Endpoints:
+ * - Generate student-specific Excel reports.
+ * - Generate classroom-specific Excel reports.
+ *
+ * Dependencies:
+ * - SpreadsheetService for Excel file creation logic.
+ */
+
 @RestController
 @RequestMapping("/api/spreadsheet")
 @CrossOrigin(origins = "http://localhost:5173")

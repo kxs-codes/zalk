@@ -9,6 +9,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Entity class representing a log entry.
+ * Contains details about the log such as action type, user type, and severity.
+ */
 @Entity
 @Table(name = "logs")
 public class Logs {

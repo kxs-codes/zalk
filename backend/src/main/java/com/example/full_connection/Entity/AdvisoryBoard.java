@@ -8,6 +8,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Entity class representing an Advisory Board member.
+ * Contains details such as ID, username, password, and email.
+ */
 @Entity
 @Table(name = "advisory_board")
 public class AdvisoryBoard {

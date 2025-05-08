@@ -6,6 +6,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ * Controller for managing guardian-related operations.
+ * This class provides endpoints for guardians to interact with the system.
+ *
+ * Endpoints:
+ * - Add, update, and delete guardian information.
+ * - Retrieve guardian details and associated data.
+ *
+ * Dependencies:
+ * - GuardianService for business logic.
+ * - ModelMapper for DTO to entity conversions.
+ */
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/guardian")

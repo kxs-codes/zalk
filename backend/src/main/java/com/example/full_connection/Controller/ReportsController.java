@@ -9,6 +9,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Controller for handling report generation and retrieval.
+ * This class provides endpoints for generating and accessing various reports.
+ *
+ * Endpoints:
+ * - Generate reports for students and classrooms.
+ * - Retrieve previously generated reports.
+ *
+ * Dependencies:
+ * - ReportService for report generation logic.
+ */
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/reports")

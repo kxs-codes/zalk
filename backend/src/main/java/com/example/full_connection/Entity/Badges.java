@@ -7,6 +7,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+/**
+ * Entity class representing a Badge.
+ * Contains details about the badge such as its name, description, and requirements.
+ */
 @Entity
 @Table(name = "badges")
 public class Badges {

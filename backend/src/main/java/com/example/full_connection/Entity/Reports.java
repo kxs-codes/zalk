@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import jakarta.persistence.*;
 
+/**
+ * Entity class representing a report.
+ * Contains details about the report such as its name, description, and status.
+ */
 @Entity
 @Table(name = "reports")
 public class Reports {

@@ -20,7 +20,10 @@ import static org.mockito.Mockito.*;
 
 // Individual Test for Question Sessions 
 
-
+/**
+ * Test class for SessionService.
+ * Contains unit tests for various methods in the SessionService class.
+ */
 public class SessionServiceTest {
 
     @Mock
@@ -74,6 +77,9 @@ public class SessionServiceTest {
         verify(questionsRepository, times(1)).findByDifficulty("medium");
     }
 
+    /**
+     * Tests the calculateZLO method to ensure it returns a positive value.
+     */
     @Test
     void testCalculateZLO_ReturnsCorrectValue() {
         // Act
@@ -83,6 +89,9 @@ public class SessionServiceTest {
         assertTrue(zlo > 0, "ZLO should be a positive value");
     }
 
+    /**
+     * Tests the createSession method to ensure it throws an exception when a student is missing.
+     */
     @Test
     void testCreateSession_ThrowsExceptionForMissingStudent() {
         // Arrange
