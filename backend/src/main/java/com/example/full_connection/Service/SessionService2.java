@@ -14,7 +14,6 @@ import com.example.full_connection.Repository.StatisticsMetadataRepository;
 import com.example.full_connection.Repository.StudentRepository;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.transaction.annotation.Transactional;
 import smile.data.DataFrame;
 import smile.data.Row;
 import smile.data.Tuple;
@@ -25,13 +24,10 @@ import smile.data.type.StructType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import javax.management.RuntimeErrorException;
 
 import java.util.ArrayList;
 import java.util.Collections;

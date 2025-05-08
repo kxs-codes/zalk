@@ -97,12 +97,9 @@ public class StudentsController {
 
     // Get ZLO for a specific user
     @GetMapping("{usernameId}/zlo")
-    public Double getZloRating(@PathVariable UUID usernameId) {
-        Student student = studentRepository.findById(usernameId).orElse(null);
-        if (student == null) {
-            return null;
-        }
-        return student.getZloRating();
+    public Float getZloRating(@PathVariable UUID usernameId) {
+        Optional<Statistics> stats = statisticsRepository.findByStudentId(usernameId);
+        return stats.get().getZloRating();
     }
     @GetMapping("{usernameId}/gradelevel")
     public Integer getGradeLevel(@PathVariable UUID usernameId) {
