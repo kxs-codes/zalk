@@ -7,4 +7,5 @@ import java.util.UUID;
 
 public interface QuestionsRepository extends JpaRepository<Questions, UUID> {
     List<Questions> findByDifficulty(String difficulty);
+    List<Questions> findByDifficultyAndGradeLevel(String difficulty, int gradeLevel);
 }

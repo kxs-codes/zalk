@@ -10,22 +10,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-//Handles session generation with ZLO algorithm employed
+
 @Service
-public class SessionService
-{
+public class SessionService {
     private final StatisticsRepository statisticsRepository;
     private final QuestionsRepository questionsRepository;
     private final StudentRepository studentRepository;
 
     @Autowired
-    public SessionService(StatisticsRepository statisticsRepository, QuestionsRepository questionsRepository, StudentRepository studentRepository)
-    {
+    public SessionService(StatisticsRepository statisticsRepository, QuestionsRepository questionsRepository, StudentRepository studentRepository) {
         this.statisticsRepository = statisticsRepository;
         this.questionsRepository = questionsRepository;
         this.studentRepository = studentRepository;
     }
-    //Predictive Weighting
+
     private static final double weightPKSession = 0.2;
     private static final double weightPKAvg = 0.3;
     private static final double weightSStreak1 = 0.1;
@@ -34,43 +32,40 @@ public class SessionService
     private static final double weightTqAvg = 0.1;
     private static final double weightPCorr1 = 0.1;
     private static final double weightPCorrAvg = 0.1;
-    //Difficulty values
-    private static final double zloHard = 0.8;
-    private static final double zloMed = 0.5;
-    private static final double zloEasy = 0.3;
-    //Get questions
-    public List<Questions> getQuestions()
-    {
-        return questionsRepository.findAll();
+
+    private static final double zloHard = 100;
+    private static final double zloMed = 100;
+    private static final double zloEasy = 0.9;
+
+    public List<Questions> getQuestions() {
+        try {
+            return questionsRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to fetch questions: " + e.getMessage(), e);
+        }
     }
-    //Calculate ZLO algoritm
-    public double calculateZLO(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate)
-    {
+
+    public double calculateZLO(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate) {
         double knowledgeProbabilitySession = calculateKnowledgeProbability(totalQuestionsRight, totalQuestions);
         double knowledgeProbabilityAvg = calculateKnowledgeProbability(totalQuestionsRight, totalQuestions);
 
-        double zloRating =
-                (weightPKSession* knowledgeProbabilitySession)+
-                        (weightPKAvg * knowledgeProbabilityAvg) +
-                        (weightSStreak1 * streak * (1 -knowledgeProbabilitySession)) +
-                        (weightSStreak2 * streak * knowledgeProbabilitySession) +
-                        (weightTq * (1 -avgTimeSpentInSession)) +
-                        (weightTqAvg * (1 -avgTimePerQuestion)) +
-                        (weightPCorr1* successRate * knowledgeProbabilitySession)+
-                        (weightPCorrAvg * successRate * knowledgeProbabilityAvg);
-
-        return zloRating;
+        return (weightPKSession * knowledgeProbabilitySession) +
+               (weightPKAvg * knowledgeProbabilityAvg) +
+               (weightSStreak1 * streak * (1 - knowledgeProbabilitySession)) +
+               (weightSStreak2 * streak * knowledgeProbabilitySession) +
+               (weightTq * (1 - avgTimeSpentInSession)) +
+               (weightTqAvg * (1 - avgTimePerQuestion)) +
+               (weightPCorr1 * successRate * knowledgeProbabilitySession) +
+               (weightPCorrAvg * successRate * knowledgeProbabilityAvg);
     }
-    //Calculate knowledge mastery based on success rates
-    private double calculateKnowledgeProbability(int totalCorrect, int totalQuestions)
-    {
-        if (totalQuestions == 0)
-        {
+
+    private double calculateKnowledgeProbability(int totalCorrect, int totalQuestions) {
+        if (totalQuestions == 0) {
             return -1;
         }
         return (double) totalCorrect / totalQuestions;
     }
-    //Session generation
+
     public Statistics createSession(
             List<String> studentUsernames,
             int totalTimeInSessions,
@@ -85,86 +80,79 @@ public class SessionService
             float avgTimeSpentInSession,
             float successRate,
             float avgTimePerQuestion
-    )
-    {
-        List<Student> students = studentRepository.findByUsernameIn(studentUsernames);
+    ) {
+        try {
+            List<Student> students = studentRepository.findByUsernameIn(studentUsernames);
+            if (students.isEmpty()) {
+                throw new RuntimeException("Student not found!");
+            }
 
-        if (students.isEmpty())
-        {
-            throw new RuntimeException("Student not found!");
-        }
+            Student student = students.get(0);
 
-        Student student = students.get(0);
+            double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
+            String questionDifficulty = getQuestionDifficulty(zloRating);
+            Questions nextQuestion = getNextQuestionBasedOnDifficulty(questionDifficulty);
 
-        double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
+            Statistics statistics = new Statistics();
+            statistics.setStudent(student);
+            statistics.setTotalTimeInSessions(totalTimeInSessions);
+            statistics.setStreak(streak);
+            statistics.setTotalQuestions(totalQuestions);
+            statistics.setTotalQuestionsRight(totalQuestionsRight);
+            statistics.setTotalQuestionsWrong(totalQuestionsWrong);
+            statistics.setSessionsCompleted(sessionsCompleted);
+            statistics.setDaysLoggedIn(daysLoggedIn);
+            statistics.setSubjectMasteryValue(subjectMasteryValue);
+            statistics.setGuessRate(guessRate);
+            statistics.setAvgTimeSpentInSession(avgTimeSpentInSession);
+            statistics.setSuccessRate(successRate);
+            statistics.setAvgTimePerQuestion(avgTimePerQuestion);
 
-        String questionDifficulty = getQuestionDifficulty(zloRating);
-        Questions nextQuestion = getNextQuestionBasedOnDifficulty(questionDifficulty);
-        //Question modification
-        Statistics statistics = new Statistics();
-        statistics.setStudent(student);
-        statistics.setTotalTimeInSessions(totalTimeInSessions);
-        statistics.setStreak(streak);
-        statistics.setTotalQuestions(totalQuestions);
-        statistics.setTotalQuestionsRight(totalQuestionsRight);
-        statistics.setTotalQuestionsWrong(totalQuestionsWrong);
-        statistics.setSessionsCompleted(sessionsCompleted);
-        statistics.setDaysLoggedIn(daysLoggedIn);
-        statistics.setSubjectMasteryValue(subjectMasteryValue);
-        statistics.setGuessRate(guessRate);
-        statistics.setAvgTimeSpentInSession(avgTimeSpentInSession);
-        statistics.setSuccessRate(successRate);
-        statistics.setAvgTimePerQuestion(avgTimePerQuestion);
-        //Set ZLO value
-        student.setZloRating(zloRating);
-        studentRepository.save(student);
+            student.setZloRating(zloRating);
+            studentRepository.save(student);
+            statisticsRepository.save(statistics);
 
-        statisticsRepository.save(statistics);
-
-        return statistics;
-    }
-    //Difficulty logic
-    private String getQuestionDifficulty(double zloRating)
-    {
-        if (zloRating >= zloHard)
-        {
-            return "hard";
-        }
-        else if (zloRating >= zloMed)
-        {
-            return "medium";
-        }
-        else
-        {
-            return "easy";
+            return statistics;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to create session: " + e.getMessage(), e);
         }
     }
 
-    private Questions getNextQuestionBasedOnDifficulty(String difficulty)
-    {
-        List<Questions> questions = questionsRepository.findByDifficulty(difficulty);
+    public String getQuestionDifficulty(double zloRating) {
+        // For now, always return "easy"
+        return "easy";
+    }
 
-        if (!questions.isEmpty())
-        {
-            return questions.get(0);
+    public Questions getNextQuestionBasedOnDifficulty(String difficulty) {
+        try {
+            List<Questions> questions = questionsRepository.findByDifficulty(difficulty);
+            if (!questions.isEmpty()) {
+                return questions.get(0);
+            }
+            return questionsRepository.findByDifficulty("medium").get(0);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to fetch question by difficulty: " + e.getMessage(), e);
         }
-        //default
-        return questionsRepository.findByDifficulty("medium").get(0);
     }
-    //Picks next question based on values
-    public Questions getNextQuestion(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate)
-    {
-        double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
-        String questionDifficulty = getQuestionDifficulty(zloRating);
-        return getNextQuestionBasedOnDifficulty(questionDifficulty);
-    }
-    //Updates ZLO
-    public double updateZLO(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate, Student student)
-    {
-        double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
-        student.setZloRating(zloRating);
-        studentRepository.save(student);
 
-        return zloRating;
+    public Questions getNextQuestion(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate, int gradeLevel) {
+        try {
+            double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
+            String questionDifficulty = getQuestionDifficulty(zloRating);
+            return getNextQuestionBasedOnDifficulty(questionDifficulty);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to get next question: " + e.getMessage(), e);
+        }
+    }
+
+    public double updateZLO(int totalQuestionsRight, int totalQuestions, int streak, float avgTimeSpentInSession, float avgTimePerQuestion, float successRate, Student student) {
+        try {
+            double zloRating = calculateZLO(totalQuestionsRight, totalQuestions, streak, avgTimeSpentInSession, avgTimePerQuestion, successRate);
+            student.setZloRating(zloRating);
+            studentRepository.save(student);
+            return zloRating;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update ZLO: " + e.getMessage(), e);
+        }
     }
 }

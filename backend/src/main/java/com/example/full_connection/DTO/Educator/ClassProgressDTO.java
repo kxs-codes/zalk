@@ -1,12 +1,13 @@
 package com.example.full_connection.DTO.Educator;
 
-import java.util.List;
+import java.util.UUID;
 
 public class ClassProgressDTO {
     private String name;
     private int score;
-    private String classId; // Add class ID
-    private String username; // Add student username
+    private String classId;
+    private String username;
+    private UUID studentId;
 
     // Getters and Setters
     public String getName() {
@@ -39,5 +40,13 @@ public class ClassProgressDTO {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public UUID getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(UUID studentId) {
+        this.studentId = studentId;
     }
 }

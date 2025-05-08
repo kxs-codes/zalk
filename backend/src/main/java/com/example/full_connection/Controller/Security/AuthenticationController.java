@@ -17,6 +17,7 @@ import com.example.full_connection.DTO.LoginDTO;
 import com.example.full_connection.DTO.SignupDTO;
 import com.example.full_connection.Security.JWTClass;
 import com.example.full_connection.Service.AuthenticationService;
+import com.example.full_connection.Service.ModeratorService;
 
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
@@ -24,6 +25,9 @@ import com.example.full_connection.Service.AuthenticationService;
 public class AuthenticationController {
     @Autowired
     AuthenticationService authenticationService;
+
+    @Autowired
+    ModeratorService moderatorService;
 
     @PostMapping("/login")
     ResponseEntity<Map<String,String>> login(@RequestBody LoginDTO loginDTO) {
@@ -40,6 +44,11 @@ public class AuthenticationController {
         } else if (authResponse.get("message").contains("No account found of type")) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(authResponse);
         } else {
+            // Log the Login Info
+            String username = loginDTO.getUsername();
+            String accountType = loginDTO.getAccountType();
+            moderatorService.logLogin(username, accountType);
+
             // Generate JSON Web Token
             String jwtToken = jwtClass.createJWT(UUID.fromString(authResponse.get("id")), authResponse.get("role"), authResponse.get("message"));
 
@@ -51,15 +60,22 @@ public class AuthenticationController {
             return ResponseEntity.ok(returnResponse);
         }
 
-        // TODO: Deal with if accountType is different but user and password is same. currently saying found account
     }
 
     @PostMapping("/signup")
-    void signup(@RequestBody SignupDTO signupDTO) {
-        // 1. Make an account by calling the auth service
-        String response = authenticationService.createAccount(signupDTO);
+    public ResponseEntity<Map<String, String>> signup(@RequestBody SignupDTO signupDTO) {
+        String message = authenticationService.createAccount(signupDTO);
 
-        // 2. Return ResponseEntity, contains message about the success of the account creation, and user account details if successful
+        // Prepare response payload
+        Map<String, String> response = new HashMap<>();
+        response.put("message", message);
 
+        // Return 200 OK if success, else 400 Bad Request
+        if (message.contains("successfully")) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }
     }
+
 }

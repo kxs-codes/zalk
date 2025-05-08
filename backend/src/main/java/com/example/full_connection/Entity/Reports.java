@@ -30,6 +30,9 @@ public class Reports {
     @Column(name = "submitter_email", nullable = false)
     private String submitterEmail;
 
+    @Column(name = "response")
+    private String response;
+
 
     // Getters
     public UUID getReportId() {
@@ -60,6 +63,8 @@ public class Reports {
         return submitterEmail;
     }
 
+    public String getResponse() { return response; }
+
     // Setters
     public void setReportId(UUID reportId) {
         this.reportId = reportId;
@@ -88,4 +93,6 @@ public class Reports {
     public void setSubmitterEmail(String submitterEmail) {
         this.submitterEmail = submitterEmail;
     }
+
+    public void setResponse(String response) { this.response = response; }
 }

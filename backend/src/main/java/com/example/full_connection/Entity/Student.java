@@ -26,6 +26,9 @@ public class Student
     @Column(name = "zlo_rating", nullable = false)
     private double zloRating;
 
+    @Column(name = "grade_level", nullable = false)
+    private int gradeLevel;
+
     @Column(name = "badges_earned", nullable = false)
     private int badgesEarned;
 
@@ -33,7 +36,7 @@ public class Student
     private List<Classrooms> classrooms;
 
     @ManyToOne
-    @JoinColumn(name = "guardian_id", foreignKey = @ForeignKey(name = "fk_guardian" ))
+    @JoinColumn(name = "guardian_id", foreignKey = @ForeignKey(name = "fk_guardian" ), nullable = true)
     private Guardian guardian;
 
     @OneToOne(mappedBy = "student", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -57,6 +60,8 @@ public class Student
         return hashedPassword;
     }
 
+    public String getEmail() { return email; }
+
     public double getZloRating()
     {
         return zloRating;
@@ -66,6 +71,8 @@ public class Student
     {
         return badgesEarned;
     }
+
+    public int getGradeLevel() {return gradeLevel;}
 
     public List<Classrooms> getClassrooms()
     {
@@ -95,6 +102,8 @@ public class Student
         this.hashedPassword = hashedPassword;
     }
 
+    public void setEmail(String email) {this.email = email;}
+
     public void setZloRating(double zloRating)
     {
         this.zloRating = zloRating;
@@ -114,6 +123,8 @@ public class Student
     {
         this.guardian = guardian;
     }
+
+    public int setGradeLevel() {return gradeLevel;}
 
     public void setStatistics(Statistics statistics){
         this.statistics = statistics;

@@ -24,7 +24,7 @@ public class Educator {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = true)
     private String phoneNumber;
 
     // Use cascade to make sure no orphan rows

@@ -1,6 +1,5 @@
-import { useNavigate, Link } from "react-router-dom";
+import {  Link } from "react-router-dom";
 import LogoBar from "../components/LogoBar";
-import { useState } from "react";
 import "../styles/SignUp.css";
 import useSignUp from "./SignUpLogic";
 
@@ -20,7 +19,8 @@ const SignUp = () => {
                     <form className="signup-form" onSubmit={handleSubmit}>
                         <div className="form-group">
                             <label htmlFor="account-type">Account Type</label>
-                            <select name="account-type" id="account-type" value={formData.accountType} onChange={handleChange}>
+                            <select name="accountType" id="account-type" value={formData.accountType} onChange={handleChange}>
+                                <option value="" disabled>Select Account Type</option>
                                 <option value="student">Student</option>
                                 <option value="educator">Educator</option>
                                 <option value="guardian">Guardian</option>
@@ -45,7 +45,7 @@ const SignUp = () => {
 
                         <div className="form-group">
                             <label htmlFor="confirm-password">Confirm Password</label>
-                            <input type="password" id="confirm-password" name="confirm-password"value={formData.confirmPassword} onChange={handleChange} placeholder="•••••••••" />
+                            <input type="password" id="confirm-password" name="confirmPassword"value={formData.confirmPassword} onChange={handleChange} placeholder="•••••••••" />
                         </div>
 
                         <div>

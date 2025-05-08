@@ -1,16 +1,15 @@
 import '../../styles/Educator/pages/Portal.css';
 import PortalLogoBar from '../../components/PortalLogoBar.jsx';
 import Chart from '../../components/Educator/Chart.jsx';
-import Classrooms from '../../components/Educator/Classrooms.jsx';
+import Classroom from '../../components/Educator/Classroom.jsx';
 import useEducationPortal from "./EducatorPortalLogic.js";
-const EducationPortal = () => {
 
+const EducationPortal = () => {
   const {
     activeClassroom,
     setActiveClassroom,
     classrooms,
-    classroomStat,
-    loading
+    classroomStat
   } = useEducationPortal();
 
   return (
@@ -22,7 +21,7 @@ const EducationPortal = () => {
 
           <div className="content">
             <div className="gap45">
-              <Classrooms
+              <Classroom
                   classrooms={classrooms}
                   activeClassroom={activeClassroom}
                   setActiveClassroom={setActiveClassroom}

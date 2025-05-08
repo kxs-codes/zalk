@@ -47,6 +47,14 @@ public class Statistics
     @Column(name = "avg_time_per_question", nullable = false)
     private float avgTimePerQuestion;
 
+    @Column(name = "zlo_rating")
+    private float zloRating;
+    
+    private float confidence;
+
+    @Column(name = "session_score")
+    private float sessionScore;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "student_id", referencedColumnName = "student_id")
     private Student student;
@@ -119,6 +127,30 @@ public class Statistics
     public float getAvgTimePerQuestion()
     {
         return avgTimePerQuestion;
+    }
+
+    public float getSessionScore() {
+        return sessionScore;
+    }
+
+    public float getZloRating() {
+        return zloRating;
+    }
+
+    public float getConfidence() {
+        return confidence;
+    }
+
+    public void setSessionScore(float sessionScore) {
+        this.sessionScore = sessionScore;
+    }
+
+    public void setZloRating(float zloRating) {
+        this.zloRating = zloRating;
+    }
+
+    public void setConfidence(float confidence) {
+        this.confidence = confidence;
     }
 
     public void setStatId(UUID statId)

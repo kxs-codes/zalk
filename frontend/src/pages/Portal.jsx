@@ -5,6 +5,7 @@ import StudentPortal from './Student/StudentPortal.jsx';
 import EducationPortal from './AdvisoryEducator/EducationPortal.jsx';
 import GuardianPortal from "./Guardian/GuardianPortal.jsx";
 import ModeratorPortal from './Moderator/ModeratorPortal.jsx';
+import AdvisoryPortal from './AdvisoryEducator/AdvisoryPortal.jsx';
 
 // eslint-disable-next-line react/prop-types
 const Portal = ({ setRoleError }) => {
@@ -17,7 +18,7 @@ const Portal = ({ setRoleError }) => {
     "educator": <EducationPortal />,
     "guardian": <GuardianPortal />,
     "moderator": <ModeratorPortal />,
-    "advisory_board": <EducationPortal />
+    "advisory_board": <AdvisoryPortal />
   };
 
   useEffect(() => {

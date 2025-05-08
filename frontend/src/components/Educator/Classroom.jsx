@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import useClassroomLogic from './ClassroomLogic';
 
-const Classrooms = ({ classrooms, activeClassroom, setActiveClassroom }) => {
-  const [search, setSearch] = useState('');
-
-  // Filter classrooms based on subject + level
-  const filteredClassrooms = classrooms.filter(classroom =>
-    (`${classroom.subject} ${classroom.subjectLevel || ''}`).toLowerCase().includes(search.toLowerCase())
+const Classroom = ({ classrooms, activeClassroom, setActiveClassroom }) => {
+  const { search, setSearch, filteredClassrooms, handleSelect } = useClassroomLogic(
+    classrooms,
+    activeClassroom,
+    setActiveClassroom
   );
-
-  const handleSelect = (classroom) => {
-    setActiveClassroom(prev => prev?.classroomId === classroom.classroomId ? null : classroom); 
-  };
 
   return (
     <div className='bg-dark-red-primary-1 h-80 w-200 rounded-2xl overflow-y-auto'>
@@ -48,4 +44,4 @@ const Classrooms = ({ classrooms, activeClassroom, setActiveClassroom }) => {
   );
 };
 
-export default Classrooms;
+export default Classroom;
