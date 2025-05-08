@@ -2,6 +2,10 @@ package com.example.full_connection.Model;
 
 import java.io.Serializable;
 
+/**
+ * Represents a node in a regression tree.
+ * Can be either a decision node or a leaf node with a prediction value.
+ */
 public class TreeNode implements Serializable {
     // Attributes
     private final String rule;

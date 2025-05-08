@@ -7,6 +7,10 @@ import java.util.UUID;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Entity class representing an Educator.
+ * Contains details such as ID, username, password, email, phone number, and associated classrooms.
+ */
 @Entity
 @Table(name = "educator")
 public class Educator {

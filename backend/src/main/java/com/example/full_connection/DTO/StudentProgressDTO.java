@@ -1,5 +1,9 @@
 package com.example.full_connection.DTO;
 
+/**
+ * Data Transfer Object for Student Progress.
+ * Represents progress metrics such as hours completed and questions answered.
+ */
 public class StudentProgressDTO {
     private int currentHoursCompleted;
     private int totalQuestionsAnswered;

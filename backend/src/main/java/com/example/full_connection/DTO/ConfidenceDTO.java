@@ -1,5 +1,9 @@
 package com.example.full_connection.DTO;
 
+/**
+ * Data Transfer Object for Confidence-related information.
+ * Contains response and ZLO rating details.
+ */
 public class ConfidenceDTO {
     // Attributes
     String response;

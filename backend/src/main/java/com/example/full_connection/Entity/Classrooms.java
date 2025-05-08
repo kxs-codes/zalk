@@ -14,6 +14,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 
+/**
+ * Entity class representing a Classroom.
+ * Contains details such as class ID, subject, subject level, students, and educator.
+ */
 @Entity
 @Table(name = "classrooms")
 public class Classrooms {

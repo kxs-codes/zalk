@@ -3,6 +3,10 @@ package com.example.full_connection.DTO;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Data Transfer Object for Reports.
+ * Contains report details such as name, description, and status.
+ */
 public class ReportsDTO {
     private UUID reportId;
     private String reportName;

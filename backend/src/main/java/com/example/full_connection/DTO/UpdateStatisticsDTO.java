@@ -8,6 +8,10 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
+/**
+ * Data Transfer Object for Updating Statistics.
+ * Contains various metrics related to student performance and sessions.
+ */
 public class UpdateStatisticsDTO {
     // Attributes
     private UUID statId;

@@ -13,6 +13,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
+/**
+ * Service class for managing student progress-related operations.
+ */
 public class StudentProgressService {
 
     @Autowired

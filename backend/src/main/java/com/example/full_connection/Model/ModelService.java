@@ -28,6 +28,10 @@ import smile.data.type.StructField;
 import smile.data.type.StructType;
 
 @Service
+/**
+ * Service class for managing and training machine learning models.
+ * Handles operations such as loading, saving, and retraining models.
+ */
 public class ModelService {
     @Autowired
     StatisticsRepository statisticsRepository;

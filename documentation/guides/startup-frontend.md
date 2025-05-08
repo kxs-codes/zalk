@@ -1,4 +1,4 @@
-
+c
 ##  Vite Startup Guide
 
 Assuming all dependencies and tools are already installed, follow these steps to start the project.

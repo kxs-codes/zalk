@@ -28,6 +28,17 @@ import com.example.full_connection.Service.ModeratorService;
 import com.example.full_connection.Service.StudentService;
 
 
+/**
+ * Controller for managing moderator-related operations.
+ * This class provides endpoints for moderators to interact with the system.
+ *
+ * Endpoints:
+ * - Manage user reports and content moderation.
+ * - Retrieve and update moderator-specific data.
+ *
+ * Dependencies:
+ * - ModeratorService for business logic.
+ */
 @CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/api/moderator")

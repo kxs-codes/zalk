@@ -1,0 +1,11 @@
+com.example.full_connection
+com.example.full_connection.Controller
+com.example.full_connection.Controller.Security
+com.example.full_connection.Controller.Student
+com.example.full_connection.DTO
+com.example.full_connection.DTO.Educator
+com.example.full_connection.Entity
+com.example.full_connection.Model
+com.example.full_connection.Repository
+com.example.full_connection.Security
+com.example.full_connection.Service

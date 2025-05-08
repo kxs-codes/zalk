@@ -7,6 +7,10 @@ import com.example.full_connection.Entity.Educator;
 import com.example.full_connection.Entity.Guardian;
 import com.example.full_connection.Entity.Student;
 
+/**
+ * Data Transfer Object for Account-related information.
+ * Used to transfer account data between layers.
+ */
 public class AccountDTO {
     private UUID id;
     private String username;

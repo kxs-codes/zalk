@@ -2,6 +2,10 @@ package com.example.full_connection.DTO;
 
 import com.example.full_connection.Entity.Questions;
 
+/**
+ * Data Transfer Object for Question and Streak Response.
+ * Represents a question and the associated streak count.
+ */
 public class QuestionAndStreakResponse {
     // Attributes
     private Questions question;

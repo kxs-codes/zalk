@@ -2,6 +2,10 @@ package com.example.full_connection.DTO;
 
 import java.util.UUID;
 
+/**
+ * Data Transfer Object for Earned Badges.
+ * Represents badge details and progress information.
+ */
 public class EarnedBadgesDTO {
     private UUID badgeId;
     private String badgeName;

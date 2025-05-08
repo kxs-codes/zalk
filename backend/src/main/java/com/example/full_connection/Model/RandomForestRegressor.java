@@ -12,6 +12,10 @@ import smile.data.Tuple;
 import smile.data.vector.ValueVector;
 import smile.util.Index;
 
+/**
+ * Implementation of a Random Forest Regressor.
+ * Provides methods for training, predicting, and managing regression trees.
+ */
 public class RandomForestRegressor implements Serializable {
     // Attributes
     int nEstimator;

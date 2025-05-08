@@ -1,5 +1,9 @@
 package com.example.full_connection.DTO;
 
+/**
+ * Data Transfer Object for Signup information.
+ * Includes account type, email, username, and password details.
+ */
 public class SignupDTO {
     private String accountType;
     private String email;
